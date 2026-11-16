@@ -1,0 +1,10 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="256" height="256" viewBox="0 0 256 256" role="img" aria-label="Running person symbol on a transparent background">
+  <g fill="none" stroke="#343B4A" stroke-width="11" stroke-linecap="round" stroke-linejoin="round">
+    <circle cx="147" cy="43" r="17" fill="#FFFFFF"/>
+    <path d="M135 68 L112 126 L156 148"/>
+    <path d="M128 82 L91 91 L67 121 L43 128"/>
+    <path d="M133 78 L169 67 L195 91"/>
+    <path d="M112 126 L76 169 L49 205"/>
+    <path d="M156 148 L191 160 L218 198"/>
+  </g>
+</svg>

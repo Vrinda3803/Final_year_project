@@ -1,0 +1,184 @@
+{
+  "study": "MMASD local-release OpenPose quality-aware graph temporal comparison",
+  "status": "completed adapted experiment; not an exact reproduction of RC-ProtoGCN",
+  "dataset": {
+    "archive": "data\\raw\\mmasd\\Dataset_FINAL\\2D skeleton\\2D_openpose.zip",
+    "processed_cache": "data\\processed\\mmasd_openpose\\mmasd_openpose_64frames.npz",
+    "n_clips": 1374,
+    "n_subjects": 32,
+    "class_counts": {
+      "as": 105,
+      "bs": 117,
+      "ce": 114,
+      "dr": 343,
+      "mfs": 101,
+      "ms": 130,
+      "sac": 113,
+      "sq": 102,
+      "tr": 129,
+      "tw": 120
+    },
+    "skipped": {},
+    "X_shape": [
+      1374,
+      64,
+      25,
+      4
+    ],
+    "Q_shape": [
+      1374,
+      64,
+      25
+    ],
+    "archive_paper_count_note": "The local archive has a different class distribution and 1,374 clips versus the cited paper's 1,202; no undocumented filtering was applied."
+  },
+  "protocol": {
+    "clip_level": true,
+    "frames": 64,
+    "joints": 25,
+    "channels": "normalized xy plus first-order motion xy",
+    "outer": "five subject-grouped folds from filename-derived IDs",
+    "validation": "grouped holdout drawn only from each outer training fold",
+    "seed": 42,
+    "device": "cpu"
+  },
+  "method": {
+    "baseline": "same graph+BiGRU network, confidence not provided to graph/pooling",
+    "proposed": "OpenPose confidence gates node features and weights graph pooling; confidence dropout augmentation",
+    "limitations": "local archive count differs from published 10-class setup; simple graph-GRU is not ProtoGCN or RC-ProtoGCN; filename IDs not independently verified as participants"
+  },
+  "summary": {
+    "confidence_blind": {
+      "accuracy": {
+        "mean": 0.39844268563307955,
+        "sd": 0.08938892384768471
+      },
+      "macro_f1": {
+        "mean": 0.32186128727424357,
+        "sd": 0.10675952894410082
+      }
+    },
+    "confidence_aware": {
+      "accuracy": {
+        "mean": 0.3488290216558934,
+        "sd": 0.0937144851008747
+      },
+      "macro_f1": {
+        "mean": 0.25841800068371884,
+        "sd": 0.11610137429005862
+      }
+    }
+  },
+  "fold_results": [
+    {
+      "fold": 1,
+      "variant": "confidence_blind",
+      "train_clips": 803,
+      "validation_clips": 295,
+      "test_clips": 276,
+      "test_subjects": 6,
+      "best_epoch": 22,
+      "accuracy": 0.2826086956521739,
+      "macro_f1": 0.17048580654672735
+    },
+    {
+      "fold": 1,
+      "variant": "confidence_aware",
+      "train_clips": 803,
+      "validation_clips": 295,
+      "test_clips": 276,
+      "test_subjects": 6,
+      "best_epoch": 10,
+      "accuracy": 0.23550724637681159,
+      "macro_f1": 0.0922528396717328
+    },
+    {
+      "fold": 2,
+      "variant": "confidence_blind",
+      "train_clips": 817,
+      "validation_clips": 281,
+      "test_clips": 276,
+      "test_subjects": 6,
+      "best_epoch": 12,
+      "accuracy": 0.322463768115942,
+      "macro_f1": 0.26547908318032154
+    },
+    {
+      "fold": 2,
+      "variant": "confidence_aware",
+      "train_clips": 817,
+      "validation_clips": 281,
+      "test_clips": 276,
+      "test_subjects": 6,
+      "best_epoch": 14,
+      "accuracy": 0.3442028985507246,
+      "macro_f1": 0.30259008622023076
+    },
+    {
+      "fold": 3,
+      "variant": "confidence_blind",
+      "train_clips": 832,
+      "validation_clips": 265,
+      "test_clips": 277,
+      "test_subjects": 7,
+      "best_epoch": 6,
+      "accuracy": 0.44404332129963897,
+      "macro_f1": 0.4041277021020034
+    },
+    {
+      "fold": 3,
+      "variant": "confidence_aware",
+      "train_clips": 832,
+      "validation_clips": 265,
+      "test_clips": 277,
+      "test_subjects": 7,
+      "best_epoch": 9,
+      "accuracy": 0.30685920577617326,
+      "macro_f1": 0.20278376490689323
+    },
+    {
+      "fold": 4,
+      "variant": "confidence_blind",
+      "train_clips": 993,
+      "validation_clips": 106,
+      "test_clips": 275,
+      "test_subjects": 7,
+      "best_epoch": 11,
+      "accuracy": 0.4727272727272727,
+      "macro_f1": 0.3353367155201279
+    },
+    {
+      "fold": 4,
+      "variant": "confidence_aware",
+      "train_clips": 993,
+      "validation_clips": 106,
+      "test_clips": 275,
+      "test_subjects": 7,
+      "best_epoch": 24,
+      "accuracy": 0.4909090909090909,
+      "macro_f1": 0.399601416341517
+    },
+    {
+      "fold": 5,
+      "variant": "confidence_blind",
+      "train_clips": 812,
+      "validation_clips": 292,
+      "test_clips": 270,
+      "test_subjects": 6,
+      "best_epoch": 25,
+      "accuracy": 0.4703703703703704,
+      "macro_f1": 0.4338771290220377
+    },
+    {
+      "fold": 5,
+      "variant": "confidence_aware",
+      "train_clips": 812,
+      "validation_clips": 292,
+      "test_clips": 270,
+      "test_subjects": 6,
+      "best_epoch": 11,
+      "accuracy": 0.36666666666666664,
+      "macro_f1": 0.2948618962782204
+    }
+  ]
+}

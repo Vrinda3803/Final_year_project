@@ -1,0 +1,77 @@
+{
+  "dataset": "MMASD 11-class activity recognition",
+  "evaluation": "Strict 5-fold GroupKFold by subject_id",
+  "n_sessions": 1693,
+  "n_subjects": 32,
+  "feature_dimension": 1274,
+  "models": {
+    "RandomForest": {
+      "accuracy": 0.8175,
+      "macro_f1": 0.78
+    },
+    "ExtraTrees": {
+      "accuracy": 0.7832,
+      "macro_f1": 0.7343
+    },
+    "XGBoost": {
+      "accuracy": 0.8074,
+      "macro_f1": 0.7694
+    },
+    "Ensemble": {
+      "accuracy": 0.8204,
+      "macro_f1": 0.7812,
+      "weights": {
+        "rf": 0.4,
+        "et": 0.4,
+        "xgb": 0.2
+      }
+    }
+  },
+  "per_class": {
+    "arm_swing_as": {
+      "f1": 0.8187,
+      "support": 105
+    },
+    "body_swing_bs": {
+      "f1": 0.7623,
+      "support": 119
+    },
+    "chest_expansion_ce": {
+      "f1": 0.8083,
+      "support": 114
+    },
+    "drumming_dr": {
+      "f1": 0.8964,
+      "support": 545
+    },
+    "frog_pose_fg": {
+      "f1": 0.8981,
+      "support": 113
+    },
+    "maracas_forward_shaking_mfs": {
+      "f1": 0.5978,
+      "support": 103
+    },
+    "maracas_shaking_ms": {
+      "f1": 0.7328,
+      "support": 130
+    },
+    "sing_and_clap_sac": {
+      "f1": 0.7423,
+      "support": 113
+    },
+    "squat_sq": {
+      "f1": 0.5529,
+      "support": 102
+    },
+    "tree_pose_tr": {
+      "f1": 0.8471,
+      "support": 129
+    },
+    "twist_pose_tw": {
+      "f1": 0.936,
+      "support": 120
+    }
+  },
+  "target_0.90_achieved": false
+}

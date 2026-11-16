@@ -1,0 +1,15 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="256" height="256" viewBox="0 0 256 256" role="img" aria-label="Spatial graph attention network symbol on a transparent background">
+  <g fill="none" stroke="#343B4A" stroke-width="8" stroke-linecap="round" stroke-linejoin="round">
+    <path d="M128 35 L55 78 L55 166 L128 211 L201 166 L201 78 Z"/>
+    <path d="M128 35 L128 122 M55 78 L128 122 M201 78 L128 122 M55 166 L128 122 M201 166 L128 122 M128 211 L128 122"/>
+  </g>
+  <g fill="#FFFFFF" stroke="#343B4A" stroke-width="8">
+    <circle cx="128" cy="35" r="15"/>
+    <circle cx="55" cy="78" r="15"/>
+    <circle cx="201" cy="78" r="15"/>
+    <circle cx="55" cy="166" r="15"/>
+    <circle cx="201" cy="166" r="15"/>
+    <circle cx="128" cy="211" r="15"/>
+    <circle cx="128" cy="122" r="18"/>
+  </g>
+</svg>

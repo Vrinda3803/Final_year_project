@@ -1,0 +1,146 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="2400" height="1080" viewBox="0 0 2400 1080" role="img" aria-label="Reliability-conditioned dynamic bilateral graph flow for ten-class MMASD activity recognition">
+  <defs>
+    <marker id="arrow" markerWidth="12" markerHeight="12" refX="10" refY="6" orient="auto" markerUnits="strokeWidth"><path d="M1 1 L11 6 L1 11 Z" fill="#314052"/></marker>
+    <style>
+      .panel{stroke:#526174;stroke-width:3;rx:24}
+      .box{fill:#fff;stroke:#68788a;stroke-width:2.5;rx:17}
+      .flow{fill:none;stroke:#314052;stroke-width:4;marker-end:url(#arrow)}
+      .reliability{fill:none;stroke:#278c67;stroke-width:4;marker-end:url(#arrow)}
+      .title{font:700 32px Georgia,serif;fill:#1c2a38;text-anchor:middle}
+      .head{font:700 27px Georgia,serif;fill:#1c2a38;text-anchor:middle}
+      .body{font:23px Georgia,serif;fill:#263444;text-anchor:middle}
+      .small{font:20px Georgia,serif;fill:#354456;text-anchor:middle}
+      .lane{font:700 25px Georgia,serif;fill:#263a4d;text-anchor:middle}
+    </style>
+  </defs>
+
+  <!-- Input -->
+  <rect class="panel" x="30" y="135" width="305" height="690" fill="#e8f1fb"/>
+  <text class="head" x="182" y="185">MMASD skeleton</text>
+  <text class="body" x="182" y="221">sequence input</text>
+  <rect class="box" x="63" y="255" width="239" height="250"/>
+  <g transform="translate(110 280)" stroke="#3e83b4" stroke-width="6" fill="#fff" stroke-linecap="round">
+    <path d="M70 25v58m0-37L30 72m40-26 40 26m-40 11-27 58m27-58 27 58m-27 0-18 58m18-58 19 58" fill="none"/>
+    <g stroke="#34485f" stroke-width="3"><circle cx="70" cy="20" r="9"/><circle cx="70" cy="83" r="7"/><circle cx="30" cy="72" r="7"/><circle cx="110" cy="72" r="7"/><circle cx="43" cy="141" r="7"/><circle cx="97" cy="141" r="7"/><circle cx="25" cy="199" r="7"/><circle cx="116" cy="199" r="7"/></g>
+    <circle cx="70" cy="20" r="4" fill="#d96e82" stroke="none"/>
+  </g>
+  <text class="body" x="182" y="548">64 frames × 25 joints</text>
+  <text class="small" x="182" y="585">x, y, velocity-x, velocity-y</text>
+  <rect class="box" x="63" y="630" width="239" height="145" fill="#f5fbf8"/>
+  <text class="head" x="182" y="677">Joint confidence</text>
+  <text class="body" x="182" y="714">Q: 64 × 25</text>
+  <text class="small" x="182" y="749">pose reliability input</text>
+
+  <!-- Model panel -->
+  <rect class="panel" x="380" y="62" width="1700" height="800" fill="#fbf8fc" stroke="#aa6681"/>
+  <rect x="880" y="35" width="700" height="58" rx="20" fill="#f0dce6" stroke="#aa6681" stroke-width="2.5"/>
+  <text class="title" x="1230" y="74">Reliability-Conditioned Dynamic Bilateral Graph Learning</text>
+
+  <!-- Upper lane: graph and movement features -->
+  <rect x="405" y="122" width="1218" height="322" rx="22" fill="#eaf2fc" stroke="#78a4d3" stroke-width="2.5"/>
+  <text class="lane" x="1014" y="159">Skeleton and graph feature pathway</text>
+  <rect class="box" x="430" y="194" width="255" height="205"/>
+  <text class="head" x="557" y="235">Node features</text>
+  <text class="body" x="557" y="284">Pose + motion</text>
+  <text class="small" x="557" y="321">4 input channels</text>
+  <text class="small" x="557" y="359">projected to 64D</text>
+
+  <rect class="box" x="735" y="194" width="310" height="205"/>
+  <text class="head" x="890" y="235">Graph structure</text>
+  <g stroke="#465c70" stroke-width="3" fill="#fff">
+    <path d="M845 287L805 325 825 364 955 364 975 325 935 287Z" fill="none"/>
+    <path d="M805 325H975M825 364L845 287M955 364L935 287" stroke-dasharray="8 6" stroke="#758da2"/>
+    <circle cx="845" cy="287" r="9" fill="#e17d83"/><circle cx="935" cy="287" r="9" fill="#e17d83"/>
+    <circle cx="805" cy="325" r="9" fill="#659bd1"/><circle cx="975" cy="325" r="9" fill="#659bd1"/>
+    <circle cx="825" cy="364" r="9" fill="#68b77d"/><circle cx="955" cy="364" r="9" fill="#68b77d"/>
+  </g>
+  <text class="small" x="890" y="389">BODY_25 anatomy + selected bilateral pairs</text>
+
+  <rect class="box" x="1095" y="194" width="245" height="205"/>
+  <text class="head" x="1217" y="235">Spatial graph</text>
+  <text class="body" x="1217" y="285">attention layers × 2</text>
+  <text class="small" x="1217" y="325">learn joint relations</text>
+  <text class="small" x="1217" y="360">with residual updates</text>
+
+  <rect class="box" x="1390" y="194" width="205" height="205"/>
+  <text class="head" x="1492" y="235">Joint pooling</text>
+  <text class="body" x="1492" y="285">reliability-</text>
+  <text class="body" x="1492" y="316">weighted</text>
+  <text class="small" x="1492" y="360">one vector per frame</text>
+
+  <path class="flow" d="M335 371 H425"/>
+  <path class="flow" d="M685 297 H730"/>
+  <path class="flow" d="M1045 297 H1090"/>
+  <path class="flow" d="M1340 297 H1385"/>
+  <path class="flow" d="M890 399 V550"/>
+
+  <!-- Lower lane: reliability-conditioned bilateral edge learning -->
+  <rect x="405" y="490" width="1218" height="270" rx="22" fill="#edf7ed" stroke="#71b07e" stroke-width="2.5"/>
+  <text class="lane" x="1014" y="529">Reliability-conditioned bilateral connection pathway</text>
+  <rect class="box" x="430" y="559" width="280" height="155"/>
+  <text class="head" x="570" y="601">Reliability estimate</text>
+  <text class="small" x="570" y="642">joint confidence + motion</text>
+  <text class="small" x="570" y="679">prior fitted on training data</text>
+
+  <rect class="box" x="770" y="559" width="330" height="155"/>
+  <text class="head" x="935" y="601">Bilateral edge learner</text>
+  <text class="small" x="935" y="642">selected left–right joints</text>
+  <text class="small" x="935" y="679">edge strengths vary over time</text>
+
+  <rect class="box" x="1160" y="559" width="200" height="155"/>
+  <text class="head" x="1260" y="601">Smoothing</text>
+  <text class="body" x="1260" y="646">K = 5</text>
+  <text class="small" x="1260" y="681">when enabled</text>
+
+  <rect class="box" x="1420" y="559" width="175" height="155"/>
+  <text class="head" x="1507" y="601">Graph update</text>
+  <text class="small" x="1507" y="642">bilateral message</text>
+  <text class="small" x="1507" y="679">with anatomy graph</text>
+
+  <path class="reliability" d="M335 700 H390 V635 H425"/>
+  <path class="reliability" d="M710 635 H765"/>
+  <path class="reliability" d="M1100 635 H1155"/>
+  <path class="reliability" d="M1360 635 H1415"/>
+  <path class="reliability" d="M1507 559 V462 H1217 V399"/>
+
+  <!-- Shared temporal and classification pathway -->
+  <rect class="box" x="1690" y="194" width="190" height="520" fill="#f2eafb"/>
+  <text class="head" x="1785" y="250">Temporal</text>
+  <text class="head" x="1785" y="284">self-attention</text>
+  <text class="body" x="1785" y="337">× 2 layers</text>
+  <path d="M1740 382H1830M1740 405H1830M1740 428H1830" stroke="#8a73ab" stroke-width="5" stroke-linecap="round"/>
+  <text class="small" x="1785" y="481">64 frame vectors</text>
+  <text class="small" x="1785" y="518">no separate frame</text>
+  <text class="small" x="1785" y="548">position embedding</text>
+  <text class="small" x="1785" y="626">temporal mean pooling</text>
+
+  <rect class="box" x="1920" y="194" width="155" height="520" fill="#fff3d7"/>
+  <text class="head" x="1997" y="250">Linear</text>
+  <text class="head" x="1997" y="284">classifier</text>
+  <text class="body" x="1997" y="355">10 scores</text>
+  <path d="M1965 405H2030M1965 427H2030M1965 449H2030" stroke="#c3984d" stroke-width="5" stroke-linecap="round"/>
+  <text class="small" x="1997" y="519">validation-fitted</text>
+  <text class="small" x="1997" y="550">temperature</text>
+  <text class="small" x="1997" y="581">calibration</text>
+
+  <path class="flow" d="M1595 297 H1685"/>
+  <path class="flow" d="M1880 455 H1915"/>
+  <path class="flow" d="M2075 455 H2105"/>
+
+  <rect class="panel" x="2110" y="194" width="245" height="520" fill="#fff2a8"/>
+  <text class="head" x="2232" y="250">Activity</text>
+  <text class="head" x="2232" y="284">prediction</text>
+  <g transform="translate(2167 330)" fill="none" stroke="#374252" stroke-width="6" stroke-linecap="round" stroke-linejoin="round">
+    <circle cx="65" cy="13" r="9" fill="#fff"/><path d="M65 26 58 58 79 72m-17-42-20 11-11 22m33-23 20-11 18 16m-43 13-18 25m40-19 21 24"/>
+  </g>
+  <text class="body" x="2232" y="470">One of 10</text>
+  <text class="body" x="2232" y="504">therapy activities</text>
+  <text class="small" x="2232" y="565">calibrated class</text>
+  <text class="small" x="2232" y="596">probabilities</text>
+
+  <!-- Configuration note -->
+  <rect x="410" y="890" width="1210" height="125" rx="18" fill="#f7f5f1" stroke="#8a929a" stroke-width="2"/>
+  <text class="head" x="1015" y="933">Configurations evaluated</text>
+  <text class="small" x="1015" y="972">Full model: reliability gate · Input variant: reliability feature · Fixed and dynamic bilateral links compared</text>
+  <text class="small" x="1015" y="1002">Five-fold cohort-grouped evaluation; cohort IDs are not verified participant identities</text>
+</svg>

@@ -1,0 +1,11 @@
+class_code,class_name,local_clip_folders,published_10class_count,difference_vs_published
+as,Arm swing,105,105,0
+bs,Body swing,117,119,-2
+ce,Chest expansion,114,114,0
+dr,Drumming,343,168,175
+mfs,Maracas forward shaking,101,103,-2
+ms,Maracas shaking,130,130,0
+sac,Sing and clap,113,113,0
+sq,Squat,102,101,1
+tr,Tree pose,129,129,0
+tw,Twist pose,120,120,0

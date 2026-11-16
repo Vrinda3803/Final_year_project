@@ -1,0 +1,41 @@
+{
+  "study_name": "RA-STGT: Reliability-Aware Spatio-Temporal Graph Transformer",
+  "dataset": {
+    "path": "data/processed/mmasd_openpose/mmasd_openpose_64frames.npz",
+    "num_classes": 10,
+    "classes": ["as", "bs", "ce", "dr", "mfs", "ms", "sac", "sq", "tr", "tw"],
+    "num_frames": 64,
+    "num_joints": 25,
+    "in_channels": 4,
+    "num_subjects": 32,
+    "total_clips": 1374
+  },
+  "training": {
+    "num_folds": 5,
+    "seeds": [42, 100, 2026],
+    "primary_seed": 42,
+    "batch_size": 64,
+    "epochs": 25,
+    "early_stopping_patience": 5,
+    "learning_rate": 0.001,
+    "weight_decay": 0.0001,
+    "val_subject_fraction": 0.18
+  },
+  "model": {
+    "d_model": 64,
+    "num_spatial_heads": 2,
+    "num_temporal_heads": 2,
+    "spatial_layers": 2,
+    "temporal_layers": 2,
+    "dropout": 0.25,
+    "epsilon": 1e-5
+  },
+  "calibration": {
+    "num_bins": 10,
+    "abstention_thresholds": [0.3, 0.4, 0.5, 0.6, 0.7, 0.8, 0.85, 0.9, 0.95]
+  },
+  "robustness": {
+    "missingness_levels": [0.0, 0.1, 0.2, 0.3, 0.4],
+    "limb_occlusion_types": ["right_arm", "left_arm", "both_arms", "lower_body"]
+  }
+}

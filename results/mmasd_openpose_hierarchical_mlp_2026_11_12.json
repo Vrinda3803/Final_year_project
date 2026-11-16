@@ -1,0 +1,120 @@
+{
+  "study": "MMASD therapy-theme auxiliary supervision",
+  "status": "completed one-seed adapted local-release experiment",
+  "dataset": {
+    "clips": 1374,
+    "subjects": 32,
+    "classes": [
+      "as",
+      "bs",
+      "ce",
+      "dr",
+      "mfs",
+      "ms",
+      "sac",
+      "sq",
+      "tr",
+      "tw"
+    ],
+    "themes": [
+      "robotic",
+      "music",
+      "yoga"
+    ],
+    "mapping": {
+      "robotic": [
+        "as",
+        "bs",
+        "ce",
+        "sq"
+      ],
+      "music": [
+        "dr",
+        "mfs",
+        "ms",
+        "sac"
+      ],
+      "yoga": [
+        "tr",
+        "tw"
+      ]
+    },
+    "note": "Counts and class distribution in the local OpenPose archive differ from the published 1,202-clip configuration."
+  },
+  "protocol": {
+    "outer": "same five filename-subject grouped folds as the local MLP reference",
+    "validation": "same 18% grouped inner validation rule",
+    "seed": 42
+  },
+  "method": {
+    "model": "Shared MLP trunk with activity and 3-theme heads",
+    "loss": "weighted activity cross entropy + 0.25 x weighted theme cross entropy",
+    "baseline": "plain temporal-summary MLP, 70.17% mean accuracy and 0.6338 mean macro-F1"
+  },
+  "summary": {
+    "activity_accuracy": {
+      "mean": 0.6856826148789734,
+      "sd": 0.11631156335545284
+    },
+    "activity_macro_f1": {
+      "mean": 0.6080278996255984,
+      "sd": 0.20732155232383886
+    },
+    "theme_accuracy": {
+      "mean": 0.8116413176921732,
+      "sd": 0.10334499159861216
+    }
+  },
+  "fold_results": [
+    {
+      "fold": 1,
+      "train_clips": 803,
+      "validation_clips": 295,
+      "test_clips": 276,
+      "best_epoch": 3,
+      "activity_accuracy": 0.5688405797101449,
+      "activity_macro_f1": 0.30041649426528017,
+      "theme_accuracy": 0.6884057971014492
+    },
+    {
+      "fold": 2,
+      "train_clips": 817,
+      "validation_clips": 281,
+      "test_clips": 276,
+      "best_epoch": 6,
+      "activity_accuracy": 0.5652173913043478,
+      "activity_macro_f1": 0.49516379684276474,
+      "theme_accuracy": 0.7210144927536232
+    },
+    {
+      "fold": 3,
+      "train_clips": 832,
+      "validation_clips": 265,
+      "test_clips": 277,
+      "best_epoch": 17,
+      "activity_accuracy": 0.776173285198556,
+      "activity_macro_f1": 0.7825078992916901,
+      "theme_accuracy": 0.8844765342960289
+    },
+    {
+      "fold": 4,
+      "train_clips": 993,
+      "validation_clips": 106,
+      "test_clips": 275,
+      "best_epoch": 12,
+      "activity_accuracy": 0.8181818181818182,
+      "activity_macro_f1": 0.7749895961817705,
+      "theme_accuracy": 0.9272727272727272
+    },
+    {
+      "fold": 5,
+      "train_clips": 812,
+      "validation_clips": 292,
+      "test_clips": 270,
+      "best_epoch": 5,
+      "activity_accuracy": 0.7,
+      "activity_macro_f1": 0.6870617115464863,
+      "theme_accuracy": 0.837037037037037
+    }
+  ]
+}

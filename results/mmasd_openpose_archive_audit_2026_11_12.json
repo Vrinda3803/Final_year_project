@@ -1,0 +1,105 @@
+{
+  "study": "Local MMASD OpenPose archive count audit",
+  "archive": "data\\raw\\mmasd\\Dataset_FINAL\\2D skeleton\\2D_openpose.zip",
+  "method": "Count distinct parent clip folders for frame JSON files using filename prefix before frame number; no activity filtering.",
+  "local_counts": {
+    "as": 105,
+    "bs": 117,
+    "ce": 114,
+    "dr": 343,
+    "mfs": 101,
+    "ms": 130,
+    "sac": 113,
+    "sq": 102,
+    "tr": 129,
+    "tw": 120
+  },
+  "local_observed_label_count": 10,
+  "local_total_counted_clip_folders": 1374,
+  "local_ten_class_total": 1374,
+  "published_dataset_total_all_classes": 1315,
+  "published_2d_ten_class_total": 1202,
+  "ten_class_total_difference": 172,
+  "main_discrepancy": {
+    "drumming_local": 343,
+    "drumming_published": 168,
+    "difference": 175
+  },
+  "interpretation": "The local OpenPose archive does not match the published clip inventory. Counts alone do not establish which files are duplicates, excluded samples, or a different release. No records were removed to force agreement.",
+  "references": {
+    "dataset_release": "https://github.com/Li-Jicheng/MMASD-A-Multimodal-Dataset-for-Autism-Intervention-Analysis",
+    "published_2d_table": "https://www.mdpi.com/1424-8220/26/14/4638"
+  },
+  "per_class": [
+    {
+      "class_code": "as",
+      "class_name": "Arm swing",
+      "local_clip_folders": 105,
+      "published_10class_count": 105,
+      "difference_vs_published": 0
+    },
+    {
+      "class_code": "bs",
+      "class_name": "Body swing",
+      "local_clip_folders": 117,
+      "published_10class_count": 119,
+      "difference_vs_published": -2
+    },
+    {
+      "class_code": "ce",
+      "class_name": "Chest expansion",
+      "local_clip_folders": 114,
+      "published_10class_count": 114,
+      "difference_vs_published": 0
+    },
+    {
+      "class_code": "dr",
+      "class_name": "Drumming",
+      "local_clip_folders": 343,
+      "published_10class_count": 168,
+      "difference_vs_published": 175
+    },
+    {
+      "class_code": "mfs",
+      "class_name": "Maracas forward shaking",
+      "local_clip_folders": 101,
+      "published_10class_count": 103,
+      "difference_vs_published": -2
+    },
+    {
+      "class_code": "ms",
+      "class_name": "Maracas shaking",
+      "local_clip_folders": 130,
+      "published_10class_count": 130,
+      "difference_vs_published": 0
+    },
+    {
+      "class_code": "sac",
+      "class_name": "Sing and clap",
+      "local_clip_folders": 113,
+      "published_10class_count": 113,
+      "difference_vs_published": 0
+    },
+    {
+      "class_code": "sq",
+      "class_name": "Squat",
+      "local_clip_folders": 102,
+      "published_10class_count": 101,
+      "difference_vs_published": 1
+    },
+    {
+      "class_code": "tr",
+      "class_name": "Tree pose",
+      "local_clip_folders": 129,
+      "published_10class_count": 129,
+      "difference_vs_published": 0
+    },
+    {
+      "class_code": "tw",
+      "class_name": "Twist pose",
+      "local_clip_folders": 120,
+      "published_10class_count": 120,
+      "difference_vs_published": 0
+    }
+  ]
+}

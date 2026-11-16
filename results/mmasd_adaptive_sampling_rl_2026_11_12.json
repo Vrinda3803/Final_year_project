@@ -1,0 +1,239 @@
+{
+  "study": "MMASD PPO adaptive temporal window sampling",
+  "status": "preliminary execution completed; independent replication and review are still required",
+  "seed": 42,
+  "device": "cpu",
+  "n_sessions": 1693,
+  "n_groups": 32,
+  "n_classes": 11,
+  "outer_evaluation": "5-fold grouped by stored subject identifier",
+  "group_identity_caveat": "Stored filename-derived group identifiers have not been independently verified as participant identities.",
+  "sampling": {
+    "window_length": 8,
+    "candidate_stride": 1,
+    "budget_windows": 8,
+    "allowed_next_strides": [
+      1,
+      2,
+      4,
+      8
+    ]
+  },
+  "policy": {
+    "algorithm": "PPO clipped policy gradient",
+    "training_batches": 48,
+    "sessions_per_batch": 16,
+    "updates_per_batch": 4,
+    "learning_rate": 0.0003,
+    "reward": "training-session descriptor novelty minus small selection cost; proxy for information preservation, not a clinical outcome"
+  },
+  "interpretation_limit": "This is a first implementation of the sampler concept. It does not reproduce the cited graph model, the base paper's optical-flow representation, or their published scores.",
+  "fold_results": [
+    {
+      "fold": 1,
+      "method": "uniform",
+      "train_sessions": 1234,
+      "test_sessions": 459,
+      "sample_budget_windows": 8,
+      "accuracy": 0.5904139433551199,
+      "macro_f1": 0.5654040723783017
+    },
+    {
+      "fold": 1,
+      "method": "random",
+      "train_sessions": 1234,
+      "test_sessions": 459,
+      "sample_budget_windows": 8,
+      "accuracy": 0.616557734204793,
+      "macro_f1": 0.5973654666580863
+    },
+    {
+      "fold": 1,
+      "method": "heuristic",
+      "train_sessions": 1234,
+      "test_sessions": 459,
+      "sample_budget_windows": 8,
+      "accuracy": 0.5969498910675382,
+      "macro_f1": 0.5635608327684879
+    },
+    {
+      "fold": 1,
+      "method": "ppo",
+      "train_sessions": 1234,
+      "test_sessions": 459,
+      "sample_budget_windows": 8,
+      "accuracy": 0.5947712418300654,
+      "macro_f1": 0.5589544113385015
+    },
+    {
+      "fold": 2,
+      "method": "uniform",
+      "train_sessions": 1424,
+      "test_sessions": 269,
+      "sample_budget_windows": 8,
+      "accuracy": 0.7286245353159851,
+      "macro_f1": 0.5581891305639631
+    },
+    {
+      "fold": 2,
+      "method": "random",
+      "train_sessions": 1424,
+      "test_sessions": 269,
+      "sample_budget_windows": 8,
+      "accuracy": 0.7211895910780669,
+      "macro_f1": 0.5933786190217386
+    },
+    {
+      "fold": 2,
+      "method": "heuristic",
+      "train_sessions": 1424,
+      "test_sessions": 269,
+      "sample_budget_windows": 8,
+      "accuracy": 0.7360594795539034,
+      "macro_f1": 0.5884350327315924
+    },
+    {
+      "fold": 2,
+      "method": "ppo",
+      "train_sessions": 1424,
+      "test_sessions": 269,
+      "sample_budget_windows": 8,
+      "accuracy": 0.7063197026022305,
+      "macro_f1": 0.5282835162481058
+    },
+    {
+      "fold": 3,
+      "method": "uniform",
+      "train_sessions": 1383,
+      "test_sessions": 310,
+      "sample_budget_windows": 8,
+      "accuracy": 0.6741935483870968,
+      "macro_f1": 0.4642638928231458
+    },
+    {
+      "fold": 3,
+      "method": "random",
+      "train_sessions": 1383,
+      "test_sessions": 310,
+      "sample_budget_windows": 8,
+      "accuracy": 0.667741935483871,
+      "macro_f1": 0.4604985513394522
+    },
+    {
+      "fold": 3,
+      "method": "heuristic",
+      "train_sessions": 1383,
+      "test_sessions": 310,
+      "sample_budget_windows": 8,
+      "accuracy": 0.6645161290322581,
+      "macro_f1": 0.46986315210686586
+    },
+    {
+      "fold": 3,
+      "method": "ppo",
+      "train_sessions": 1383,
+      "test_sessions": 310,
+      "sample_budget_windows": 8,
+      "accuracy": 0.6548387096774193,
+      "macro_f1": 0.4610543457043732
+    },
+    {
+      "fold": 4,
+      "method": "uniform",
+      "train_sessions": 1337,
+      "test_sessions": 356,
+      "sample_budget_windows": 8,
+      "accuracy": 0.6320224719101124,
+      "macro_f1": 0.6003732827651658
+    },
+    {
+      "fold": 4,
+      "method": "random",
+      "train_sessions": 1337,
+      "test_sessions": 356,
+      "sample_budget_windows": 8,
+      "accuracy": 0.648876404494382,
+      "macro_f1": 0.6155117476718149
+    },
+    {
+      "fold": 4,
+      "method": "heuristic",
+      "train_sessions": 1337,
+      "test_sessions": 356,
+      "sample_budget_windows": 8,
+      "accuracy": 0.6657303370786517,
+      "macro_f1": 0.6276355509065422
+    },
+    {
+      "fold": 4,
+      "method": "ppo",
+      "train_sessions": 1337,
+      "test_sessions": 356,
+      "sample_budget_windows": 8,
+      "accuracy": 0.6292134831460674,
+      "macro_f1": 0.6045539926011099
+    },
+    {
+      "fold": 5,
+      "method": "uniform",
+      "train_sessions": 1394,
+      "test_sessions": 299,
+      "sample_budget_windows": 8,
+      "accuracy": 0.7391304347826086,
+      "macro_f1": 0.6925800607639592
+    },
+    {
+      "fold": 5,
+      "method": "random",
+      "train_sessions": 1394,
+      "test_sessions": 299,
+      "sample_budget_windows": 8,
+      "accuracy": 0.7357859531772575,
+      "macro_f1": 0.7029053849351454
+    },
+    {
+      "fold": 5,
+      "method": "heuristic",
+      "train_sessions": 1394,
+      "test_sessions": 299,
+      "sample_budget_windows": 8,
+      "accuracy": 0.7190635451505016,
+      "macro_f1": 0.6718133327993254
+    },
+    {
+      "fold": 5,
+      "method": "ppo",
+      "train_sessions": 1394,
+      "test_sessions": 299,
+      "sample_budget_windows": 8,
+      "accuracy": 0.745819397993311,
+      "macro_f1": 0.6975527684371762
+    }
+  ],
+  "aggregate": {
+    "uniform": {
+      "accuracy_mean": 0.6728769867501846,
+      "accuracy_sd": 0.0631828433805792,
+      "macro_f1_mean": 0.5761620878589071,
+      "macro_f1_sd": 0.08230931678336662
+    },
+    "random": {
+      "accuracy_mean": 0.678030323687674,
+      "accuracy_sd": 0.04983251020494915,
+      "macro_f1_mean": 0.5939319539252474,
+      "macro_f1_sd": 0.08682952303081928
+    },
+    "heuristic": {
+      "accuracy_mean": 0.6764638763765707,
+      "accuracy_sd": 0.05465070697142736,
+      "macro_f1_mean": 0.5842615802625628,
+      "macro_f1_sd": 0.07595977507619109
+    },
+    "ppo": {
+      "accuracy_mean": 0.6661925070498187,
+      "accuracy_sd": 0.06030751950102569,
+      "macro_f1_mean": 0.5700798068658532,
+      "macro_f1_sd": 0.08831064620190132
+    }
+  }
+}

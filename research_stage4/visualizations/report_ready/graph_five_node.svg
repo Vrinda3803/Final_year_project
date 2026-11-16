@@ -1,0 +1,12 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="512" height="512" viewBox="0 0 512 512" role="img" aria-label="Five-node graph symbol">
+  <g fill="none" stroke="#374252" stroke-width="18" stroke-linecap="round" stroke-linejoin="round">
+    <path d="M256 88 L106 198 L164 376 L348 376 L406 198 Z"/>
+  </g>
+  <g fill="#FFFFFF" stroke="#C78B99" stroke-width="18">
+    <circle cx="256" cy="88" r="39"/>
+    <circle cx="106" cy="198" r="39"/>
+    <circle cx="406" cy="198" r="39"/>
+    <circle cx="164" cy="376" r="39"/>
+    <circle cx="348" cy="376" r="39"/>
+  </g>
+</svg>

@@ -1,0 +1,167 @@
+{
+  "study": "AV-ASD 3-class segment-level audio classification with within-video acoustic context",
+  "status": "completed nested grouped experiment",
+  "research_basis": {
+    "task_paper": "Hear Me, See Me, Understand Me: Audio-Visual Autism Behavior Recognition, IEEE TMM 2025",
+    "method_idea": "Use audio/video behavior context; local adaptation tests temporal and recording context from available audio only."
+  },
+  "data": {
+    "segments": 961,
+    "videos": 87,
+    "classes": {
+      "Aggressive Behavior": 206,
+      "Hyper- or Hyporeactivity to Sensory Input": 55,
+      "Upper Limb Stereotypies": 700
+    },
+    "feature_dim_base": 33,
+    "feature_dim_context": 163,
+    "grouping": "video_id",
+    "largest_video_segment_count": 506,
+    "largest_video_fraction": 0.5265348595213319,
+    "outer_fold_test_segment_counts": [
+      506,
+      114,
+      114,
+      114,
+      113
+    ]
+  },
+  "method": {
+    "feature_context": "previous/current/next audio descriptors, within-video mean and standard deviation, normalized segment position, log segment count, duration",
+    "model_candidates": [
+      "base_rbf_svc_C0.1",
+      "base_rbf_svc_C1",
+      "base_rbf_svc_C10",
+      "context_rbf_svc_C0.1",
+      "context_rbf_svc_C1",
+      "context_rbf_svc_C10",
+      "base_extratrees_leaf1",
+      "base_extratrees_leaf3",
+      "context_extratrees_leaf1",
+      "context_extratrees_leaf3"
+    ],
+    "selection": "3-fold GroupKFold within each outer-training set; mean validation accuracy selected, macro-F1 used only as tie-break",
+    "evaluation": "5-fold outer GroupKFold by video_id; each video occurs in one outer fold",
+    "note": "Offline full-video setting: unlabeled audio summaries from each held-out video are available when constructing its segment features."
+  },
+  "headline": {
+    "oof_accuracy": 0.6701352757544224,
+    "oof_macro_f1": 0.4661522034332674,
+    "oof_balanced_accuracy": 0.4838208716849494,
+    "majority_class_accuracy": 0.72840790842872,
+    "target_80_accuracy_reached": false,
+    "video_macro_mean_segment_accuracy": 0.4628275106535976,
+    "video_macro_mean_macro_f1": 0.42143973497164916,
+    "accuracy_without_largest_video": 0.3868131868131868
+  },
+  "per_class": {
+    "Aggressive Behavior": {
+      "precision": 0.4311377245508982,
+      "recall": 0.34951456310679613,
+      "f1": 0.38605898123324395,
+      "support": 206
+    },
+    "Hyper- or Hyporeactivity to Sensory Input": {
+      "precision": 0.16346153846153846,
+      "recall": 0.3090909090909091,
+      "f1": 0.2138364779874214,
+      "support": 55
+    },
+    "Upper Limb Stereotypies": {
+      "precision": 0.8043478260869565,
+      "recall": 0.7928571428571428,
+      "f1": 0.7985611510791367,
+      "support": 700
+    }
+  },
+  "folds": [
+    {
+      "fold": 1,
+      "train_segments": 455,
+      "test_segments": 506,
+      "train_videos": 86,
+      "test_videos": 1,
+      "selected_model": "base_extratrees_leaf3",
+      "selected_feature_set": "base",
+      "inner_accuracy_mean": 0.589084466132218,
+      "inner_accuracy_sd": 0.05439782499930079,
+      "inner_macro_f1": 0.4613743680672595,
+      "test_accuracy": 0.924901185770751,
+      "test_macro_f1": 0.3203285420944559,
+      "test_balanced_accuracy": 0.924901185770751
+    },
+    {
+      "fold": 2,
+      "train_segments": 847,
+      "test_segments": 114,
+      "train_videos": 80,
+      "test_videos": 7,
+      "selected_model": "context_extratrees_leaf1",
+      "selected_feature_set": "context",
+      "inner_accuracy_mean": 0.7811489508083936,
+      "inner_accuracy_sd": 0.19811557409077374,
+      "inner_macro_f1": 0.6591059926541529,
+      "test_accuracy": 0.043859649122807015,
+      "test_macro_f1": 0.02849002849002849,
+      "test_balanced_accuracy": 0.3333333333333333
+    },
+    {
+      "fold": 3,
+      "train_segments": 847,
+      "test_segments": 114,
+      "train_videos": 61,
+      "test_videos": 26,
+      "selected_model": "base_extratrees_leaf3",
+      "selected_feature_set": "base",
+      "inner_accuracy_mean": 0.7080774995433764,
+      "inner_accuracy_sd": 0.2356993749803231,
+      "inner_macro_f1": 0.37941910390425587,
+      "test_accuracy": 0.6052631578947368,
+      "test_macro_f1": 0.5310988425297413,
+      "test_balanced_accuracy": 0.5285353535353535
+    },
+    {
+      "fold": 4,
+      "train_segments": 847,
+      "test_segments": 114,
+      "train_videos": 60,
+      "test_videos": 27,
+      "selected_model": "context_rbf_svc_C0.1",
+      "selected_feature_set": "context",
+      "inner_accuracy_mean": 0.7140344532052704,
+      "inner_accuracy_sd": 0.33309213133325616,
+      "inner_macro_f1": 0.376439613902819,
+      "test_accuracy": 0.16666666666666666,
+      "test_macro_f1": 0.16425508982226877,
+      "test_balanced_accuracy": 0.27137026430993055
+    },
+    {
+      "fold": 5,
+      "train_segments": 848,
+      "test_segments": 113,
+      "train_videos": 61,
+      "test_videos": 26,
+      "selected_model": "base_extratrees_leaf3",
+      "selected_feature_set": "base",
+      "inner_accuracy_mean": 0.6728228124109131,
+      "inner_accuracy_sd": 0.21988667652322555,
+      "inner_macro_f1": 0.3614003705017507,
+      "test_accuracy": 0.7345132743362832,
+      "test_macro_f1": 0.6236234850000256,
+      "test_balanced_accuracy": 0.6243090510453015
+    }
+  ],
+  "limitations": [
+    "Three-class labels are generated by a fixed priority rule from overlapping annotations.",
+    "The dominant class has 700 of 961 examples; accuracy must be read with macro-F1 and balanced accuracy.",
+    "Grouping is by video, not verified participant.",
+    "Features are acoustic summaries; the method is not multimodal and does not verify the child as the speaker.",
+    "The inner model selection targets accuracy; this is suitable for testing the stated 80% accuracy goal but macro-F1 is reported to expose class imbalance."
+  ],
+  "files": {
+    "script": "experiments/avasd_video_context_nested.py",
+    "folds": "results\\avasd_video_context_nested_folds_2026_11_12.csv",
+    "oof": "results\\avasd_video_context_nested_oof_2026_11_12.csv",
+    "per_video": "results/avasd_video_context_nested_per_video_2026_11_12.csv"
+  }
+}

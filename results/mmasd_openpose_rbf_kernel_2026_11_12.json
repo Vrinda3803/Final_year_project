@@ -1,0 +1,130 @@
+{
+  "study": "MMASD RBF kernel-ridge nested grouped baseline",
+  "status": "completed adapted local-release experiment",
+  "dataset": {
+    "clips": 1374,
+    "subjects": 32,
+    "classes": 10,
+    "archive_note": "Local counts differ from the published 1,202-clip setup."
+  },
+  "protocol": {
+    "outer": "five subject-grouped folds",
+    "inner": "18% grouped validation from outer training; gamma/ridge selected on validation only; selected model refit on all outer training clips",
+    "seed": 42
+  },
+  "search": {
+    "gamma": [
+      0.025,
+      0.05,
+      0.1,
+      0.2,
+      0.4,
+      0.8
+    ],
+    "ridge_alpha": [
+      0.001,
+      0.01,
+      0.1,
+      1.0,
+      10.0
+    ],
+    "class_weight_power": [
+      1.0
+    ],
+    "log_prior_offset": [
+      0.0
+    ]
+  },
+  "features": "Same joint/motion temporal summary vector as the MLP reference.",
+  "reference": {
+    "temporal_mlp_accuracy": 0.7016943452206361,
+    "temporal_mlp_macro_f1": 0.6338083599102715
+  },
+  "summary": {
+    "accuracy": {
+      "mean": 0.7168510089119099,
+      "sd": 0.09098695105718312
+    },
+    "macro_f1": {
+      "mean": 0.6393536733504924,
+      "sd": 0.1917871047697696
+    }
+  },
+  "fold_results": [
+    {
+      "fold": 1,
+      "train_clips": 1098,
+      "validation_clips": 295,
+      "test_clips": 276,
+      "selected_gamma": 0.1,
+      "selected_ridge_alpha": 0.001,
+      "selected_class_weight_power": 1.0,
+      "selected_prior_offset": 0.0,
+      "validation_accuracy": 0.7864406779661017,
+      "validation_macro_f1": 0.6046525362574003,
+      "accuracy": 0.5978260869565217,
+      "macro_f1": 0.3205563173486651
+    },
+    {
+      "fold": 2,
+      "train_clips": 1098,
+      "validation_clips": 281,
+      "test_clips": 276,
+      "selected_gamma": 0.4,
+      "selected_ridge_alpha": 0.001,
+      "selected_class_weight_power": 1.0,
+      "selected_prior_offset": 0.0,
+      "validation_accuracy": 0.7900355871886121,
+      "validation_macro_f1": 0.7676118712738127,
+      "accuracy": 0.6630434782608695,
+      "macro_f1": 0.6096233536835041
+    },
+    {
+      "fold": 3,
+      "train_clips": 1097,
+      "validation_clips": 265,
+      "test_clips": 277,
+      "selected_gamma": 0.4,
+      "selected_ridge_alpha": 0.001,
+      "selected_class_weight_power": 1.0,
+      "selected_prior_offset": 0.0,
+      "validation_accuracy": 0.539622641509434,
+      "validation_macro_f1": 0.4888408795725788,
+      "accuracy": 0.8122743682310469,
+      "macro_f1": 0.8029514673409199
+    },
+    {
+      "fold": 4,
+      "train_clips": 1099,
+      "validation_clips": 106,
+      "test_clips": 275,
+      "selected_gamma": 0.4,
+      "selected_ridge_alpha": 0.01,
+      "selected_class_weight_power": 1.0,
+      "selected_prior_offset": 0.0,
+      "validation_accuracy": 0.9056603773584906,
+      "validation_macro_f1": 0.5199681047507134,
+      "accuracy": 0.8,
+      "macro_f1": 0.751180423961754
+    },
+    {
+      "fold": 5,
+      "train_clips": 1104,
+      "validation_clips": 292,
+      "test_clips": 270,
+      "selected_gamma": 0.05,
+      "selected_ridge_alpha": 0.001,
+      "selected_class_weight_power": 1.0,
+      "selected_prior_offset": 0.0,
+      "validation_accuracy": 0.5308219178082192,
+      "validation_macro_f1": 0.479450989884276,
+      "accuracy": 0.7111111111111111,
+      "macro_f1": 0.712456804417619
+    }
+  ],
+  "pooled_oof": {
+    "accuracy": 0.7168850072780204,
+    "macro_f1": 0.6920448145211541
+  },
+  "oof_file": "results\\mmasd_openpose_rbf_kernel_oof_2026_11_12.csv"
+}

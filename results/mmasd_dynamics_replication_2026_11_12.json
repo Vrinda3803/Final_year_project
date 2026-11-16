@@ -1,0 +1,136 @@
+{
+  "study": "MMASD pose/kinematic-only learning-dynamics reproduction attempt",
+  "date": "2026-11-12",
+  "base_paper": "Akinwumi, Qian, and Ojo (2026), doi:10.3389/fnins.2026.1737098",
+  "reproduction_status": "adapted, not exact",
+  "reason_not_exact": [
+    "Paper uses 2D BlazePose pose and optical flow; the local processed input is an 8-body-group by 8-kinematic-channel sequence.",
+    "No local optical-flow or source-video inputs were found.",
+    "The paper uses a denoising temporal Transformer autoencoder; this run uses PCA plus k-means because PyTorch and scikit-learn are unavailable in the active runtime.",
+    "The paper's session subset and joint-attention measurements are not present in the local result artifacts."
+  ],
+  "protocol": {
+    "source_file": "data\\processed\\mmasd_features\\sessions_features.npz",
+    "n_recordings": 1693,
+    "n_subjects": 32,
+    "n_activity_labels": 11,
+    "n_windows": 7049,
+    "n_sessions_with_at_least_one_window": 1661,
+    "window_length": 8,
+    "stride": 4,
+    "raw_window_dimension": 512,
+    "pca_dimensions": 128,
+    "clusters": 6,
+    "outer_evaluation": "5-fold grouped holdout by stored subject identifier",
+    "seed": 42,
+    "kmeans_restarts_per_fold": 5,
+    "best_inertia_initializations_per_run": 3,
+    "transition_null_permutations": 199
+  },
+  "metrics_mean_sd_across_subject_folds": {
+    "silhouette_sampled": {
+      "mean": 0.03426906918029452,
+      "sd": 0.041632350931687864
+    },
+    "davies_bouldin": {
+      "mean": 3.70034637554159,
+      "sd": 0.3743107740630543
+    },
+    "calinski_harabasz": {
+      "mean": 80.85772527976204,
+      "sd": 45.46444562767601
+    },
+    "activity_ARI": {
+      "mean": 0.09278582001068106,
+      "sd": 0.08992137447938835
+    },
+    "activity_NMI": {
+      "mean": 0.2197992653837797,
+      "sd": 0.09103826021836528
+    },
+    "seed_stability_ARI_mean": {
+      "mean": 0.7421964856445086,
+      "sd": 0.108261587504711
+    }
+  },
+  "heldout_transition_analysis": {
+    "n_transitions": 5388,
+    "observed_self_transition_rate": 0.816815144766147,
+    "null_self_transition_rate_mean": 0.7720171010956787,
+    "null_self_transition_rate_sd": 0.003093419785852303,
+    "one_sided_permutation_p_value": 0.005,
+    "n_sessions_with_early_late_kl": 940,
+    "early_late_kl_mean": 0.11095137206373282,
+    "early_late_kl_median": 0.014085438483348225,
+    "joint_attention_correlation": null,
+    "joint_attention_note": "Local session-aligned joint-attention duration values were unavailable; paper correlation was not re-estimated."
+  },
+  "fold_results": [
+    {
+      "fold": 1,
+      "train_subjects": 25,
+      "test_subjects": 7,
+      "test_windows": 1917,
+      "n_test_clusters": 3,
+      "silhouette_sampled": 0.05064707189159411,
+      "davies_bouldin": 3.9219665816206546,
+      "calinski_harabasz": 81.55281111900379,
+      "activity_ARI": 0.02869694068990877,
+      "activity_NMI": 0.16160584132953773,
+      "seed_stability_ARI_mean": 0.6752758797361147
+    },
+    {
+      "fold": 2,
+      "train_subjects": 25,
+      "test_subjects": 7,
+      "test_windows": 922,
+      "n_test_clusters": 6,
+      "silhouette_sampled": 0.09439313424838265,
+      "davies_bouldin": 3.4098885964773786,
+      "calinski_harabasz": 59.87633060318217,
+      "activity_ARI": 0.2168400717587488,
+      "activity_NMI": 0.2794888642632219,
+      "seed_stability_ARI_mean": 0.9061733055728055
+    },
+    {
+      "fold": 3,
+      "train_subjects": 26,
+      "test_subjects": 6,
+      "test_windows": 1418,
+      "n_test_clusters": 4,
+      "silhouette_sampled": -0.0008696750074621326,
+      "davies_bouldin": 4.103214110123255,
+      "calinski_harabasz": 52.415173349556184,
+      "activity_ARI": 0.027237002899807124,
+      "activity_NMI": 0.149452480656542,
+      "seed_stability_ARI_mean": 0.7559107296054288
+    },
+    {
+      "fold": 4,
+      "train_subjects": 26,
+      "test_subjects": 6,
+      "test_windows": 1383,
+      "n_test_clusters": 4,
+      "silhouette_sampled": -0.008317783677324381,
+      "davies_bouldin": 3.856489537066059,
+      "calinski_harabasz": 51.22617663789034,
+      "activity_ARI": 0.030253972058961385,
+      "activity_NMI": 0.15705548288050558,
+      "seed_stability_ARI_mean": 0.7546065097296509
+    },
+    {
+      "fold": 5,
+      "train_subjects": 26,
+      "test_subjects": 6,
+      "test_windows": 1409,
+      "n_test_clusters": 6,
+      "silhouette_sampled": 0.035492598446282365,
+      "davies_bouldin": 3.2101730524206036,
+      "calinski_harabasz": 159.2181346891777,
+      "activity_ARI": 0.16090111264597923,
+      "activity_NMI": 0.3513936577890913,
+      "seed_stability_ARI_mean": 0.619016003578543
+    }
+  ],
+  "interpretation_limit": "The results evaluate an adapted kinematic-only clustering baseline, not the paper's multimodal Transformer or a clinical learning outcome. The 11 activity labels are used only for external cluster association metrics."
+}

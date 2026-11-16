@@ -1,0 +1,28 @@
+<svg width="600" height="350" xmlns="http://www.w3.org/2000/svg">
+  <rect width="100%" height="100%" fill="#ffffff" />
+  <text x="300" y="30" font-family="Arial, sans-serif" font-size="16" font-weight="bold" text-anchor="middle" fill="#333333">
+    Selective Prediction: Accuracy vs Coverage Trade-off
+  </text>
+  <text x="300" y="52" font-family="Arial, sans-serif" font-size="12" text-anchor="middle" fill="#666666">
+    Accuracy increases as the model selectively abstains on low-confidence occluded clips
+  </text>
+
+  <!-- Axes -->
+  <line x1="80" y1="260" x2="540" y2="260" stroke="#cbd5e0" stroke-width="2" />
+  <line x1="80" y1="260" x2="80" y2="70" stroke="#cbd5e0" stroke-width="2" />
+  
+  <!-- Axis labels -->
+  <text x="310" y="295" font-family="Arial, sans-serif" font-size="12" text-anchor="middle" fill="#4a5568">Coverage (% of sessions classified)</text>
+  <text x="35" y="165" font-family="Arial, sans-serif" font-size="12" text-anchor="middle" fill="#4a5568" transform="rotate(-90 35,165)">Selective Accuracy</text>
+  
+  <!-- Curve -->
+  <path d="M 518.4,262.0 L 474.8,253.7 L 377.5,230.8 L 272.5,209.6 L 223.8,194.3 L 184.4,188.5 L 141.2,185.0" fill="none" stroke="#2b6cb0" stroke-width="3.5" />
+  <circle cx="518.4" cy="262.0" r="5" fill="#3182ce" />
+  <text x="518.4" y="252.0" font-family="Arial, sans-serif" font-size="10" font-weight="bold" text-anchor="middle" fill="#2b6cb0">46.5%</text>
+  <circle cx="377.5" cy="230.8" r="5" fill="#3182ce" />
+  <text x="377.5" y="220.8" font-family="Arial, sans-serif" font-size="10" font-weight="bold" text-anchor="middle" fill="#2b6cb0">55.7%</text>
+  <circle cx="223.8" cy="194.3" r="5" fill="#3182ce" />
+  <text x="223.8" y="184.3" font-family="Arial, sans-serif" font-size="10" font-weight="bold" text-anchor="middle" fill="#2b6cb0">66.4%</text>
+  <circle cx="141.2" cy="185.0" r="5" fill="#3182ce" />
+  <text x="141.2" y="175.0" font-family="Arial, sans-serif" font-size="10" font-weight="bold" text-anchor="middle" fill="#2b6cb0">69.1%</text>
+</svg>

@@ -1,0 +1,58 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 900 500" width="900" height="500" style="background-color: #ffffff; font-family: -apple-system, BlinkMacSystemFont, Segoe UI, Roboto, Helvetica, Arial, sans-serif;">
+<text x="450.0" y="36" text-anchor="middle" font-size="20" font-weight="bold" fill="#1e293b">Stage 2 Controlled Ablation: Accuracy &amp; Macro-F1 Progression (E0 to E5)</text>
+<g stroke="#e2e8f0" stroke-width="1">
+<line x1="80" y1="420.0" x2="850" y2="420.0" stroke-dasharray="4,4" />
+<text x="68" y="424.0" text-anchor="end" font-size="12" fill="#64748b">0%</text>
+<line x1="80" y1="368.57142857142856" x2="850" y2="368.57142857142856" stroke-dasharray="4,4" />
+<text x="68" y="372.57142857142856" text-anchor="end" font-size="12" fill="#64748b">10%</text>
+<line x1="80" y1="317.14285714285717" x2="850" y2="317.14285714285717" stroke-dasharray="4,4" />
+<text x="68" y="321.14285714285717" text-anchor="end" font-size="12" fill="#64748b">20%</text>
+<line x1="80" y1="265.7142857142857" x2="850" y2="265.7142857142857" stroke-dasharray="4,4" />
+<text x="68" y="269.7142857142857" text-anchor="end" font-size="12" fill="#64748b">30%</text>
+<line x1="80" y1="214.2857142857143" x2="850" y2="214.2857142857143" stroke-dasharray="4,4" />
+<text x="68" y="218.2857142857143" text-anchor="end" font-size="12" fill="#64748b">40%</text>
+<line x1="80" y1="162.85714285714283" x2="850" y2="162.85714285714283" stroke-dasharray="4,4" />
+<text x="68" y="166.85714285714283" text-anchor="end" font-size="12" fill="#64748b">50%</text>
+<line x1="80" y1="111.42857142857144" x2="850" y2="111.42857142857144" stroke-dasharray="4,4" />
+<text x="68" y="115.42857142857144" text-anchor="end" font-size="12" fill="#64748b">60%</text>
+<line x1="80" y1="60.0" x2="850" y2="60.0" stroke-dasharray="4,4" />
+<text x="68" y="64.0" text-anchor="end" font-size="12" fill="#64748b">70%</text>
+</g>
+<line x1="80" y1="420" x2="850" y2="420" stroke="#334155" stroke-width="2" />
+<line x1="80" y1="60" x2="80" y2="420" stroke="#334155" stroke-width="2" />
+<rect x="610" y="70" width="230" height="40" fill="#f8fafc" stroke="#cbd5e1" rx="4" />
+<rect x="625" y="84" width="16" height="12" fill="#2563eb" rx="2" />
+<text x="648" y="94" font-size="12" fill="#1e293b" font-weight="600">Mean Accuracy (%)</text>
+<rect x="740" y="84" width="16" height="12" fill="#059669" rx="2" />
+<text x="763" y="94" font-size="12" fill="#1e293b" font-weight="600">Macro-F1 (%)</text>
+<rect x="97.25000000000003" y="225.29142857142858" width="44.916666666666664" height="194.70857142857142" fill="#3b82f6" rx="3" />
+<text x="119.70833333333336" y="217.29142857142858" text-anchor="middle" font-size="11" font-weight="bold" fill="#1e40af">37.9%</text>
+<rect x="146.16666666666669" y="270.2914285714286" width="44.916666666666664" height="149.70857142857145" fill="#10b981" rx="3" />
+<text x="168.62500000000003" y="262.2914285714286" text-anchor="middle" font-size="11" font-weight="bold" fill="#065f46">29.1%</text>
+<text x="144.16666666666669" y="444" text-anchor="middle" font-size="12" font-weight="600" fill="#334155">E0: Vanilla STGT</text>
+<rect x="225.58333333333334" y="181.01142857142858" width="44.916666666666664" height="238.98857142857142" fill="#3b82f6" rx="3" />
+<text x="248.04166666666669" y="173.01142857142858" text-anchor="middle" font-size="11" font-weight="bold" fill="#1e40af">46.5%</text>
+<rect x="274.5" y="207.24" width="44.916666666666664" height="212.76" fill="#10b981" rx="3" />
+<text x="296.9583333333333" y="199.24" text-anchor="middle" font-size="11" font-weight="bold" fill="#065f46">41.4%</text>
+<text x="272.5" y="444" text-anchor="middle" font-size="12" font-weight="600" fill="#334155">E1: RA-STGT v1</text>
+<rect x="353.9166666666667" y="123.6250868892526" width="44.916666666666664" height="296.3749131107474" fill="#3b82f6" rx="3" />
+<text x="376.375" y="115.6250868892526" text-anchor="middle" font-size="11" font-weight="bold" fill="#1e40af">57.6%</text>
+<rect x="402.83333333333337" y="166.64094932657005" width="44.916666666666664" height="253.35905067342995" fill="#10b981" rx="3" />
+<text x="425.2916666666667" y="158.64094932657005" text-anchor="middle" font-size="11" font-weight="bold" fill="#065f46">49.3%</text>
+<text x="400.83333333333337" y="444" text-anchor="middle" font-size="12" font-weight="600" fill="#334155">E2: PR-GAT Topology</text>
+<rect x="482.24999999999994" y="162.99662227585628" width="44.916666666666664" height="257.0033777241437" fill="#3b82f6" rx="3" />
+<text x="504.70833333333326" y="154.99662227585628" text-anchor="middle" font-size="11" font-weight="bold" fill="#1e40af">50.0%</text>
+<rect x="531.1666666666666" y="198.5421140775322" width="44.916666666666664" height="221.4578859224678" fill="#10b981" rx="3" />
+<text x="553.625" y="190.5421140775322" text-anchor="middle" font-size="11" font-weight="bold" fill="#065f46">43.1%</text>
+<text x="529.1666666666666" y="444" text-anchor="middle" font-size="12" font-weight="600" fill="#334155">E3: Phase Dynamics</text>
+<rect x="610.5833333333334" y="134.1751233436683" width="44.916666666666664" height="285.8248766563317" fill="#3b82f6" rx="3" />
+<text x="633.0416666666667" y="126.1751233436683" text-anchor="middle" font-size="11" font-weight="bold" fill="#1e40af">55.6%</text>
+<rect x="659.5" y="171.87775720975924" width="44.916666666666664" height="248.12224279024076" fill="#10b981" rx="3" />
+<text x="681.9583333333334" y="163.87775720975924" text-anchor="middle" font-size="11" font-weight="bold" fill="#065f46">48.2%</text>
+<text x="657.5" y="444" text-anchor="middle" font-size="12" font-weight="600" fill="#334155">E4: Margin Loss</text>
+<rect x="738.9166666666667" y="142.2700181626567" width="44.916666666666664" height="277.7299818373433" fill="#3b82f6" rx="3" />
+<text x="761.3750000000001" y="134.2700181626567" text-anchor="middle" font-size="11" font-weight="bold" fill="#1e40af">54.0%</text>
+<rect x="787.8333333333334" y="174.10175233905784" width="44.916666666666664" height="245.89824766094216" fill="#10b981" rx="3" />
+<text x="810.2916666666667" y="166.10175233905784" text-anchor="middle" font-size="11" font-weight="bold" fill="#065f46">47.8%</text>
+<text x="785.8333333333334" y="444" text-anchor="middle" font-size="12" font-weight="600" fill="#334155">E5: Full PR-STGT</text>
+</svg>

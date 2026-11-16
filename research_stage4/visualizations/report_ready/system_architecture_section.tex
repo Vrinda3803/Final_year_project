@@ -1,0 +1,19 @@
+% Add this subsection in Chapter 3, within Methodology, after the Overview of the Approach.
+\subsection{System Architecture}
+
+Figure~\ref{fig:system-architecture} summarizes the system used for the ten-class MMASD activity-recognition experiments. The pipeline takes preprocessed two-dimensional OpenPose skeleton sequences as input. Each recording contains 64 frames, 25 BODY\_25 joints, four joint-feature channels (coordinates and motion), and a separate confidence value for each joint. The model predicts one of the ten physical therapy activity labels.
+
+The data are evaluated using five folds grouped by the available recording-cohort identifiers. Within each fold, data normalization and the velocity-based reliability priors are fitted using the fitting partition only. Validation data guide early stopping and temperature calibration, while the held-out test cohorts are reserved for evaluation. The cohort identifiers are used as recording groups; the available metadata do not verify that they correspond to individual participants.
+
+The model first projects each joint's four input features into a 64-dimensional representation. A reliability estimator combines OpenPose confidence with a velocity-plausibility prior to estimate the reliability of each joint at each frame. Two spatial graph-attention layers then process the sequence. Each layer combines attention over the BODY\_25 anatomical connections with learned, time-varying links between the default bilateral pairs: wrists and ankles. The learned edge values are smoothed over time, and joint reliability informs the bilateral message passing. The full RCDB-STGT configuration (A2) also uses reliability to scale those bilateral messages. In the highest-scoring configuration (A7), reliability is provided to the edge-learning network as an input.
+
+After spatial processing, the model pools joint features using their reliability values. Two temporal self-attention layers process the resulting sequence of 64 frame vectors. The implementation does not add a separate frame-position embedding; motion channels and temporal smoothing of bilateral edge values provide temporal information in the input and spatial graph pathway. This is a relevant limitation when interpreting how explicitly the model represents frame order. Temporal mean pooling then produces a sequence-level representation, which a linear classifier maps to ten activity scores. A temperature fitted on validation data is used to calibrate the probabilities before held-out evaluation.
+
+The system is a research model for physical therapy activity recognition on the available MMASD skeleton data. Its output labels are not autism diagnoses, measures of social behaviour, or clinical assessments.
+
+\begin{figure}[htbp]
+    \centering
+    \includegraphics[width=0.80\textwidth]{images/system_architecture_mmasd.png}
+    \caption{System architecture for ten-class activity recognition using preprocessed MMASD OpenPose skeleton sequences. The diagram shows the cohort-grouped evaluation workflow and the principal processing blocks. A2 is the full RCDB-STGT configuration; A7 is the highest-scoring tested configuration, with joint reliability supplied to the bilateral edge learner.}
+    \label{fig:system-architecture}
+\end{figure}

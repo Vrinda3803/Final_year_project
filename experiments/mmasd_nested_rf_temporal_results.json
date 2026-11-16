@@ -1,0 +1,145 @@
+{
+  "dataset": "MMASD 11-class activity recognition",
+  "method": "Nested GroupKFold feature/RandomForest selection",
+  "evaluation": "5 outer subject GroupKFold; 3 inner subject GroupKFold",
+  "n_sessions": 1693,
+  "n_subjects": 32,
+  "feature_dimensions": {
+    "pooled": 320,
+    "time4": 448
+  },
+  "seed": 42,
+  "outer_oof_macro_f1": 0.7688424104431764,
+  "outer_oof_accuracy": 0.8098050797401063,
+  "outer_fold_macro_f1_mean": 0.7503109844141982,
+  "outer_fold_macro_f1_std": 0.05293258821050312,
+  "per_class": {
+    "0": {
+      "f1": 0.7669902912621359,
+      "support": 105
+    },
+    "1": {
+      "f1": 0.7510204081632653,
+      "support": 119
+    },
+    "2": {
+      "f1": 0.7304347826086957,
+      "support": 114
+    },
+    "3": {
+      "f1": 0.906832298136646,
+      "support": 545
+    },
+    "4": {
+      "f1": 0.944954128440367,
+      "support": 113
+    },
+    "5": {
+      "f1": 0.5583756345177665,
+      "support": 103
+    },
+    "6": {
+      "f1": 0.6692015209125475,
+      "support": 130
+    },
+    "7": {
+      "f1": 0.7837837837837838,
+      "support": 113
+    },
+    "8": {
+      "f1": 0.5810055865921788,
+      "support": 102
+    },
+    "9": {
+      "f1": 0.8253968253968254,
+      "support": 129
+    },
+    "10": {
+      "f1": 0.9392712550607287,
+      "support": 120
+    }
+  },
+  "folds": [
+    {
+      "fold": 1,
+      "test_macro_f1": 0.6942896449087473,
+      "test_accuracy": 0.781437125748503,
+      "selected_feature_mode": "pooled",
+      "selected_params": {
+        "n_estimators": 500,
+        "max_features": "sqrt",
+        "max_depth": null,
+        "min_samples_leaf": 1,
+        "class_weight": "balanced"
+      },
+      "inner_selection_macro_f1": 0.7088643055984202,
+      "n_test": 334,
+      "test_subjects": 6
+    },
+    {
+      "fold": 2,
+      "test_macro_f1": 0.7223119390280817,
+      "test_accuracy": 0.8078078078078078,
+      "selected_feature_mode": "pooled",
+      "selected_params": {
+        "n_estimators": 500,
+        "max_features": "sqrt",
+        "max_depth": null,
+        "min_samples_leaf": 1,
+        "class_weight": "balanced"
+      },
+      "inner_selection_macro_f1": 0.7221885256447765,
+      "n_test": 333,
+      "test_subjects": 6
+    },
+    {
+      "fold": 3,
+      "test_macro_f1": 0.8241830647409768,
+      "test_accuracy": 0.8603988603988604,
+      "selected_feature_mode": "pooled",
+      "selected_params": {
+        "n_estimators": 500,
+        "max_features": "sqrt",
+        "max_depth": null,
+        "min_samples_leaf": 1,
+        "class_weight": "balanced"
+      },
+      "inner_selection_macro_f1": 0.671913161796429,
+      "n_test": 351,
+      "test_subjects": 7
+    },
+    {
+      "fold": 4,
+      "test_macro_f1": 0.8032306127430211,
+      "test_accuracy": 0.8401162790697675,
+      "selected_feature_mode": "time4",
+      "selected_params": {
+        "n_estimators": 400,
+        "max_features": "sqrt",
+        "max_depth": 24,
+        "min_samples_leaf": 1,
+        "class_weight": "balanced"
+      },
+      "inner_selection_macro_f1": 0.6461773960613525,
+      "n_test": 344,
+      "test_subjects": 7
+    },
+    {
+      "fold": 5,
+      "test_macro_f1": 0.7075396606501635,
+      "test_accuracy": 0.7552870090634441,
+      "selected_feature_mode": "pooled",
+      "selected_params": {
+        "n_estimators": 400,
+        "max_features": 0.5,
+        "max_depth": null,
+        "min_samples_leaf": 1,
+        "class_weight": "balanced"
+      },
+      "inner_selection_macro_f1": 0.7297645053263412,
+      "n_test": 331,
+      "test_subjects": 6
+    }
+  ],
+  "elapsed_seconds": 422.49
+}

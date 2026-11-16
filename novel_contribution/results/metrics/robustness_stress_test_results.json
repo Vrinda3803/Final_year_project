@@ -1,0 +1,76 @@
+{
+  "baseline_stgt": [
+    {
+      "missingness_level": 0.0,
+      "mean_accuracy": 0.37858373828802333,
+      "std_accuracy": 0.10813579284153566,
+      "mean_macro_f1": 0.2911188592330225,
+      "std_macro_f1": 0.07905958128751332
+    },
+    {
+      "missingness_level": 0.1,
+      "mean_accuracy": 0.3770608909161726,
+      "std_accuracy": 0.09931884030337966,
+      "mean_macro_f1": 0.2688748642733948,
+      "std_macro_f1": 0.06710845311364151
+    },
+    {
+      "missingness_level": 0.2,
+      "mean_accuracy": 0.34356961441971645,
+      "std_accuracy": 0.09793442131845603,
+      "mean_macro_f1": 0.2270448444782763,
+      "std_macro_f1": 0.08167382863113211
+    },
+    {
+      "missingness_level": 0.3,
+      "mean_accuracy": 0.29927330649666234,
+      "std_accuracy": 0.10025490215086189,
+      "mean_macro_f1": 0.17513747193674406,
+      "std_macro_f1": 0.08411526078766353
+    },
+    {
+      "missingness_level": 0.4,
+      "mean_accuracy": 0.23983568114567957,
+      "std_accuracy": 0.10220843634569979,
+      "mean_macro_f1": 0.1268604449922796,
+      "std_macro_f1": 0.05966038339032316
+    }
+  ],
+  "full": [
+    {
+      "missingness_level": 0.0,
+      "mean_accuracy": 0.4646508849283924,
+      "std_accuracy": 0.07844013330182867,
+      "mean_macro_f1": 0.41369112086574944,
+      "std_macro_f1": 0.1327571265099536
+    },
+    {
+      "missingness_level": 0.1,
+      "mean_accuracy": 0.4726758285518292,
+      "std_accuracy": 0.07544240578262078,
+      "mean_macro_f1": 0.4269745806763659,
+      "std_macro_f1": 0.13182551686128746
+    },
+    {
+      "missingness_level": 0.2,
+      "mean_accuracy": 0.46381918383331033,
+      "std_accuracy": 0.0754183573726663,
+      "mean_macro_f1": 0.4099116355229441,
+      "std_macro_f1": 0.11784324071701503
+    },
+    {
+      "missingness_level": 0.3,
+      "mean_accuracy": 0.43067871832963656,
+      "std_accuracy": 0.08015361106771779,
+      "mean_macro_f1": 0.36995698524269505,
+      "std_macro_f1": 0.09306438923332938
+    },
+    {
+      "missingness_level": 0.4,
+      "mean_accuracy": 0.41298180570947796,
+      "std_accuracy": 0.09250703132585686,
+      "mean_macro_f1": 0.3454131008594895,
+      "std_macro_f1": 0.09789705383719587
+    }
+  ]
+}

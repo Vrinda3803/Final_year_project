@@ -1,0 +1,16 @@
+dataset,task,class,precision,recall,f1,support,source
+MMASD,11-class activity recognition,arm_swing_as,0.932584,0.790476,0.855670,105,experiments/mmasd_advanced_90_results_2026_11_12.json
+MMASD,11-class activity recognition,body_swing_bs,0.783333,0.789916,0.786611,119,experiments/mmasd_advanced_90_results_2026_11_12.json
+MMASD,11-class activity recognition,chest_expansion_ce,0.776923,0.885965,0.827869,114,experiments/mmasd_advanced_90_results_2026_11_12.json
+MMASD,11-class activity recognition,drumming_dr,0.837539,0.974312,0.900763,545,experiments/mmasd_advanced_90_results_2026_11_12.json
+MMASD,11-class activity recognition,frog_pose_fg,0.925926,0.884956,0.904977,113,experiments/mmasd_advanced_90_results_2026_11_12.json
+MMASD,11-class activity recognition,maracas_forward_shaking_mfs,0.679012,0.533981,0.597826,103,experiments/mmasd_advanced_90_results_2026_11_12.json
+MMASD,11-class activity recognition,maracas_shaking_ms,0.720588,0.753846,0.736842,130,experiments/mmasd_advanced_90_results_2026_11_12.json
+MMASD,11-class activity recognition,sing_and_clap_sac,0.901235,0.646018,0.752577,113,experiments/mmasd_advanced_90_results_2026_11_12.json
+MMASD,11-class activity recognition,squat_sq,0.712121,0.460784,0.559524,102,experiments/mmasd_advanced_90_results_2026_11_12.json
+MMASD,11-class activity recognition,tree_pose_tr,0.853659,0.813953,0.833333,129,experiments/mmasd_advanced_90_results_2026_11_12.json
+MMASD,11-class activity recognition,twist_pose_tw,0.928000,0.966667,0.946939,120,experiments/mmasd_advanced_90_results_2026_11_12.json
+AV-ASD,3-class segment recognition,Aggressive Behavior,0.592040,0.577670,0.584767,206,experiments/avasd_3class_hyper_results_2026_11_12.json
+AV-ASD,3-class segment recognition,Hyper- or Hyporeactivity to Sensory Input,0.200000,0.145455,0.168421,55,experiments/avasd_3class_hyper_results_2026_11_12.json
+AV-ASD,3-class segment recognition,Upper Limb Stereotypies,0.845833,0.870000,0.857746,700,experiments/avasd_3class_hyper_results_2026_11_12.json
+ASBD/SSBD,3-class motor behaviour,All classes,,,,,No standalone source result artifact

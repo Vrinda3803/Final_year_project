@@ -1,0 +1,133 @@
+{
+  "dataset": "MMASD 11-class activity recognition",
+  "pipeline": "Advanced Multi-bank + Prototype + SelectKBest + RF+ET+XGB Ensemble",
+  "date": "2026-11-12",
+  "evaluation": "Strict 5-fold GroupKFold by subject_id",
+  "n_sessions": 1693,
+  "n_subjects": 32,
+  "n_classes": 11,
+  "feature_dimension": 1754,
+  "feature_banks": [
+    "multi_bank_temporal",
+    "rich_features_506",
+    "prototype_distance_11"
+  ],
+  "top_k_features_selected": 800,
+  "models": {
+    "RF_800trees": "RandomForest(n_estimators=800, balanced)",
+    "ET_800trees": "ExtraTrees(n_estimators=800, balanced)",
+    "XGB_500trees": "XGBClassifier(n_estimators=500, lr=0.05, depth=6)"
+  },
+  "ensemble_weights": {
+    "rf": 0.4,
+    "et": 0.35,
+    "xgb": 0.25
+  },
+  "fold_results": [
+    {
+      "fold": 1,
+      "accuracy": 0.7964071856287425,
+      "macro_f1": 0.7510157557315562,
+      "n_test": 334
+    },
+    {
+      "fold": 2,
+      "accuracy": 0.8018018018018018,
+      "macro_f1": 0.7242481076967887,
+      "n_test": 333
+    },
+    {
+      "fold": 3,
+      "accuracy": 0.886039886039886,
+      "macro_f1": 0.8531231984205795,
+      "n_test": 351
+    },
+    {
+      "fold": 4,
+      "accuracy": 0.8575581395348837,
+      "macro_f1": 0.8176798279947842,
+      "n_test": 344
+    },
+    {
+      "fold": 5,
+      "accuracy": 0.797583081570997,
+      "macro_f1": 0.7523354998729519,
+      "n_test": 331
+    }
+  ],
+  "overall": {
+    "accuracy": 0.828706438275251,
+    "macro_f1": 0.7911756362483436,
+    "accuracy_pct": 82.8706438275251,
+    "target_90_achieved": false
+  },
+  "per_class": {
+    "0": {
+      "precision": 0.9325842696629213,
+      "recall": 0.7904761904761904,
+      "f1": 0.8556701030927835,
+      "support": 105
+    },
+    "1": {
+      "precision": 0.7833333333333333,
+      "recall": 0.7899159663865546,
+      "f1": 0.7866108786610879,
+      "support": 119
+    },
+    "2": {
+      "precision": 0.7769230769230769,
+      "recall": 0.8859649122807017,
+      "f1": 0.8278688524590164,
+      "support": 114
+    },
+    "3": {
+      "precision": 0.8375394321766562,
+      "recall": 0.9743119266055046,
+      "f1": 0.9007633587786259,
+      "support": 545
+    },
+    "4": {
+      "precision": 0.9259259259259259,
+      "recall": 0.8849557522123894,
+      "f1": 0.9049773755656109,
+      "support": 113
+    },
+    "5": {
+      "precision": 0.6790123456790124,
+      "recall": 0.5339805825242718,
+      "f1": 0.5978260869565217,
+      "support": 103
+    },
+    "6": {
+      "precision": 0.7205882352941176,
+      "recall": 0.7538461538461538,
+      "f1": 0.7368421052631579,
+      "support": 130
+    },
+    "7": {
+      "precision": 0.9012345679012346,
+      "recall": 0.6460176991150443,
+      "f1": 0.7525773195876289,
+      "support": 113
+    },
+    "8": {
+      "precision": 0.7121212121212122,
+      "recall": 0.46078431372549017,
+      "f1": 0.5595238095238095,
+      "support": 102
+    },
+    "9": {
+      "precision": 0.8536585365853658,
+      "recall": 0.813953488372093,
+      "f1": 0.8333333333333334,
+      "support": 129
+    },
+    "10": {
+      "precision": 0.928,
+      "recall": 0.9666666666666667,
+      "f1": 0.9469387755102041,
+      "support": 120
+    }
+  },
+  "disclaimer": "FOR CLINICAL DECISION-SUPPORT RESEARCH PURPOSES ONLY."
+}

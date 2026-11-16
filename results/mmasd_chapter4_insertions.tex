@@ -1,0 +1,373 @@
+% MMASD-only insertions for the S7 report.
+% This is a separate copy/paste file; the main report and other sections are unchanged.
+% Paste each block at the locations listed in the accompanying insertion guide.
+% Tables use standard LaTeX commands and should work with the supplied report preamble.
+% The small wrapper below is for previewing this insertion file on its own.
+% When transferring text, copy only the blocks identified by their location comments.
+\documentclass[a4paper,12pt]{report}
+\usepackage[margin=0.8in]{geometry}
+\usepackage{amsmath}
+\usepackage{graphicx}
+\usepackage{array}
+\usepackage{setspace}
+\onehalfspacing
+\begin{document}
+
+% -----------------------------------------------------------------------------
+% INSERT IN CHAPTER 4, SECTION 4.2 DATASETS.
+% Replace only the existing paragraph(s) under "Multimodal Dataset for Autism
+% Intervention Analysis (MMASD)". Leave the SSBD, ASBD, and AV-ASD text intact.
+% -----------------------------------------------------------------------------
+\subsection*{Multimodal Dataset for Autism Intervention Analysis (MMASD)}
+
+MMASD was used to study recognition of structured activities from three-dimensional skeletal movement. The processed feature set contains 1,693 sessions from 32 stored subject groups and eleven activity labels: arm swing, body swing, chest expansion, drumming, frog pose, maracas forward shaking, maracas shaking, sing and clap, squat, tree pose, and twist pose. The source recordings provide ROMP skeletal coordinates for 71 joints. For the experiments reported here, the joint sequences were represented as eight body-group feature sequences, with eight kinematic values per group and temporal step. The available project cache includes both these sequences and a separate 506-dimensional rich-feature matrix.
+
+The activity labels describe the recorded intervention activities. They are not direct measures of autism severity or social communication. Accordingly, the experiments are interpreted as structured activity recognition and do not establish diagnostic performance. Evaluation used five-fold GroupKFold with the stored subject identifier as the grouping variable. This prevents the same stored group from appearing in both training and test folds; the correspondence between these identifiers and independently verified participant identities should be confirmed before making a broader participant-generalization claim.
+
+The class distribution is uneven. Drumming contributes 545 of the 1,693 sessions, while the other classes have between 102 and 130 sessions each. Accuracy is therefore reported alongside macro-F1 and class-wise F1. Macro-F1 gives each activity equal weight and makes performance on the smaller classes visible.
+
+% -----------------------------------------------------------------------------
+% ALSO IN CHAPTER 4, SECTION 4.2 DATASETS: REPLACE THE EXISTING TABLE 4.3
+% (TRAIN / VALIDATION / TEST = 1153 / 332 / 208) AND ITS IMMEDIATE CAVEAT WITH
+% THIS TABLE IF THE SECTION IS DESCRIBING THE CURRENT FIVE-FOLD RESULTS.
+% The old split may be retained under Scenario 4 only if it is clearly labelled
+% as the historical split for the earlier graph-temporal experiment.
+% -----------------------------------------------------------------------------
+\subsubsection*{Current Subject-Grouped Evaluation Partitions}
+
+The later MMASD experiments use five-fold GroupKFold rather than one fixed training, validation, and testing partition. In each fold, one set of stored subject groups is held out for evaluation, and the remaining groups are used for training. The fold sizes are shown in Table~\ref{tab:mmasd_cv_partitions}. Across the five folds, each of the 1,693 sessions receives one held-out prediction. The train and test counts should not be summed down the columns because the training partitions overlap across folds.
+
+\begin{table}[htbp]
+\centering
+\small
+\caption{MMASD five-fold subject-grouped evaluation partitions}
+\label{tab:mmasd_cv_partitions}
+\begin{tabular}{|c|r|r|r|r|}
+\hline
+\textbf{Fold} & \textbf{Training sessions} & \textbf{Training groups} & \textbf{Test sessions} & \textbf{Test groups} \\
+\hline
+1 & 1359 & 26 & 334 & 6 \\
+2 & 1360 & 26 & 333 & 6 \\
+3 & 1342 & 25 & 351 & 7 \\
+4 & 1349 & 25 & 344 & 7 \\
+5 & 1362 & 26 & 331 & 6 \\
+\hline
+\end{tabular}
+\end{table}
+
+The stored group identifiers were used to keep a group out of its corresponding test fold during each run. The existing project records do not independently confirm that every identifier maps to a unique participant. The result should therefore be described as group-held-out evaluation using the available identifiers, with participant-level generalization conditional on validating that mapping. GroupKFold is group-aware but not stratified.
+
+% -----------------------------------------------------------------------------
+% INSERT IN CHAPTER 4, SECTION 4.4.1 EXPERIMENTAL SCENARIOS.
+% Add this as Scenario 5 after the existing MMASD graph-temporal scenario.
+% Keep Scenario 4 as the description of the earlier graph-temporal model.
+% -----------------------------------------------------------------------------
+\subsubsection*{Scenario 5: MMASD Feature and Ensemble Evaluation}
+
+The fifth scenario extended the MMASD investigation beyond the earlier graph-temporal experiment. It compared pooled kinematic summaries, coarse temporal-bin features, individual tree-based classifiers, a weighted ensemble, and an expanded multi-bank representation. This sequence of experiments was designed to answer two practical questions: whether retaining coarse movement phases improves a conventional baseline, and whether combining complementary kinematic summaries with several model families improves recognition across the eleven activity classes. All reported new comparisons use the saved subject-grouped five-fold evaluation artifacts; the earlier fixed-split graph-temporal result is retained as historical context and is not treated as a directly matched comparison.
+
+The project also contains implementation scripts for additional MEAT-GNN, high-performance ensemble, and meta-stacking experiments. No corresponding result artifacts were located for these scripts, so they are not assigned performance scores here. A later attempt to run the meta-stacking script stopped before training because the available Python environments lacked required packages. These implementations remain candidates for a future reproducible run, not completed measured results.
+
+% -----------------------------------------------------------------------------
+% INSERT IN CHAPTER 4, SECTION 4.4.2 PARAMETER TUNING.
+% Replace the existing MMASD parameter-tuning text with this version. It keeps
+% the earlier GNN settings but clearly separates them from later ML pipelines.
+% -----------------------------------------------------------------------------
+
+The MMASD experiments were carried out in stages, and the parameter settings differ between the earlier graph-temporal model and the later feature-based classifiers. In the earlier graph-temporal experiment, each recording was represented using eight sampled temporal positions, up to seven detected people, and 71 skeletal joints per person. Two spatial graph layers produced 64-dimensional representations, which were passed to a GRU with a hidden dimension of 128. The dynamic graph used four neighbours. The model was trained with AdamW at a learning rate of $10^{-3}$ and weight decay of $10^{-4}$ for up to 35 epochs. Training stopped early if validation macro-F1 did not improve for seven epochs, and a weighted classification loss was used to account for class imbalance. These settings describe the earlier GNN experiment only; they were not used by the Random Forest, ExtraTrees, or XGBoost pipelines.
+
+For the nested Random Forest baseline, candidate settings for the number of trees, the number of features considered at each split, and maximum tree depth were compared using three-fold GroupKFold on the outer training subjects. The best setting from this inner comparison was then evaluated on the held-out subjects in each of five outer folds. A second nested experiment compared pooled temporal summaries with four-bin summaries, selecting the feature representation and Random Forest settings using only the outer training groups. Both nested experiments used a fixed random seed of 42.
+
+The later ensemble experiments expanded the kinematic representation and compared three tree-based classifiers. The earlier ensemble combined pooled temporal, four-bin temporal, and rich kinematic features in a 1,274-dimensional vector. The advanced pipeline replaced the first two banks with 1,248 multi-bank temporal features covering global statistics, velocity and acceleration, Fourier magnitudes, cross-limb symmetry, and selected temporal summaries. These were combined with 506 rich features, giving 1,754 features before selection. For each outer fold, RobustScaler and ANOVA SelectKBest were fitted using only the training data. The 800 highest-ranked features were retained, and 11 prototype-distance features were calculated from class centroids learned on the training fold. Random Forest and ExtraTrees each used 800 trees; XGBoost used 500 trees, a learning rate of 0.05, and a maximum depth of six. Their probabilities were combined using fixed weights of 0.40, 0.35, and 0.25. The advanced model's class weights were also calculated from the training fold.
+
+The 1,274-feature ensemble is useful as an exploratory comparison, but its saved script calculated class weights before the folds were formed and selected the blend weights using the complete set of out-of-fold predictions. This means held-out labels influenced those choices. Its scores should be treated as preliminary until both choices are repeated inside the training folds. The advanced pipeline uses fixed blend weights and fits scaling, feature selection, prototype centroids, and class weights within each outer training fold.
+
+These configurations were selected as a focused progression from the earlier experiments, not as the result of an exhaustive parameter search. The saved MMASD results use one fixed seed and do not include repeated-seed variation or confidence intervals.
+
+Table~\ref{tab:mmasd_best_parameters} records the settings used by the strongest completed MMASD pipeline. It is a record of the saved configuration, not a claim that every parameter was independently optimized. The 1,754-dimensional representation is reduced to 800 selected features, then augmented with 11 prototype distances, giving 811 model-input features.
+
+\begin{table}[htbp]
+\centering
+\small
+\setlength{\tabcolsep}{6pt}
+\renewcommand{\arraystretch}{1.15}
+\caption{Saved configuration of the strongest completed MMASD pipeline}
+\label{tab:mmasd_best_parameters}
+\begin{tabular}{p{3.4cm}p{11.5cm}}
+\hline
+\textbf{Component} & \textbf{Recorded setting} \\
+\hline
+Feature input & 1,248 multi-bank temporal features plus 506 rich features (1,754 before selection) \\
+Scaling and selection & RobustScaler followed by ANOVA SelectKBest; top 800 features selected within each outer training fold \\
+Prototype features & 11 distances to class centroids calculated from the outer training fold; 811 features enter each classifier \\
+Random Forest & 800 trees; \texttt{max\_features=sqrt}; unlimited depth; minimum leaf size 1; balanced class weighting \\
+ExtraTrees & 800 trees; \texttt{max\_features=sqrt}; unlimited depth; minimum leaf size 1; balanced class weighting \\
+XGBoost & 500 trees; depth 6; learning rate 0.05; subsample 0.85; column sample 0.85; minimum child weight 1; $L_1$ penalty 0.1; $L_2$ penalty 1.0; histogram tree method \\
+Ensemble & Fixed probability weights: Random Forest 0.40, ExtraTrees 0.35, XGBoost 0.25 \\
+Evaluation & Five-fold GroupKFold using the stored subject identifier; seed 42; scaling, feature selection, prototypes, and class weights fitted within each outer training fold \\
+\hline
+\end{tabular}
+\end{table}
+
+The nested Random Forest results use fold-specific settings selected by three-fold GroupKFold within each outer training set. Table~\ref{tab:mmasd_nested_parameters} lists the settings and feature mode selected for each outer fold in the pooled-versus-four-bin experiment. This table documents the actual fold-wise selections; it should not be read as one globally selected configuration.
+
+\begin{table}[htbp]
+\centering
+\small
+\caption{Fold-specific selections in the nested MMASD temporal-feature experiment}
+\label{tab:mmasd_nested_parameters}
+\begin{tabular}{crrrr}
+\hline
+\textbf{Fold} & \textbf{Feature mode} & \textbf{Trees} & \textbf{Max features} & \textbf{Max depth} \\
+\hline
+1 & Pooled & 500 & $\sqrt{p}$ & Unlimited \\
+2 & Pooled & 500 & $\sqrt{p}$ & Unlimited \\
+3 & Pooled & 500 & $\sqrt{p}$ & Unlimited \\
+4 & Four-bin & 400 & $\sqrt{p}$ & 24 \\
+5 & Pooled & 400 & 0.5 & Unlimited \\
+\hline
+\end{tabular}
+\end{table}
+
+% -----------------------------------------------------------------------------
+% INSERT IN CHAPTER 4, SECTION 4.5 RESULTS.
+% Replace the existing "MMASD Results" model comparison table and its immediate
+% result paragraph. Keep the earlier SSBD and AV-ASD result sections unchanged.
+% -----------------------------------------------------------------------------
+\subsection*{MMASD Results}
+
+Table~\ref{tab:mmasd_progression} summarizes the completed MMASD experiments. The strongest saved result is the advanced multi-bank ensemble, with 82.87\% out-of-fold accuracy and 0.7912 macro-F1. The five outer-fold accuracies ranged from 79.64\% to 88.60\%; the highest fold is not used as the headline result. The 82.87\% figure is the aggregate out-of-fold accuracy across all sessions.
+
+\begin{table}[htbp]
+\centering
+\small
+\setlength{\tabcolsep}{8pt}
+\renewcommand{\arraystretch}{1.15}
+\caption{MMASD results for completed model comparisons}
+\label{tab:mmasd_progression}
+\begin{tabular}{p{8.3cm}rr}
+\hline
+\textbf{Experiment} & \textbf{Accuracy (\%)} & \textbf{Macro-F1} \\
+\hline
+Historical temporal GNN (earlier fixed split) & 76.44 & 0.7530 \\
+Nested Random Forest (pooled features) & 81.10 & 0.7716 \\
+Nested Random Forest (pooled / four-bin selection) & 80.98 & 0.7688 \\
+Random Forest & 81.75 & 0.7800 \\
+ExtraTrees & 78.32 & 0.7343 \\
+XGBoost & 80.74 & 0.7694 \\
+Weighted RF + ET + XGBoost (exploratory) & 82.04 & 0.7812 \\
+\textbf{Advanced multi-bank ensemble} & \textbf{82.87} & \textbf{0.7912} \\
+\hline
+\end{tabular}
+\end{table}
+
+The historical temporal GNN result is included to preserve the earlier report record, but its fixed split is not equivalent to the later five-fold subject-grouped evaluations. It should not be used to claim a controlled improvement over the newer models. In addition, the saved 82.04\% ensemble script computes class-frequency weights using the full label vector before fold training and searches ensemble weights over the complete out-of-fold predictions. These choices use information from held-out labels for model selection, so the 82.04\% result should be treated as exploratory until both steps are repeated within nested training folds. The advanced 82.87\% pipeline computes class weights, feature selection, and prototype centroids from each outer training fold; its ensemble weights are fixed in the saved script.
+
+The nested experiments provide a useful model-selection baseline. The pooled-feature Random Forest achieved 81.10\% accuracy and 0.7716 macro-F1. Selecting between pooled and four-bin representations produced 80.98\% and 0.7688, respectively. Thus, the tested four-bin representation did not improve the nested result. The advanced ensemble achieved a further 0.83 percentage-point increase in accuracy and an approximately 0.010 increase in macro-F1 over the earlier 82.04\% ensemble, although this is a pipeline-level comparison and not a one-factor ablation.
+
+% -----------------------------------------------------------------------------
+% INSERT IN CHAPTER 4, SECTION 4.5 RESULTS, IMMEDIATELY AFTER THE MODEL TABLE.
+% -----------------------------------------------------------------------------
+\subsubsection*{Fold-Level Performance}
+
+Table~\ref{tab:mmasd_folds} shows the fold-level results for the advanced pipeline. Variation across folds indicates that performance depends on which subject groups are held out. Reporting the aggregate score together with the fold values gives a more complete picture than reporting only the best fold.
+
+\begin{table}[htbp]
+\centering
+\small
+\caption{Advanced MMASD ensemble performance by outer fold}
+\label{tab:mmasd_folds}
+\begin{tabular}{crrr}
+\hline
+\textbf{Fold} & \textbf{Test sessions} & \textbf{Accuracy (\%)} & \textbf{Macro-F1} \\
+\hline
+1 & 334 & 79.64 & 0.7510 \\
+2 & 333 & 80.18 & 0.7242 \\
+3 & 351 & 88.60 & 0.8531 \\
+4 & 344 & 85.76 & 0.8177 \\
+5 & 331 & 79.76 & 0.7523 \\
+\textbf{Overall out-of-fold} & \textbf{1,693} & \textbf{82.87} & \textbf{0.7912} \\
+\hline
+\end{tabular}
+\end{table}
+
+% -----------------------------------------------------------------------------
+% INSERT IN CHAPTER 4, SECTION 4.5 RESULTS, AFTER THE FOLD-LEVEL TABLE.
+% -----------------------------------------------------------------------------
+\subsubsection*{Class-Wise MMASD Performance}
+
+Class-wise results in Table~\ref{tab:mmasd_classes} show that performance is not uniform across activities. Twist pose, frog pose, and drumming have the highest F1-scores, while squat and maracas forward shaking remain difficult. Drumming has the largest support (545 sessions), so its high recall contributes substantially to overall accuracy. The lower F1-scores for the smaller classes reinforce the need to interpret accuracy alongside macro-F1.
+
+\begin{table}[htbp]
+\centering
+\scriptsize
+\caption{Class-wise precision, recall, and F1 for the advanced MMASD ensemble}
+\label{tab:mmasd_classes}
+\begin{tabular}{p{4.8cm}rrrr}
+\hline
+\textbf{Activity} & \textbf{Precision} & \textbf{Recall} & \textbf{F1} & \textbf{Support} \\
+\hline
+Arm swing & 0.933 & 0.790 & 0.856 & 105 \\
+Body swing & 0.783 & 0.790 & 0.787 & 119 \\
+Chest expansion & 0.777 & 0.886 & 0.828 & 114 \\
+Drumming & 0.838 & 0.974 & 0.901 & 545 \\
+Frog pose & 0.926 & 0.885 & 0.905 & 113 \\
+Maracas forward shaking & 0.679 & 0.534 & 0.598 & 103 \\
+Maracas shaking & 0.721 & 0.754 & 0.737 & 130 \\
+Sing and clap & 0.901 & 0.646 & 0.753 & 113 \\
+Squat & 0.712 & 0.461 & 0.560 & 102 \\
+Tree pose & 0.854 & 0.814 & 0.833 & 129 \\
+Twist pose & 0.928 & 0.967 & 0.947 & 120 \\
+\hline
+\end{tabular}
+\end{table}
+
+% -----------------------------------------------------------------------------
+% INSERT IN CHAPTER 4, SECTION 4.5 RESULTS, AFTER THE CLASS-WISE TABLE.
+% -----------------------------------------------------------------------------
+\subsubsection*{Feature and Model Ablation Status}
+
+The completed MMASD experiments compare several feature representations and classifiers, but they do not yet form a controlled ablation study. In a formal ablation, one component is removed at a time while the data folds, preprocessing, training procedure, and remaining model settings are held constant. The saved results do not isolate the separate contribution of the rich-feature bank, Fourier features, prototype distances, feature selection, or each ensemble member. Table~\ref{tab:mmasd_ablation_status} therefore describes the evidence as comparative rather than attributing the observed gains to individual components.
+
+\begin{table}[htbp]
+\centering
+\small
+\caption{MMASD component comparisons and ablation evidence}
+\label{tab:mmasd_ablation_status}
+\begin{tabular}{p{3.5cm}p{6.0cm}p{4.0cm}}
+\hline
+\textbf{Comparison} & \textbf{Reason for testing} & \textbf{What the saved results support} \\
+\hline
+Pooled vs four-bin temporal features & Test whether coarse phase-specific movement summaries retain useful order information & Nested temporal selection scored 80.98\% / 0.7688, slightly below the pooled RF at 81.10\% / 0.7716; no benefit was demonstrated \\
+RF vs ExtraTrees vs XGBoost & Compare bagged trees, randomized tree splits, and boosting as different ways to model nonlinear kinematic features & RF was strongest among the three saved single models; XGBoost was close; ExtraTrees was lower \\
+Single models vs weighted ensemble & Test whether averaging complementary model probabilities improves stability and class coverage & The saved ensemble reached 82.04\% / 0.7812; repeat with fold-local class weights before treating as leakage-free evidence \\
+Earlier ensemble vs advanced pipeline & Test an expanded temporal and kinematic representation with feature selection, prototype distances, and a three-model ensemble & Advanced pipeline reached 82.87\% / 0.7912; the combined pipeline improved, but the individual component effects are unknown \\
+Graph-temporal GNN vs classical baselines & Test learned spatial-temporal modeling against engineered kinematic summaries & Historical GNN scored 76.44\% / 0.7530 on an earlier split; split comparability is not established, so this is not a controlled architecture ablation \\
+\hline
+\end{tabular}
+\end{table}
+
+The feature and model comparisons were motivated by identifiable limitations in the earlier experiments. Pooled statistics provide a compact reference but can hide when a movement occurs. Four-bin features were tested to retain coarse temporal phase information; their result suggests that this particular partition did not help the selected Random Forest. Random Forest, ExtraTrees, and XGBoost were compared because they capture nonlinear patterns through different training mechanisms. Probability averaging was then tested to reduce dependence on one model family. Finally, the advanced representation added velocity and acceleration summaries for movement intensity, Fourier magnitudes for periodicity, symmetry measures for left-right differences, temporal segments for phase changes, and class-centroid distances for class-relative similarity. The resulting score is the outcome of this combined pipeline; it does not show which feature bank caused the improvement.
+
+For a formal ablation in a later run, use the same five outer subject folds and compare the full advanced pipeline with one change per run: remove rich features; remove Fourier features; remove symmetry features; remove temporal segments; remove prototype distances; omit SelectKBest; and evaluate RF, ExtraTrees, and XGBoost separately. Fit all scaling, feature selection, centroids, and class weights on the training portion of each fold only. Save out-of-fold predictions so all variants can be compared on identical sessions.
+
+% -----------------------------------------------------------------------------
+% INSERT IN CHAPTER 4, SECTION 4.5 RESULTS, UNDER THE EXISTING
+% "Explainability Results" heading. Replace only the existing MMASD text and
+% preserve the report's heading and all non-MMASD content.
+% -----------------------------------------------------------------------------
+The project includes Gradient-times-Input attribution summaries for the earlier MMASD temporal GNN. The saved figures show rankings of joint indices and relative attribution across eight sampled temporal positions. These outputs provide an exploratory view of which input dimensions influenced the model in that experiment. The joint-index schematic is an index inventory, not an anatomical map, and the current files do not verify that each detected person is tracked consistently across time. The temporal positions also should not be interpreted as seconds without confirming the sampling interval. Attribution indicates model sensitivity under the chosen method; it does not establish causality or clinical meaning. Accordingly, these figures should be presented as preliminary technical explainability outputs, not as validated explanations of autism-related behaviour.
+
+% Existing figure assets, if the report is compiled from a directory where these
+% files are available (rename/copy them into the report's images/ directory first):
+% Fig1_top15_joint_importance.png
+% Fig2_temporal_importance.png
+% Fig3_schematic_71_joint_index_map.png
+% Fig4_combined_explainability.png
+%
+% Optional visual for the existing Explainability Results subsection. Copy
+% Fig4_combined_explainability.png to images/mmasd_figures/ in the report project,
+% then uncomment and use this block. This figure describes the earlier temporal
+% GNN, not the advanced RF/ET/XGBoost ensemble.
+% \begin{figure}[htbp]
+% \centering
+% \includegraphics[width=0.92\textwidth]{mmasd_figures/Fig4_combined_explainability.png}
+% \caption{Joint-index and temporal attribution for the earlier MMASD temporal GNN. The attributions are exploratory and are not anatomical or clinical evidence.}
+% \label{fig:mmasd_gnn_explainability}
+% \end{figure}
+
+% -----------------------------------------------------------------------------
+% INSERT IN CHAPTER 4, SECTION 4.6 ANALYSIS OF RESULTS.
+% Add this as a new MMASD analysis subsection; do not replace analysis of other
+% datasets.
+% -----------------------------------------------------------------------------
+\subsection*{Analysis of MMASD Results}
+
+The MMASD experiments show that engineered kinematic representations can support strong recognition of the eleven recorded activities under subject-grouped cross-validation. The advanced ensemble achieved 82.87\% out-of-fold accuracy and 0.7912 macro-F1, improving modestly on the earlier saved ensemble. The gap between accuracy and macro-F1, together with the class-wise results, shows why the overall accuracy alone is not sufficient: common classes and classes with distinctive movement patterns are recognized more consistently than several less frequent or more confusable activities.
+
+The nested feature comparison did not show an advantage for the tested four-bin representation over pooled summaries. This does not rule out temporal modeling; it indicates only that the selected coarse bins and Random Forest configuration did not improve this evaluation. The advanced feature pipeline performs better as a combined system, but a controlled component-by-component ablation is needed before assigning the gain to any single feature family or model.
+
+The earlier graph-temporal result and the newer engineered-feature results address the same broad activity labels, but their saved protocols are not fully matched. They should be reported as separate stages of the investigation. The current evidence supports activity recognition on MMASD; because the labels describe intervention activities rather than autism diagnosis or validated social-behaviour outcomes, it does not demonstrate clinical autism assessment performance.
+
+% -----------------------------------------------------------------------------
+% INSERT IN CHAPTER 4, SECTION 4.7 OBSERVATIONS.
+% Add the following MMASD-specific bullets to the existing list; retain all
+% observations about SSBD, ASBD, and AV-ASD.
+% -----------------------------------------------------------------------------
+\begin{enumerate}
+\item \textbf{Subject-grouped evaluation changed the emphasis of the MMASD analysis.} The newest saved result is based on five folds grouped by the stored subject identifier and reports both accuracy and macro-F1. The reliability of any participant-level claim still depends on validating the stored identifiers.
+
+\item \textbf{Temporal detail did not automatically improve the baseline.} The tested four-bin Random Forest representation was close to, but slightly below, the pooled-feature nested baseline. Temporal features should therefore be retained only when matched evaluation shows a benefit.
+
+\item \textbf{Class-wise reporting revealed persistent errors.} Squat and maracas forward shaking have the lowest F1-scores in the advanced model, while drumming has the largest support. This pattern motivates per-class error analysis and balanced evaluation rather than optimization for accuracy alone.
+
+\item \textbf{The improved ensemble is not yet a formal ablation result.} The advanced representation changes multiple feature and model components at once. Its overall improvement is measurable, but the contribution of each component remains unknown until a controlled ablation is run.
+
+\item \textbf{MMASD explainability remains exploratory.} Joint-index and temporal-attribution figures can guide further inspection, but index anatomy, person tracking, attribution stability, and clinical relevance require verification.
+\end{enumerate}
+
+% -----------------------------------------------------------------------------
+% INSERT IN CHAPTER 4, SECTION 4.8 COMPARATIVE ANALYSIS.
+% In the existing overall comparison table, replace only the three old MMASD
+% rows with the rows below. Leave the SSBD and AV-ASD rows unchanged. Then add
+% the paragraph below the table.
+% The tabular wrapper here is for previewing this standalone file; when editing
+% the existing table, paste only the three MMASD rows and their \hline commands.
+% -----------------------------------------------------------------------------
+
+% Replacement MMASD rows for Table~\ref{tab:overall_comparison}:
+\begin{tabular}{|l|p{3.3cm}|c|c|}
+\hline
+\textbf{Dataset} & \textbf{Model} & \textbf{Accuracy} & \textbf{Macro-F1} \\
+\hline
+MMASD & Nested Random Forest (pooled) & 0.8110 & 0.7716 \\
+\hline
+MMASD & Nested temporal-feature RF & 0.8098 & 0.7688 \\
+\hline
+MMASD & Advanced multi-bank ensemble & 0.8287 & 0.7912 \\
+\hline
+\end{tabular}
+
+Within MMASD, these three rows summarize the completed subject-grouped five-fold experiments. The nested Random Forest results provide selection-aware references for pooled and four-bin temporal features, while the advanced multi-bank ensemble gives the strongest saved aggregate result. The earlier temporal GNN result (0.7644 accuracy and 0.7530 macro-F1) comes from a different fixed split and remains in the MMASD results subsection as historical context; it is not included among these directly comparable rows. These figures describe structured activity recognition and should not be ranked directly against SSBD or AV-ASD scores, which involve different tasks, labels, and evaluation conditions.
+
+% -----------------------------------------------------------------------------
+% OPTIONAL: replace only the MMASD sentence in the Abstract if the report's
+% abstract is being updated. Leave all other abstract sentences unchanged.
+% -----------------------------------------------------------------------------
+% The strongest completed MMASD activity-recognition experiment achieved
+% 82.87\% out-of-fold accuracy and a macro-F1 score of 0.7912 using a
+% multi-bank kinematic representation and a weighted tree-ensemble evaluated
+% with five-fold GroupKFold by stored subject identifier.
+
+% -----------------------------------------------------------------------------
+% OPTIONAL CONCLUSION UPDATE.
+% In the pasted Chapter 5 source, replace the MMASD passage beginning
+% "A more complete graph-temporal experiment was conducted using MMASD" and
+% ending immediately before "Explainability was also explored" with this text.
+% Replace the following MMASD Explainability paragraph as well, using the
+% separate block below. Keep all other Chapter 5 paragraphs unchanged.
+% -----------------------------------------------------------------------------
+The strongest completed MMASD result was obtained on the eleven-class structured activity-recognition task using the advanced multi-bank feature pipeline and a weighted Random Forest, ExtraTrees, and XGBoost ensemble. Under five-fold GroupKFold using the stored subject identifier, the model achieved 82.87\% out-of-fold accuracy and a macro-F1 score of 0.7912. The nested pooled-feature Random Forest reached 81.10\% accuracy and 0.7716 macro-F1, while the nested pooled-versus-four-bin feature experiment reached 80.98\% and 0.7688. These comparisons show that the advanced pipeline gave the strongest saved result, but they do not isolate the effect of any single feature or model component.
+
+The earlier temporal GNN achieved 76.44\% accuracy, 0.7530 macro-F1, and 0.7547 weighted-F1 on a separate fixed split. Because that split and protocol differ from the later five-fold evaluations, the values should be treated as a historical result rather than a directly comparable baseline. The stored subject identifiers should also be verified before making broader participant-generalization claims. MMASD labels describe structured intervention activities, not autism diagnosis or direct measures of social communication. The findings therefore support activity recognition on this dataset, not clinical autism assessment.
+
+% Replace the existing MMASD Explainability paragraph in Chapter 5 with:
+Explainability was explored for the earlier MMASD temporal GNN. Gradient-times-Input attribution was used to rank skeletal joint indices and the eight sampled temporal positions that influenced its predictions. These figures provide an initial view of model sensitivity, but they do not establish causal or clinical meaning. The attribution analysis has not been repeated for the advanced multi-bank ensemble, and the joint-index mapping and person tracking require further verification.
+
+% -----------------------------------------------------------------------------
+% OPTIONAL UPDATE IN CHAPTER 5, SUBSECTION
+% "Comparative Evaluation and Model Validation".
+% Replace only the paragraph beginning "The preliminary MMASD results showed"
+% with the following text; retain the future-work recommendations after it.
+% -----------------------------------------------------------------------------
+The saved MMASD experiments include subject-grouped five-fold evaluations of nested Random Forest baselines and an advanced multi-bank ensemble. The advanced ensemble produced the strongest saved result, at 82.87\% accuracy and 0.7912 macro-F1. The earlier temporal GNN result used a different fixed split, so it cannot establish a direct improvement over the newer models. The current comparisons also do not isolate the contribution of graph learning or individual feature banks. Future work should compare graph and non-graph temporal models on identical folds, fit all preprocessing and model-selection steps within training folds, and report repeated-seed and class-wise performance.
+
+% -----------------------------------------------------------------------------
+% OPTIONAL UPDATE IN CHAPTER 5, SUBSECTION "Enhancement of Explainability".
+% Replace only the sentence saying attribution was used in the MMASD experiments
+% with the following; keep the future directions that follow.
+% -----------------------------------------------------------------------------
+The earlier MMASD temporal GNN used Gradient-times-Input attribution to rank joint indices and sampled temporal positions; the advanced multi-bank ensemble has not yet been evaluated with this method. The available attributions are exploratory, since the joint-index convention and person tracking require verification and the scores do not establish causal or clinical meaning.
+
+\end{document}
+

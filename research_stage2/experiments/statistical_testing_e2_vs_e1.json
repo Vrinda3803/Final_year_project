@@ -1,0 +1,91 @@
+{
+  "e1_metrics": {
+    "mean_acc": 0.4646508849283924,
+    "std_acc": 0.07844013330182867,
+    "mean_f1": 0.41369112086574944,
+    "std_f1": 0.1327571265099536,
+    "fold_accs": [
+      0.4384057971014493,
+      0.322463768115942,
+      0.5054151624548736,
+      0.5236363636363637,
+      0.5333333333333333
+    ],
+    "fold_f1s": [
+      0.21270578248508148,
+      0.32664625514802814,
+      0.49784073409946317,
+      0.4372555487397527,
+      0.5940072838564218
+    ]
+  },
+  "e5_metrics": {
+    "mean_acc": 0.5762845532708977,
+    "std_acc": 0.09596614642844618,
+    "mean_f1": 0.4926425985316693,
+    "std_f1": 0.11130293501550832,
+    "fold_accs": [
+      0.6086956521739131,
+      0.6231884057971014,
+      0.6606498194945848,
+      0.6,
+      0.3888888888888889
+    ],
+    "fold_f1s": [
+      0.34635839521786227,
+      0.5939331747290885,
+      0.6289693857881982,
+      0.5083233971973391,
+      0.3856286397258585
+    ]
+  },
+  "statistical_tests": {
+    "macro_f1": {
+      "t_statistic": 1.0034714232893451,
+      "p_value_ttest": 0.37241318296606124,
+      "wilcoxon_statistic": 4.0,
+      "p_value_wilcoxon": 0.4375,
+      "cohens_d": 0.4487660631906883,
+      "is_significant_p05": false
+    },
+    "accuracy": {
+      "t_statistic": 1.5197261420687622,
+      "p_value_ttest": 0.2032090997101644,
+      "wilcoxon_statistic": 2.0,
+      "p_value_wilcoxon": 0.1875,
+      "is_significant_p05": false
+    }
+  },
+  "confusable_pair_resolution": {
+    "drumming_as_clapping": {
+      "e1_count": 138,
+      "e1_pct": 40.2332361516035,
+      "e5_count": 124,
+      "e5_pct": 36.15160349854227,
+      "absolute_reduction": 14,
+      "relative_reduction_pct": 10.144927536231885
+    },
+    "clapping_as_drumming": {
+      "e1_count": 17,
+      "e1_pct": 15.04424778761062,
+      "e5_count": 5,
+      "e5_pct": 4.424778761061947,
+      "absolute_reduction": 12
+    },
+    "maracas_shaking_as_forward": {
+      "e1_count": 54,
+      "e1_pct": 41.53846153846154,
+      "e5_count": 35,
+      "e5_pct": 26.923076923076923,
+      "absolute_reduction": 19,
+      "relative_reduction_pct": 35.18518518518518
+    },
+    "maracas_forward_as_shaking": {
+      "e1_count": 30,
+      "e1_pct": 29.7029702970297,
+      "e5_count": 31,
+      "e5_pct": 30.693069306930692,
+      "absolute_reduction": -1
+    }
+  }
+}

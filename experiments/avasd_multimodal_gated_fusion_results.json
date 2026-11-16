@@ -1,0 +1,38 @@
+{
+  "dataset": "AV-ASD 4-class Multimodal Evaluation",
+  "n_samples": 182,
+  "n_subjects": 116,
+  "evaluation": "Strict 5-fold GroupKFold by subject_id",
+  "gate_weights": {
+    "Aggressive Behavior": 0.7,
+    "Hyper- or Hyporeactivity to Sensory Input": 0.45,
+    "Self-Spinning or Spinning Objects": 0.2,
+    "Upper Limb Stereotypies": 0.3
+  },
+  "audio_only": {
+    "accuracy": 0.467,
+    "macro_f1": 0.4144
+  },
+  "gated_multimodal": {
+    "accuracy": 0.467,
+    "macro_f1": 0.4144
+  },
+  "per_class": {
+    "Aggressive Behavior": {
+      "f1": 0.5882,
+      "recall": 0.6731
+    },
+    "Hyper- or Hyporeactivity to Sensory Input": {
+      "f1": 0.463,
+      "recall": 0.463
+    },
+    "Self-Spinning or Spinning Objects": {
+      "f1": 0.1875,
+      "recall": 0.1429
+    },
+    "Upper Limb Stereotypies": {
+      "f1": 0.419,
+      "recall": 0.4
+    }
+  }
+}

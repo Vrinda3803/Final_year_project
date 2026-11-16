@@ -1,0 +1,153 @@
+{
+  "study": "MMASD confidence-weighted temporal descriptor ablation",
+  "status": "completed one-seed adapted local-release experiment",
+  "data": {
+    "clips": 1374,
+    "subjects": 32,
+    "classes": 10,
+    "archive_note": "Local archive count and class distribution differ from published 1,202-clip setup."
+  },
+  "protocol": {
+    "outer": "same 5 subject-grouped folds as graph and temporal MLP runs",
+    "inner_validation": "same 18% grouped split rule and seed by fold",
+    "seed": 42
+  },
+  "variants": {
+    "temporal_mlp": "Unweighted global and eight-bin coordinate/motion moments plus quantiles.",
+    "confidence_weighted_temporal_mlp": "Same bank plus confidence-weighted means/variances and per-joint confidence coverage/stability descriptors."
+  },
+  "summary": {
+    "temporal_mlp": {
+      "accuracy": {
+        "mean": 0.7016943452206361,
+        "sd": 0.107704229147445
+      },
+      "macro_f1": {
+        "mean": 0.6338083599102715,
+        "sd": 0.1902665213032388
+      }
+    },
+    "confidence_weighted_temporal_mlp": {
+      "accuracy": {
+        "mean": 0.7023630423420094,
+        "sd": 0.08439233205342882
+      },
+      "macro_f1": {
+        "mean": 0.6254674048635531,
+        "sd": 0.1928739313329564
+      }
+    }
+  },
+  "fold_results": [
+    {
+      "fold": 1,
+      "train_clips": 803,
+      "validation_clips": 295,
+      "test_clips": 276,
+      "best_epoch": 35,
+      "accuracy": 0.5942028985507246,
+      "macro_f1": 0.3407216731693036,
+      "variant": "temporal_mlp",
+      "feature_dimension": 2000
+    },
+    {
+      "fold": 2,
+      "train_clips": 817,
+      "validation_clips": 281,
+      "test_clips": 276,
+      "best_epoch": 4,
+      "accuracy": 0.5905797101449275,
+      "macro_f1": 0.5435922690306841,
+      "variant": "temporal_mlp",
+      "feature_dimension": 2000
+    },
+    {
+      "fold": 3,
+      "train_clips": 832,
+      "validation_clips": 265,
+      "test_clips": 277,
+      "best_epoch": 21,
+      "accuracy": 0.779783393501805,
+      "macro_f1": 0.7820410211276724,
+      "variant": "temporal_mlp",
+      "feature_dimension": 2000
+    },
+    {
+      "fold": 4,
+      "train_clips": 993,
+      "validation_clips": 106,
+      "test_clips": 275,
+      "best_epoch": 4,
+      "accuracy": 0.8290909090909091,
+      "macro_f1": 0.7754758221825374,
+      "variant": "temporal_mlp",
+      "feature_dimension": 2000
+    },
+    {
+      "fold": 5,
+      "train_clips": 812,
+      "validation_clips": 292,
+      "test_clips": 270,
+      "best_epoch": 8,
+      "accuracy": 0.7148148148148148,
+      "macro_f1": 0.7272110140411601,
+      "variant": "temporal_mlp",
+      "feature_dimension": 2000
+    },
+    {
+      "fold": 1,
+      "train_clips": 803,
+      "validation_clips": 295,
+      "test_clips": 276,
+      "best_epoch": 30,
+      "accuracy": 0.6014492753623188,
+      "macro_f1": 0.3105257414469078,
+      "variant": "confidence_weighted_temporal_mlp",
+      "feature_dimension": 4250
+    },
+    {
+      "fold": 2,
+      "train_clips": 817,
+      "validation_clips": 281,
+      "test_clips": 276,
+      "best_epoch": 9,
+      "accuracy": 0.6340579710144928,
+      "macro_f1": 0.5731179926790136,
+      "variant": "confidence_weighted_temporal_mlp",
+      "feature_dimension": 4250
+    },
+    {
+      "fold": 3,
+      "train_clips": 832,
+      "validation_clips": 265,
+      "test_clips": 277,
+      "best_epoch": 17,
+      "accuracy": 0.776173285198556,
+      "macro_f1": 0.7773011729347611,
+      "variant": "confidence_weighted_temporal_mlp",
+      "feature_dimension": 4250
+    },
+    {
+      "fold": 4,
+      "train_clips": 993,
+      "validation_clips": 106,
+      "test_clips": 275,
+      "best_epoch": 2,
+      "accuracy": 0.7927272727272727,
+      "macro_f1": 0.7506357035342542,
+      "variant": "confidence_weighted_temporal_mlp",
+      "feature_dimension": 4250
+    },
+    {
+      "fold": 5,
+      "train_clips": 812,
+      "validation_clips": 292,
+      "test_clips": 270,
+      "best_epoch": 2,
+      "accuracy": 0.7074074074074074,
+      "macro_f1": 0.7157564137228292,
+      "variant": "confidence_weighted_temporal_mlp",
+      "feature_dimension": 4250
+    }
+  ]
+}

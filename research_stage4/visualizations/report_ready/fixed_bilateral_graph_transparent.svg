@@ -1,0 +1,21 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="512" height="512" viewBox="0 0 512 512" role="img" aria-label="Fixed bilateral skeleton graph on a transparent background">
+  <g fill="none" stroke="#68717B" stroke-width="11" stroke-linecap="round" stroke-linejoin="round">
+    <path d="M256 57 L158 151 L80 266 L164 365 L104 466"/>
+    <path d="M256 57 L354 151 L432 266 L348 365 L408 466"/>
+  </g>
+  <g fill="none" stroke="#9B59B6" stroke-width="10" stroke-dasharray="17 15" stroke-linecap="round">
+    <path d="M179 151 L333 151"/>
+    <path d="M100 266 L412 266"/>
+  </g>
+  <g fill="#FFFFFF" stroke-width="12">
+    <circle cx="256" cy="57" r="24" stroke="#D96F82"/>
+    <circle cx="158" cy="151" r="24" stroke="#D96F82"/>
+    <circle cx="354" cy="151" r="24" stroke="#D96F82"/>
+    <circle cx="80" cy="266" r="24" stroke="#4D91C1"/>
+    <circle cx="432" cy="266" r="24" stroke="#4D91C1"/>
+    <circle cx="164" cy="365" r="24" stroke="#62A879"/>
+    <circle cx="348" cy="365" r="24" stroke="#62A879"/>
+    <circle cx="104" cy="466" r="18" stroke="#62A879"/>
+    <circle cx="408" cy="466" r="18" stroke="#62A879"/>
+  </g>
+</svg>

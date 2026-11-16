@@ -1,0 +1,4 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="256" height="256" viewBox="0 0 256 256" role="img" aria-label="Gear symbol on a transparent background">
+  <path d="M111 20 H145 L151 43 Q165 47 177 56 L197 45 L216 74 L199 90 Q204 104 202 119 L224 129 L216 162 L192 162 Q185 175 174 184 L183 205 L154 224 L137 207 Q123 211 109 207 L97 229 L65 216 L68 192 Q55 184 47 172 L24 179 L12 147 L32 134 Q29 119 34 105 L14 91 L29 62 L52 70 Q62 58 76 52 L75 28 L108 19 Z" fill="none" stroke="#343B4A" stroke-width="11" stroke-linejoin="round"/>
+  <circle cx="119" cy="124" r="35" fill="none" stroke="#343B4A" stroke-width="11"/>
+</svg>

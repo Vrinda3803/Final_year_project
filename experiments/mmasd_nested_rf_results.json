@@ -1,0 +1,174 @@
+{
+  "dataset": "MMASD 11-class activity recognition",
+  "method": "RandomForest on pooled temporal kinematic summaries",
+  "evaluation": "Nested GroupKFold by subject; 5 outer folds, 3 inner folds",
+  "n_sessions": 1693,
+  "n_subjects": 32,
+  "n_classes": 11,
+  "feature_shape": [
+    1693,
+    320
+  ],
+  "seed": 42,
+  "outer_oof_accuracy": 0.8109864146485528,
+  "outer_oof_macro_f1": 0.7715946949605342,
+  "outer_fold_macro_f1_mean": 0.7521445066639819,
+  "outer_fold_macro_f1_std": 0.05485767714738635,
+  "outer_fold_accuracy_mean": 0.8101722071153509,
+  "per_class": {
+    "0": {
+      "precision": 0.8210526315789474,
+      "recall": 0.7428571428571429,
+      "f1": 0.78,
+      "support": 105
+    },
+    "1": {
+      "precision": 0.734375,
+      "recall": 0.7899159663865546,
+      "f1": 0.7611336032388664,
+      "support": 119
+    },
+    "2": {
+      "precision": 0.71900826446281,
+      "recall": 0.7631578947368421,
+      "f1": 0.7404255319148936,
+      "support": 114
+    },
+    "3": {
+      "precision": 0.8788927335640139,
+      "recall": 0.9321100917431193,
+      "f1": 0.9047195013357079,
+      "support": 545
+    },
+    "4": {
+      "precision": 0.9809523809523809,
+      "recall": 0.911504424778761,
+      "f1": 0.944954128440367,
+      "support": 113
+    },
+    "5": {
+      "precision": 0.5833333333333334,
+      "recall": 0.5436893203883495,
+      "f1": 0.5628140703517588,
+      "support": 103
+    },
+    "6": {
+      "precision": 0.6716417910447762,
+      "recall": 0.6923076923076923,
+      "f1": 0.6818181818181818,
+      "support": 130
+    },
+    "7": {
+      "precision": 0.7870370370370371,
+      "recall": 0.7522123893805309,
+      "f1": 0.7692307692307693,
+      "support": 113
+    },
+    "8": {
+      "precision": 0.6666666666666666,
+      "recall": 0.5098039215686274,
+      "f1": 0.5777777777777777,
+      "support": 102
+    },
+    "9": {
+      "precision": 0.8455284552845529,
+      "recall": 0.8062015503875969,
+      "f1": 0.8253968253968254,
+      "support": 129
+    },
+    "10": {
+      "precision": 0.9133858267716536,
+      "recall": 0.9666666666666667,
+      "f1": 0.9392712550607287,
+      "support": 120
+    }
+  },
+  "folds": [
+    {
+      "fold": 1,
+      "n_train": 1359,
+      "n_test": 334,
+      "train_subjects": 26,
+      "test_subjects": 6,
+      "selected_params": {
+        "n_estimators": 500,
+        "max_features": "sqrt",
+        "max_depth": null,
+        "min_samples_leaf": 1,
+        "class_weight": "balanced"
+      },
+      "inner_selection_macro_f1": 0.7088643055984202,
+      "test_macro_f1": 0.6942896449087473,
+      "test_accuracy": 0.781437125748503
+    },
+    {
+      "fold": 2,
+      "n_train": 1360,
+      "n_test": 333,
+      "train_subjects": 26,
+      "test_subjects": 6,
+      "selected_params": {
+        "n_estimators": 500,
+        "max_features": "sqrt",
+        "max_depth": null,
+        "min_samples_leaf": 1,
+        "class_weight": "balanced"
+      },
+      "inner_selection_macro_f1": 0.7221885256447765,
+      "test_macro_f1": 0.7223119390280817,
+      "test_accuracy": 0.8078078078078078
+    },
+    {
+      "fold": 3,
+      "n_train": 1342,
+      "n_test": 351,
+      "train_subjects": 25,
+      "test_subjects": 7,
+      "selected_params": {
+        "n_estimators": 500,
+        "max_features": "sqrt",
+        "max_depth": null,
+        "min_samples_leaf": 1,
+        "class_weight": "balanced"
+      },
+      "inner_selection_macro_f1": 0.671913161796429,
+      "test_macro_f1": 0.8241830647409768,
+      "test_accuracy": 0.8603988603988604
+    },
+    {
+      "fold": 4,
+      "n_train": 1349,
+      "n_test": 344,
+      "train_subjects": 25,
+      "test_subjects": 7,
+      "selected_params": {
+        "n_estimators": 400,
+        "max_features": "sqrt",
+        "max_depth": 24,
+        "min_samples_leaf": 1,
+        "class_weight": "balanced"
+      },
+      "inner_selection_macro_f1": 0.6423299003450641,
+      "test_macro_f1": 0.8123982239919401,
+      "test_accuracy": 0.8459302325581395
+    },
+    {
+      "fold": 5,
+      "n_train": 1362,
+      "n_test": 331,
+      "train_subjects": 26,
+      "test_subjects": 6,
+      "selected_params": {
+        "n_estimators": 400,
+        "max_features": 0.5,
+        "max_depth": null,
+        "min_samples_leaf": 1,
+        "class_weight": "balanced"
+      },
+      "inner_selection_macro_f1": 0.7297645053263412,
+      "test_macro_f1": 0.7075396606501635,
+      "test_accuracy": 0.7552870090634441
+    }
+  ],
+  "elapsed_seconds": 207.36
+}

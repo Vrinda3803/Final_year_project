@@ -1,0 +1,189 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="2400" height="1410" viewBox="0 0 2400 1410" role="img" aria-label="MMASD physical therapy activity-recognition system architecture and evaluation flow">
+  <defs>
+    <marker id="arrow" markerWidth="12" markerHeight="12" refX="10" refY="6" orient="auto" markerUnits="strokeWidth"><path d="M1 1 L11 6 L1 11 Z" fill="#303844"/></marker>
+    <style>
+      .top { stroke:#303844; stroke-width:3; rx:24; }
+      .inner { fill:#ffffff; stroke:#545d69; stroke-width:2.5; rx:17; }
+      .model { fill:#fbf8fc; stroke:#303844; stroke-width:3; rx:24; }
+      .group { fill:#f4eef8; stroke:#5a5360; stroke-width:2.5; rx:18; }
+      .arrow { fill:none; stroke:#303844; stroke-width:4; marker-end:url(#arrow); }
+      .branch { fill:none; stroke:#52677b; stroke-width:3.5; marker-end:url(#arrow); }
+      .dashed { fill:none; stroke:#52677b; stroke-width:3; stroke-dasharray:12 9; marker-end:url(#arrow); }
+      .head { font:700 32px Georgia,serif; fill:#1d2935; text-anchor:middle; }
+      .body { font:24px Georgia,serif; fill:#202a34; text-anchor:middle; }
+      .small { font:21px Georgia,serif; fill:#303844; text-anchor:middle; }
+      .panelhead { font:700 30px Georgia,serif; fill:#1d2935; }
+      .stage { font:700 25px Georgia,serif; fill:#1d2935; text-anchor:middle; }
+    </style>
+  </defs>
+
+  <!-- High-level project flow -->
+  <rect class="top" x="50" y="38" width="440" height="260" fill="#eee8d3"/>
+  <text class="head" x="270" y="84">1. Dataset (MMASD)</text>
+  <path d="M50 105 H490" stroke="#303844" stroke-width="3"/>
+  <g transform="translate(76 137)" fill="none" stroke="#435367" stroke-width="5" stroke-linejoin="round">
+    <path d="M0 20h67l17 17v82H0z" fill="#fff"/><path d="M12 10h67l17 17"/><path d="M24 0h67l17 17"/>
+    <path d="M28 51h27m-27 15h27m-27 15h27" stroke="#5689ad" stroke-width="4"/>
+  </g>
+  <text class="body" x="324" y="166">Preprocessed</text>
+  <text class="body" x="324" y="199">OpenPose skeletons</text>
+  <text class="small" x="324" y="244">1,374 recordings · 10 classes</text>
+
+  <rect class="top" x="515" y="38" width="440" height="260" fill="#dceaff"/>
+  <text class="head" x="735" y="84">2. Input Representation</text>
+  <path d="M515 105 H955" stroke="#303844" stroke-width="3"/>
+  <g transform="translate(548 133)" stroke-linecap="round" stroke-linejoin="round" fill="none">
+    <path d="M58 16v30m0-19L35 42m23-15 23 15m-23 4-15 27m15-27 15 27m-15 0-10 25m10-25 11 25" stroke="#4286b5" stroke-width="4"/>
+    <g stroke="#31465d" stroke-width="3" fill="#fff"><circle cx="58" cy="10" r="7"/><circle cx="58" cy="46" r="5"/><circle cx="35" cy="42" r="5"/><circle cx="81" cy="42" r="5"/><circle cx="43" cy="73" r="5"/><circle cx="73" cy="73" r="5"/><circle cx="33" cy="98" r="5"/><circle cx="84" cy="98" r="5"/></g>
+    <circle cx="58" cy="10" r="3" fill="#d96f82" stroke="none"/>
+  </g>
+  <text class="body" x="775" y="158">X: 64 × 25 × 4</text>
+  <text class="small" x="775" y="194">x, y, v<tspan baseline-shift="sub" font-size="16">x</tspan>, v<tspan baseline-shift="sub" font-size="16">y</tspan></text>
+  <text class="body" x="775" y="238">Q: 64 × 25 confidence</text>
+
+  <rect class="top" x="980" y="38" width="440" height="260" fill="#ddf1df"/>
+  <text class="head" x="1200" y="84">3. Data Preparation</text>
+  <path d="M980 105 H1420" stroke="#303844" stroke-width="3"/>
+  <text class="body" x="1200" y="153">Five-fold cohort grouping</text>
+  <text class="body" x="1200" y="193">Training-only fitting</text>
+  <text class="small" x="1200" y="235">Validation: selection and calibration</text>
+  <text class="small" x="1200" y="269">Held-out cohorts reserved for testing</text>
+
+  <rect class="top" x="1445" y="38" width="440" height="260" fill="#f0e5f4"/>
+  <text class="head" x="1665" y="84">4. RCDB-STGT Model</text>
+  <path d="M1445 105 H1885" stroke="#303844" stroke-width="3"/>
+  <g transform="translate(1484 143)" stroke="#374252" stroke-width="4" fill="#fff">
+    <path d="M60 15 22 45 32 88 86 88 98 45Z" fill="none"/>
+    <circle cx="60" cy="15" r="7"/><circle cx="22" cy="45" r="7"/><circle cx="98" cy="45" r="7"/><circle cx="32" cy="88" r="7"/><circle cx="86" cy="88" r="7"/>
+  </g>
+  <text class="body" x="1718" y="151">Spatial and temporal</text>
+  <text class="body" x="1718" y="187">graph learning</text>
+  <text class="small" x="1718" y="231">Bilateral links · joint reliability</text>
+
+  <rect class="top" x="1910" y="38" width="440" height="260" fill="#fff2a8"/>
+  <text class="head" x="2130" y="84">5. Output</text>
+  <path d="M1910 105 H2350" stroke="#303844" stroke-width="3"/>
+  <g transform="translate(1950 137)" fill="none" stroke="#374252" stroke-width="7" stroke-linecap="round" stroke-linejoin="round">
+    <circle cx="40" cy="14" r="10" fill="#fff"/><path d="M39 27 31 57 52 70m-16-38-20 9-8 19m29-19 19-10 16 14m-41 12-18 25m39-19 20 22"/>
+  </g>
+  <text class="body" x="2180" y="164">Predicted activity</text>
+  <text class="small" x="2180" y="207">One of 10 classes</text>
+  <text class="small" x="2180" y="247">Calibrated class probabilities</text>
+
+  <path class="arrow" d="M490 168 H510"/><path class="arrow" d="M955 168 H975"/>
+  <path class="arrow" d="M1420 168 H1440"/><path class="arrow" d="M1885 168 H1905"/>
+
+  <!-- Internal model flow -->
+  <rect class="model" x="50" y="340" width="2300" height="610"/>
+  <text class="panelhead" x="82" y="387">RCDB-STGT: internal model flow</text>
+
+  <rect class="inner" x="75" y="510" width="235" height="220"/>
+  <text class="stage" x="192" y="558">Input sequence</text>
+  <text class="body" x="192" y="612">X: pose + motion</text>
+  <text class="small" x="192" y="651">64 frames × 25 joints</text>
+  <text class="body" x="192" y="696">Q: joint confidence</text>
+
+  <rect class="inner" x="350" y="445" width="235" height="140"/>
+  <text class="stage" x="467" y="488">Feature projection</text>
+  <text class="body" x="467" y="535">4 → 64 dimensions</text>
+  <text class="small" x="467" y="566">per joint and frame</text>
+
+  <rect class="inner" x="350" y="640" width="235" height="160"/>
+  <text class="stage" x="467" y="683">Joint reliability</text>
+  <text class="small" x="467" y="725">confidence + motion</text>
+  <text class="small" x="467" y="760">training-fitted prior</text>
+
+  <rect class="group" x="625" y="420" width="590" height="450"/>
+  <text class="stage" x="920" y="461">Spatial graph layers × 2</text>
+  <rect class="inner" x="650" y="490" width="255" height="120"/>
+  <text class="stage" x="777" y="532">Anatomical attention</text>
+  <text class="small" x="777" y="574">BODY_25 connections</text>
+  <rect class="inner" x="930" y="490" width="260" height="120"/>
+  <text class="stage" x="1060" y="532">Bilateral edge learner</text>
+  <text class="small" x="1060" y="574">selected left–right pairs</text>
+  <rect class="inner" x="650" y="625" width="540" height="145"/>
+  <text class="small" x="920" y="651">Reliability treatment depends on the configuration</text>
+  <text class="small" x="920" y="682">Full model: reliability gates bilateral messages</text>
+  <text class="small" x="920" y="713">Input variant: reliability is supplied to the edge learner</text>
+  <text class="small" x="920" y="744">Edge smoothing: K = 5 when enabled</text>
+  <rect class="inner" x="650" y="785" width="540" height="60"/>
+  <text class="stage" x="920" y="824">Message update + residual integration</text>
+
+  <rect class="inner" x="1245" y="520" width="205" height="220"/>
+  <text class="stage" x="1347" y="565">Joint pooling</text>
+  <text class="small" x="1347" y="610">reliability-</text>
+  <text class="small" x="1347" y="640">weighted</text>
+  <text class="small" x="1347" y="693">one vector/frame</text>
+
+  <rect class="inner" x="1480" y="520" width="240" height="220"/>
+  <text class="stage" x="1600" y="565">Temporal self-</text>
+  <text class="stage" x="1600" y="598">attention × 2</text>
+  <text class="small" x="1600" y="644">over 64 frame vectors</text>
+  <text class="small" x="1600" y="694">no separate frame-position embedding</text>
+
+  <rect class="inner" x="1750" y="520" width="190" height="220"/>
+  <text class="stage" x="1845" y="579">Temporal</text>
+  <text class="stage" x="1845" y="613">mean pooling</text>
+  <text class="small" x="1845" y="677">sequence-level</text>
+  <text class="small" x="1845" y="706">representation</text>
+
+  <rect class="inner" x="1970" y="520" width="175" height="220"/>
+  <text class="stage" x="2057" y="579">Linear</text>
+  <text class="stage" x="2057" y="613">classifier</text>
+  <text class="small" x="2057" y="677">10 activity</text>
+  <text class="small" x="2057" y="706">scores</text>
+
+  <rect class="inner" x="2175" y="520" width="160" height="220"/>
+  <text class="stage" x="2255" y="568">Temperature</text>
+  <text class="stage" x="2255" y="601">scaling</text>
+  <text class="small" x="2255" y="654">calibrated</text>
+  <text class="small" x="2255" y="683">prediction</text>
+  <text class="small" x="2255" y="714">10 classes</text>
+
+  <!-- Model dataflow arrows -->
+  <path class="branch" d="M310 560 H330 V515 H350"/>
+  <path class="branch" d="M310 680 H330 V720 H350"/>
+  <path class="branch" d="M585 515 H625"/>
+  <path class="branch" d="M585 720 H610 V615 H915 V550 H930"/>
+  <path class="arrow" d="M777 610 V770 H820 V785"/>
+  <path class="arrow" d="M1060 610 V625"/>
+  <path class="arrow" d="M1060 770 V785"/>
+  <path class="arrow" d="M1190 815 H1220 V650 H1245"/>
+  <path class="arrow" d="M1450 630 H1480"/>
+  <path class="arrow" d="M1720 630 H1750"/>
+  <path class="arrow" d="M1940 630 H1970"/>
+  <path class="arrow" d="M2145 630 H2175"/>
+  <path class="dashed" d="M585 770 V895 H1347 V742"/>
+  <text class="small" x="1000" y="918">Reliability also weights pooling across joints</text>
+
+  <!-- Cohort-grouped experimental workflow -->
+  <rect class="top" x="50" y="990" width="2300" height="360" fill="#f2f5f7"/>
+  <text class="panelhead" x="82" y="1037">Cohort-grouped evaluation</text>
+  <rect class="inner" x="80" y="1080" width="410" height="160"/>
+  <text class="stage" x="285" y="1132">Five-fold split</text>
+  <text class="body" x="285" y="1177">by stored cohort</text>
+  <text class="small" x="285" y="1215">cohorts kept together</text>
+
+  <rect class="inner" x="525" y="1080" width="410" height="160"/>
+  <text class="stage" x="730" y="1132">Fit on training data</text>
+  <text class="body" x="730" y="1177">preprocessing + model</text>
+  <text class="small" x="730" y="1215">training-only statistics</text>
+
+  <rect class="inner" x="970" y="1080" width="410" height="160"/>
+  <text class="stage" x="1175" y="1132">Validation</text>
+  <text class="body" x="1175" y="1177">checkpoint selection</text>
+  <text class="small" x="1175" y="1215">temperature calibration</text>
+
+  <rect class="inner" x="1415" y="1080" width="410" height="160"/>
+  <text class="stage" x="1620" y="1132">Held-out test cohorts</text>
+  <text class="body" x="1620" y="1177">evaluation per fold</text>
+  <text class="small" x="1620" y="1215">not used for fitting</text>
+
+  <rect class="inner" x="1860" y="1080" width="450" height="160"/>
+  <text class="stage" x="2085" y="1132">Combine test predictions</text>
+  <text class="body" x="2085" y="1177">out-of-fold metrics</text>
+  <text class="small" x="2085" y="1215">accuracy · macro-F1 · ECE</text>
+
+  <path class="arrow" d="M490 1160 H520"/><path class="arrow" d="M935 1160 H965"/><path class="arrow" d="M1380 1160 H1410"/><path class="arrow" d="M1825 1160 H1855"/>
+  <text class="small" x="1200" y="1300">The cohort identifiers were not verified as participant identities; results describe held-out recording cohorts.</text>
+</svg>

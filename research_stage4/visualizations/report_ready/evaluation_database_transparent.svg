@@ -1,0 +1,9 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="256" height="256" viewBox="0 0 256 256" role="img" aria-label="Database cylinder symbol on a transparent background">
+  <g fill="none" stroke="#343B4A" stroke-width="11" stroke-linecap="round" stroke-linejoin="round">
+    <ellipse cx="128" cy="54" rx="83" ry="29"/>
+    <path d="M45 54 V196 M211 54 V196"/>
+    <path d="M45 102 C45 118 82 131 128 131 C174 131 211 118 211 102"/>
+    <path d="M45 150 C45 166 82 179 128 179 C174 179 211 166 211 150"/>
+    <path d="M45 196 C45 212 82 225 128 225 C174 225 211 212 211 196"/>
+  </g>
+</svg>

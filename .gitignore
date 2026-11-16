@@ -1,0 +1,25 @@
+# Local datasets and derived participant-level data
+data/raw/
+data/processed/
+
+# Local Python environment/dependency cache
+.codex-deps/
+.venv/
+venv/
+__pycache__/
+*.py[cod]
+
+# Model checkpoints and local scratch files
+**/checkpoints/
+**/*_oof*.csv
+**/*_oof*.npz
+research_stage4/predictions/
+**/scratch/
+experiments/mmasd_oof_checkpoint.npz
+tmp/
+
+# Test/tool caches and logs
+.pytest_cache/
+.mypy_cache/
+.ruff_cache/
+*.log

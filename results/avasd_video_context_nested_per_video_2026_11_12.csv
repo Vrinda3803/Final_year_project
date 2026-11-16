@@ -1,0 +1,88 @@
+video_id,segments,accuracy,macro_f1,true_class_counts
+JAgwlARu1Zk,506,0.924901185770751,0.3203285420944559,{'Upper Limb Stereotypies': 506}
+jg_NhlcM2mc,107,0.0,0.0,{'Aggressive Behavior': 107}
+jJUgD5Ajbkk,33,0.6666666666666666,0.6329625884732053,"{'Aggressive Behavior': 14, 'Upper Limb Stereotypies': 19}"
+0g51c2BCqu8,24,0.0,0.0,{'Upper Limb Stereotypies': 24}
+4FQLwnIQ9Qg,18,1.0,1.0,{'Upper Limb Stereotypies': 18}
+J2VaHN3aI0s,13,0.7692307692307693,0.4523809523809524,"{'Aggressive Behavior': 12, 'Hyper- or Hyporeactivity to Sensory Input': 1}"
+D0x6P-UhGgs,12,1.0,1.0,{'Aggressive Behavior': 12}
+_yzU7MU2wIE,12,0.0,0.0,{'Upper Limb Stereotypies': 12}
+437087214581620,11,0.09090909090909091,0.05555555555555555,{'Hyper- or Hyporeactivity to Sensory Input': 11}
+E-XgK_LaFKI,10,0.0,0.0,{'Upper Limb Stereotypies': 10}
+2TpC6CB0iXw,9,1.0,1.0,{'Aggressive Behavior': 9}
+0norlGs7rUw,7,0.8571428571428571,0.46153846153846156,{'Aggressive Behavior': 7}
+4p9XrwKJkxc,7,0.8571428571428571,0.46153846153846156,{'Upper Limb Stereotypies': 7}
+hbiKingfbLY,7,1.0,1.0,{'Upper Limb Stereotypies': 7}
+iJFOiMjo3jQ,7,1.0,1.0,{'Upper Limb Stereotypies': 7}
+JCHtVLqJWpg,6,0.0,0.0,{'Aggressive Behavior': 6}
+JEYWjVZRzxk,6,1.0,1.0,{'Upper Limb Stereotypies': 6}
+398241735282457,5,0.0,0.0,{'Hyper- or Hyporeactivity to Sensory Input': 5}
+3BQvkkTN3Sk,5,0.4,0.2857142857142857,{'Upper Limb Stereotypies': 5}
+5268318256627570,5,0.0,0.0,{'Hyper- or Hyporeactivity to Sensory Input': 5}
+616281000209155,5,0.0,0.0,{'Upper Limb Stereotypies': 5}
+eKQ8MBb_sNU,5,1.0,1.0,{'Upper Limb Stereotypies': 5}
+fBW6Rnazl_Q,5,0.2,0.16666666666666666,{'Upper Limb Stereotypies': 5}
+-vXwNRCOzZM,4,1.0,1.0,{'Aggressive Behavior': 4}
+1vRklwIBC28,4,0.0,0.0,{'Upper Limb Stereotypies': 4}
+3qpDevA8CyQ,4,0.0,0.0,{'Hyper- or Hyporeactivity to Sensory Input': 4}
+DKavAdp8OKI,4,0.75,0.42857142857142855,{'Aggressive Behavior': 4}
+cGgz9LDnWbo,4,0.25,0.2,{'Upper Limb Stereotypies': 4}
+ctm028b6zq4,4,0.0,0.0,{'Upper Limb Stereotypies': 4}
+eFkXlzhAOQc,4,1.0,1.0,{'Aggressive Behavior': 4}
+0xjEvdxrVe0,3,0.0,0.0,{'Aggressive Behavior': 3}
+1058358794819229,3,1.0,1.0,{'Hyper- or Hyporeactivity to Sensory Input': 3}
+1ZWHa-7cUt0,3,0.6666666666666666,0.4,{'Hyper- or Hyporeactivity to Sensory Input': 3}
+226D3-KzIQQ,3,0.6666666666666666,0.4,{'Aggressive Behavior': 3}
+6eS2CBMSZ4E,3,0.6666666666666666,0.4,"{'Upper Limb Stereotypies': 1, 'Hyper- or Hyporeactivity to Sensory Input': 2}"
+CfU8-kJZR70,3,1.0,1.0,{'Aggressive Behavior': 3}
+DYVI8YxEL0k,3,0.0,0.0,"{'Hyper- or Hyporeactivity to Sensory Input': 1, 'Upper Limb Stereotypies': 2}"
+DrIcscvrlEQ,3,1.0,1.0,{'Upper Limb Stereotypies': 3}
+E0KN_mXz_kI,3,1.0,1.0,{'Aggressive Behavior': 3}
+JM8BHjJTSFM,3,0.0,0.0,{'Upper Limb Stereotypies': 3}
+J_toDtFFXd4,3,0.0,0.0,{'Upper Limb Stereotypies': 3}
+hfM8G6obgpM,3,1.0,1.0,{'Aggressive Behavior': 3}
+j7AQDL40kcM,3,1.0,1.0,{'Aggressive Behavior': 3}
+jJylq8NNqTw,3,0.0,0.0,{'Upper Limb Stereotypies': 3}
+-9aliPAniig,2,0.0,0.0,"{'Hyper- or Hyporeactivity to Sensory Input': 1, 'Upper Limb Stereotypies': 1}"
+-Ed38H71XO8,2,0.0,0.0,{'Aggressive Behavior': 2}
+02mvgUiO-eU,2,1.0,1.0,{'Upper Limb Stereotypies': 2}
+1PAXSwE85tk,2,1.0,1.0,{'Aggressive Behavior': 2}
+2364531100353534,2,0.0,0.0,{'Hyper- or Hyporeactivity to Sensory Input': 2}
+2u3yPdtTT8M,2,0.0,0.0,{'Upper Limb Stereotypies': 2}
+327182825893700,2,1.0,1.0,{'Hyper- or Hyporeactivity to Sensory Input': 2}
+3Colcv5Xlc0,2,0.0,0.0,{'Upper Limb Stereotypies': 2}
+3Oh_Lmehb6c,2,0.0,0.0,{'Upper Limb Stereotypies': 2}
+441244708182765,2,0.0,0.0,{'Hyper- or Hyporeactivity to Sensory Input': 2}
+4O15LL72j0M,2,0.0,0.0,{'Upper Limb Stereotypies': 2}
+575016171346595,2,1.0,1.0,{'Hyper- or Hyporeactivity to Sensory Input': 2}
+5Ps9iE8mPqY,2,0.0,0.0,{'Upper Limb Stereotypies': 2}
+743718686766262,2,0.5,0.3333333333333333,{'Hyper- or Hyporeactivity to Sensory Input': 2}
+831091434545664,2,1.0,1.0,{'Hyper- or Hyporeactivity to Sensory Input': 2}
+CV7u_oqTckU,2,0.5,0.3333333333333333,"{'Upper Limb Stereotypies': 1, 'Hyper- or Hyporeactivity to Sensory Input': 1}"
+Cs9JOiW47q0,2,1.0,1.0,{'Upper Limb Stereotypies': 2}
+Daldg7wciB0,2,1.0,1.0,{'Upper Limb Stereotypies': 2}
+Fg5QtY6kJ74,2,0.0,0.0,{'Hyper- or Hyporeactivity to Sensory Input': 2}
+I7fdv1q9-m8,2,0.0,0.0,{'Upper Limb Stereotypies': 2}
+IoyiVDbpydI,2,0.5,0.3333333333333333,{'Upper Limb Stereotypies': 2}
+hIWUbXvvhO0,2,1.0,1.0,{'Upper Limb Stereotypies': 2}
+j4PTf7LgsIE,2,1.0,1.0,{'Aggressive Behavior': 2}
+-IVN2XJ4YT8,1,0.0,0.0,{'Upper Limb Stereotypies': 1}
+1137764799695838,1,0.0,0.0,{'Hyper- or Hyporeactivity to Sensory Input': 1}
+1999224280467888,1,0.0,0.0,{'Hyper- or Hyporeactivity to Sensory Input': 1}
+2p5-RhuV5mc,1,0.0,0.0,{'Hyper- or Hyporeactivity to Sensory Input': 1}
+571621468269110,1,1.0,1.0,{'Hyper- or Hyporeactivity to Sensory Input': 1}
+5sgfS0SSh8o,1,1.0,1.0,{'Upper Limb Stereotypies': 1}
+C_O8vyrSt0Q,1,1.0,1.0,{'Upper Limb Stereotypies': 1}
+D9ZQTNbAt_w,1,0.0,0.0,{'Upper Limb Stereotypies': 1}
+F5H17FHYa-k,1,0.0,0.0,{'Upper Limb Stereotypies': 1}
+GST5f7xEJ4g,1,0.0,0.0,{'Upper Limb Stereotypies': 1}
+HWoLOw8Xzv4,1,1.0,1.0,{'Upper Limb Stereotypies': 1}
+I2rfPPinMHk,1,0.0,0.0,{'Upper Limb Stereotypies': 1}
+JlaebMio93M,1,1.0,1.0,{'Aggressive Behavior': 1}
+_M8YkVVb5dg,1,1.0,1.0,{'Upper Limb Stereotypies': 1}
+dHzWJDiG540,1,0.0,0.0,{'Aggressive Behavior': 1}
+dZXVJk5tCZg,1,0.0,0.0,{'Upper Limb Stereotypies': 1}
+eLlenCZMSTM,1,0.0,0.0,{'Upper Limb Stereotypies': 1}
+hKf-IwHM6TI,1,1.0,1.0,{'Upper Limb Stereotypies': 1}
+hQ3F49XHHTE,1,0.0,0.0,{'Aggressive Behavior': 1}
+iDuAugAykcc,1,0.0,0.0,{'Upper Limb Stereotypies': 1}

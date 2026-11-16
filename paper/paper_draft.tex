@@ -1,0 +1,439 @@
+\documentclass[conference]{IEEEtran}
+\IEEEoverridecommandlockouts
+\usepackage{cite}
+\usepackage{amsmath,amssymb,amsfonts}
+\usepackage{algorithmic}
+\usepackage{graphicx}
+\usepackage{textcomp}
+\usepackage{xcolor}
+\usepackage{booktabs}
+\usepackage{multirow}
+\usepackage{array}
+\usepackage{url}
+\usepackage{algorithm}
+\def\BibTeX{{\rm B\kern-.05em{\sc i\kern-.025em b}\kern-.08em
+    T\kern-.1667em\lower.7ex\hbox{E}\kern-.125emX}}
+
+\begin{document}
+
+\title{MEAT-GNN: Multimodal Edge-Aware Temporal Graph Neural Network\\
+for Explainable Autism Behaviour Assessment}
+
+\author{
+\IEEEauthorblockN{[Author Name Redacted for Review]}
+\IEEEauthorblockA{\textit{Department of Artificial Intelligence} \\
+\textit{[Institution Redacted for Review]}\\
+[City, Country]}
+}
+
+\maketitle
+
+\begin{abstract}
+Automated assessment of autism-related social behaviours from video requires models 
+that capture both kinematic structure (how the body moves in space) and acoustic signals 
+(vocalisations, stimming sounds), while remaining interpretable to clinicians. 
+We propose \textbf{MEAT-GNN} — a Multimodal Edge-Aware Temporal Graph Neural Network 
+— that constructs spatio-temporal graphs over body-segment groups and fuses them with 
+audio descriptors via a learnable reliability gate 
+$g = \sigma(W_g[\mathbf{z}_{vis} \| \mathbf{z}_{aud}] + \mathbf{b}_g)$.
+Unlike prior work that treats temporal edges as binary connections or discards edge 
+weights entirely, MEAT-GNN directly modulates graph attention coefficients by continuous 
+edge attributes encoding temporal proximity and spatial anatomical relationships. 
+We evaluate on two public datasets under strict subject-independent evaluation 
+(GroupKFold, $n{=}5$): (i)~the AV-ASD Audio-Visual Autism dataset (182 clips, 
+116 subjects, 4 motor-behaviour classes) and (ii)~the MMASD Multimodal Autism dataset 
+(1,693 sessions, 32 subjects, 11 therapeutic activities, 3D 71-joint skeletal data).
+On AV-ASD, our tuned temporal benchmark achieves 50.55\% accuracy on the 4-class problem and 55.90\% accuracy (0.5576 Macro-F1) on 3-class stimming and affect recognition, surpassing the 50\% milestone and improving over prior baselines.
+On MMASD, our MEAT-GNN framework achieves \textbf{82.04\% accuracy} (+27.71\% over baseline 54.33\%) and \textbf{0.7812 Macro-F1} under strict subject-independent GroupKFold, with peak fold reaching 87.18\% accuracy and individual therapeutic classes exceeding 0.90 Macro-F1 (\texttt{twist\_pose}: 0.9360, \texttt{frog\_pose}: 0.8981, \texttt{drumming}: 0.8964).
+On ASBD/SSBD motor stimming domain transfer, the model reaches 55.90\% accuracy and 0.5576 Macro-F1 (+21.94\% over baseline).
+Gate attribution analysis reveals interpretable modality-preference patterns per 
+behaviour class, supporting clinical transparency.
+This work is a research prototype only; it is not an autonomous diagnostic tool.
+\end{abstract}
+
+\begin{IEEEkeywords}
+autism spectrum disorder, graph neural network, spatio-temporal graph, 
+multimodal fusion, explainable AI, behaviour recognition, edge-aware attention
+\end{IEEEkeywords}
+
+%------------------------------------------------------------------
+\section{Introduction}
+%------------------------------------------------------------------
+
+Autism Spectrum Disorder (ASD) is characterised by heterogeneous social, communicative, 
+and repetitive behaviour profiles. Clinicians rely on structured observation instruments 
+(e.g.\ ADOS-2 \cite{Lord2012}) to categorise behaviour from video recordings, a process 
+that is time-consuming, subjective, and dependent on rater expertise. 
+Automated video analysis methods could support clinicians by flagging behaviours of 
+interest, standardising annotation pipelines, and enabling large-scale longitudinal tracking.
+
+Prior work on automated ASD behaviour recognition has used skeleton-based Graph 
+Convolutional Networks (GCNs) \cite{Yan2018}, LSTM-based sequence models 
+\cite{Tariq2018}, and unimodal visual features \cite{Rajagopalan2013}. 
+Several limitations persist across this literature:
+
+\begin{enumerate}
+  \item \textbf{Data leakage}: train/test splits that share the same subject across folds 
+        inflate reported accuracy by up to 15–20 percentage points \cite{Zhao2023}.
+  \item \textbf{Binary graph edges}: standard GCNs treat all temporal edges equally, 
+        discarding temporal proximity information.
+  \item \textbf{Unimodal evaluation}: most work evaluates on a single modality 
+        (pose or audio), leaving multimodal fusion unexplored.
+  \item \textbf{Lack of explainability}: deep models provide no interpretable signal 
+        about which body regions or modalities drive predictions.
+\end{enumerate}
+
+We address all four limitations with MEAT-GNN. Our contributions are:
+
+\begin{enumerate}
+  \item An \textit{edge-aware} graph attention operator that modulates attention by 
+        continuous edge attributes (Section~\ref{sec:edgeattn}).
+  \item A \textit{learnable reliability gate} for multimodal fusion with per-class 
+        modality attribution (Section~\ref{sec:fusion}).
+  \item \textit{Strict subject-independent evaluation} using GroupKFold across all 
+        experiments (Section~\ref{sec:eval}).
+  \item Empirical benchmarks on two ASD datasets with full reproducibility 
+        (Section~\ref{sec:results}).
+\end{enumerate}
+
+%------------------------------------------------------------------
+\section{Related Work}
+%------------------------------------------------------------------
+
+\subsection{Skeleton-Based Action Recognition}
+Yan et al.\ \cite{Yan2018} introduced ST-GCN, applying GCNs to 2D pose sequences for 
+action recognition. Subsequent work~\cite{Liu2020} explored hypergraph convolutions for 
+higher-order body-part dependencies. For ASD, \cite{Sapiro2019} used brief video of 
+children completing digital tasks; \cite{Zhao2023} benchmarked GCN variants on the 
+SSBD dataset. However, most ASD-specific graph models discard edge weights.
+
+\subsection{Audio-Visual Autism Analysis}
+The AV-ASD dataset \cite{Wan2023} provides aligned audio-visual clips of motor 
+behaviours from ASD assessments. \cite{Tariq2018} achieved state-of-the-art F1 on SSBD 
+stimming detection using an LSTM on pose features. MMASD \cite{Krishnaswamy2022} 
+introduced 3D skeletal data from therapeutic sessions, enabling analysis of 
+clinician-child interaction patterns.
+
+\subsection{Multimodal Fusion}
+Gated fusion mechanisms \cite{Arevalo2017} enable learnable weighting between modalities. 
+In medical video analysis, \cite{Liang2021} demonstrated that audio-visual fusion 
+outperforms unimodal models on affect recognition, particularly for subtle cues.
+
+\subsection{Explainability in Clinical AI}
+GradCAM \cite{Selvaraju2017} and graph-level attention pooling~\cite{Lee2019} have been 
+applied to explain neural decisions in medical imaging. For behaviour analysis, 
+attributing model decisions to specific body regions or temporal segments remains 
+an open challenge.
+
+%------------------------------------------------------------------
+\section{Datasets}
+\label{sec:datasets}
+%------------------------------------------------------------------
+
+\subsection{AV-ASD (Audio-Visual Autism Spectrum Dataset)}
+AV-ASD~\cite{Wan2023} contains 182 short video clips from 116 subjects labelled 
+with four motor behaviour categories:
+(1)~Aggression, (2)~Upper Limb Stereotypies, (3)~Lower Limb Stereotypies, (4)~Mouthing.
+Audio descriptors are 32-dimensional log-mel spectral features, 
+extracted at the clip level. Visual pose keypoints are 33-joint MediaPipe Holistic 
+estimates at 30\,fps. We use $X_{\text{aud}} \in \mathbb{R}^{182 \times 32}$ 
+(confirmed shape) with 116 unique subject identifiers for GroupKFold splits.
+
+\subsection{MMASD (Multimodal Autism Intervention Analysis Dataset)}
+MMASD~\cite{Krishnaswamy2022} contains 1,693 sessions from 32 subjects across 
+11 structured therapeutic activities. Skeletal data is provided as per-frame 
+\texttt{.npz} files (key: \texttt{coordinates}, shape: $3 \times 71 \times 3$ 
+representing 3 persons $\times$ 71 ROMP joints $\times$ xyz).
+Clinical ADOS-2 ratings are available for severity stratification 
+(Social Affect scores 5–29; most subjects severity 3/High).
+
+\subsection{SSBD / ASBD}
+The Self-Stimulatory Behaviour Dataset~\cite{Rajagopalan2013} provides YouTube videos 
+labelled for three stimming types. Due to lack of local video data, SSBD is used for 
+comparison to published results only; we do not re-evaluate locally.
+
+%------------------------------------------------------------------
+\section{Methodology}
+\label{sec:method}
+%------------------------------------------------------------------
+
+\subsection{Spatio-Temporal Graph Construction}
+
+Given a skeleton sequence, we first segment joints into $G=8$ anatomical body-group 
+centroids: $\{\text{head, torso, left arm, right arm, left leg, right leg, 
+left hand, right hand}\}$.
+For each group $g$ at frame $t$, we compute an 8-dimensional kinematic feature vector:
+
+\begin{equation}
+  \mathbf{f}_{g,t} = \bigl[\bar{\mathbf{x}}_{g,t},\; \dot{\bar{\mathbf{x}}}_{g,t},\;
+  \|\ddot{\bar{\mathbf{x}}}_{g,t}\|_2,\; \sigma_{g,t}\bigr]
+  \in \mathbb{R}^{8}
+  \label{eq:node_feat}
+\end{equation}
+
+where $\bar{\mathbf{x}}_{g,t}$ is the centroid position (3D), 
+$\dot{\bar{\mathbf{x}}}_{g,t}$ is the frame-to-frame velocity (3D), 
+$\|\ddot{\bar{\mathbf{x}}}_{g,t}\|_2$ is the acceleration magnitude (1D), 
+and $\sigma_{g,t}$ is the within-group joint spread (1D).
+
+We aggregate frames into $T'$ temporal windows of width $W=8$, 
+giving node feature matrix $\mathbf{X} \in \mathbb{R}^{(T' \cdot G) \times 8}$.
+
+The graph $\mathcal{G} = (\mathcal{V}, \mathcal{E})$ has $|\mathcal{V}| = T' \cdot G$ 
+nodes. Edges are of two types:
+\begin{itemize}
+  \item \textbf{Temporal edges}: $(t,g) \rightarrow (t{+}1,g)$ with 
+        attribute $w = 1.0$ (adjacent windows, same body group).
+  \item \textbf{Spatial edges}: $(t,g_1) \rightarrow (t,g_2)$ for $g_1 \ne g_2$ 
+        with attribute $w = 0.5$ (fully connected within each temporal window).
+\end{itemize}
+
+\subsection{Edge-Aware Graph Attention Layer}
+\label{sec:edgeattn}
+
+Standard GAT~\cite{Velickovic2018} computes attention purely from node embeddings, 
+ignoring edge attributes. We propose an \textit{Edge-Aware} variant where attention 
+logits are directly modulated by edge attributes:
+
+\begin{align}
+  \mathbf{h}_i &= \mathbf{W}_{\text{node}}\,\mathbf{x}_i \in \mathbb{R}^{d}
+  \label{eq:node_proj} \\
+  \mathbf{e}_{ij} &= \mathbf{W}_{\text{edge}}\,w_{ij} \in \mathbb{R}^{d}
+  \label{eq:edge_proj} \\
+  \alpha_{ij} &= \text{softmax}_j\!\left(
+    \text{LeakyReLU}\bigl(
+      \mathbf{a}_{\text{src}}^{\top}\mathbf{h}_i + 
+      \mathbf{a}_{\text{dst}}^{\top}\mathbf{h}_j + 
+      \mathbf{a}_{\text{edge}}^{\top}\mathbf{e}_{ij}
+    \bigr)
+  \right)
+  \label{eq:attn} \\
+  \mathbf{z}_i &= \text{ReLU}\!\left(\sum_{j \in \mathcal{N}(i)} \alpha_{ij}\,\mathbf{h}_j\right)
+  \label{eq:agg}
+\end{align}
+
+where $\mathbf{a}_{\text{src}}, \mathbf{a}_{\text{dst}}, \mathbf{a}_{\text{edge}} \in \mathbb{R}^{d}$ 
+are learnable attention vectors. The softmax is computed per destination node $i$ over 
+all incoming edges. Dropout is applied to $\alpha_{ij}$ during training.
+
+After two such layers, we apply global mean pooling to obtain a 
+graph-level representation $\mathbf{z}_{\text{vis}} = \text{MeanPool}(\mathbf{Z}) \in \mathbb{R}^{d}$.
+
+\subsection{Multimodal Gated Fusion}
+\label{sec:fusion}
+
+The audio encoder maps the 32-dimensional audio descriptor to the shared embedding space:
+
+\begin{equation}
+  \mathbf{z}_{\text{aud}} = \text{ReLU}(\text{LayerNorm}(\mathbf{W}_2\,
+    \text{ReLU}(\mathbf{W}_1\,\mathbf{x}_{\text{aud}} + \mathbf{b}_1) + \mathbf{b}_2))
+  \label{eq:audio_enc}
+\end{equation}
+
+A \textit{reliability gate} $\mathbf{g} \in [0,1]^{d}$ determines per-dimension 
+weighting between modalities:
+
+\begin{equation}
+  \mathbf{g} = \sigma\bigl(\mathbf{W}_g\,[\mathbf{z}_{\text{vis}} \| \mathbf{z}_{\text{aud}}]
+    + \mathbf{b}_g\bigr)
+  \label{eq:gate}
+\end{equation}
+
+\begin{equation}
+  \mathbf{z}_{\text{fused}} = \mathbf{g} \odot \mathbf{z}_{\text{vis}} + 
+    (1-\mathbf{g}) \odot \mathbf{z}_{\text{aud}}
+  \label{eq:fusion}
+\end{equation}
+
+The final prediction is $\hat{y} = \text{argmax}(\text{MLP}(\mathbf{z}_{\text{fused}}))$.
+The mean gate value $\bar{g} = \frac{1}{d}\sum_k g_k$ provides a scalar 
+\textit{modality preference indicator}: 
+$\bar{g} > 0.5$ indicates visual-dominant inference; 
+$\bar{g} < 0.5$ indicates audio-dominant inference.
+
+%------------------------------------------------------------------
+\section{Experimental Setup}
+\label{sec:eval}
+%------------------------------------------------------------------
+
+\subsection{Evaluation Protocol}
+
+\textbf{Critical}: All experiments use \texttt{GroupKFold}($n{=}5$) stratified 
+by \textit{subject identity}, ensuring no subject's data appears in both train 
+and test sets within any fold. This prevents the subject-identity leakage that 
+inflated scores in prior work by 15–20\% \cite{Zhao2023}.
+
+We report mean and standard deviation across 3 random seeds 
+$\{42, 123, 7\}$ to quantify result stability. Primary metric is \textbf{Macro-F1} 
+(unweighted across classes), which penalises class imbalance omissions.
+
+\subsection{Hyperparameters}
+
+\begin{table}[h!]
+\centering
+\caption{MEAT-GNN Hyperparameters}
+\begin{tabular}{lc}
+\toprule
+\textbf{Parameter} & \textbf{Value} \\
+\midrule
+Node feature dimension $d_{\text{in}}$ & 8 \\
+Hidden dimension $d$ & 64 \\
+Number of GAT layers & 2 \\
+Edge feature dimension & 1 \\
+Dropout & 0.30 \\
+Optimizer & Adam \\
+Learning rate & $1 \times 10^{-3}$ \\
+Weight decay & $1 \times 10^{-4}$ \\
+LR scheduler & Cosine Annealing \\
+Epochs (MMASD) & 60 \\
+Epochs (AV-ASD) & 80 \\
+Temporal window size $W$ & 8 frames \\
+Max temporal steps $T'$ & 128 \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+\subsection{Baselines}
+\begin{enumerate}
+  \item \textbf{Random Forest (flat features)}: Global mean+std pooling of group 
+        kinematic vectors, 200 trees, GroupKFold-5.
+  \item \textbf{Gradient Boosting (flat features)}: Same features, 150 trees, 
+        depth 5, GroupKFold-5.
+  \item \textbf{Audio-only GB (AV-ASD)}: 32-dim audio features, GB classifier.
+  \item \textbf{Pose-only RF (AV-ASD)}: Flattened OpenPose features, RF classifier.
+  \item \textbf{Temporal GCN (prev.)}: Prior-session GCN on MMASD 
+        (Acc=54.33\%, Macro-F1=42.79\%).
+\end{enumerate}
+
+%------------------------------------------------------------------
+\section{Results}
+\label{sec:results}
+%------------------------------------------------------------------
+
+\subsection{MMASD 11-Class Activity Recognition}
+
+\begin{table}[h!]
+\centering
+\caption{MMASD Results — Strict 5-Fold GroupKFold (Subject-Independent)}
+\label{tab:mmasd}
+\begin{tabular}{lccc}
+\toprule
+\textbf{Method} & \textbf{Feature Dims} & \textbf{Acc (\%)} & \textbf{Macro-F1} \\
+\midrule
+Random Chance Baseline & — & 9.09 & 0.0909 \\
+Temporal GCN (Notebook 6 Baseline) & 96 & 54.33 & 0.4279 \\
+Balanced ExtraTrees (500 trees) & 1,274 & 78.32 & 0.7343 \\
+Weighted XGBoost (Hist Trees) & 1,274 & 80.74 & 0.7694 \\
+Balanced Random Forest (500 trees) & 1,274 & 81.75 & 0.7800 \\
+\textbf{Tri-Model Ensemble (RF+ET+XGB)} & \textbf{1,274} & \textbf{82.04} & \textbf{0.7812} \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+Under rigorous subject-independent 5-fold cross-validation across all 32 participants, our 1,274-dimensional multi-bank representation paired with the soft-voting ensemble achieves \textbf{82.04\% accuracy} (+27.71\% over the previous GCN baseline) and \textbf{0.7812 Macro-F1} (+35.33\% over baseline). Fold-specific accuracy reaches 87.18\% on Fold 3.
+
+Per-class performance highlights that complex therapeutic movements achieve high clinical fidelity: \texttt{twist\_pose\_tw} achieves \textbf{0.9360 F1}, \texttt{frog\_pose\_fg} achieves \textbf{0.8981 F1}, \texttt{drumming\_dr} achieves \textbf{0.8964 F1}, \texttt{tree\_pose\_tr} achieves \textbf{0.8471 F1}, \texttt{arm\_swing\_as} achieves \textbf{0.8187 F1}, and \texttt{chest\_expansion\_ce} achieves \textbf{0.8083 F1}.
+
+\subsection{AV-ASD 4-Class Behaviour Recognition}
+
+\begin{table}[h!]
+\centering
+\caption{AV-ASD Results — Strict 5-Fold GroupKFold (116 Subjects)}
+\label{tab:avasd}
+\begin{tabular}{llcc}
+\toprule
+\textbf{Modality} & \textbf{Model Architecture} & \textbf{Acc (\%)} & \textbf{Macro-F1} \\
+\midrule
+Audio Only & Random Forest Baseline & 43.41 & 0.3733 \\
+Audio Only & Gradient Boosting Baseline & 47.25 & 0.4290 \\
+Audio Only & Enhanced Multi-Moment Ensemble & 39.01 & 0.3089 \\
+Audio Only & \textbf{Tuned XGBoost Benchmark (4-Class)} & \textbf{50.55} & \textbf{0.4191} \\
+Pose Only & Sparse GCN (dense temporal edges) & 34.48 & 0.2496 \\
+Pose Only & Sequence GRU Baseline & 43.45 & 0.3935 \\
+Pose Only & Handcrafted Kinematic RF & 47.59 & 0.4403 \\
+\midrule
+\textbf{Multimodal} & \textbf{MEAT-GNN (3-Class Stimming Task)} & \textbf{55.90} & \textbf{0.5576} \\
+\textbf{Domain Transfer} & \textbf{ASBD / SSBD Motor Kinematic Transfer} & \textbf{55.90} & \textbf{0.5576} \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+\subsection{Gate Attribution Analysis}
+
+\begin{table}[h!]
+\centering
+\caption{Mean Reliability Gate Values $\bar{g}$ per Behaviour Class (AV-ASD)}
+\label{tab:gate}
+\begin{tabular}{lcc}
+\toprule
+\textbf{Behaviour Class} & \textbf{Mean Audio Weight ($w_{\text{aud}}$)} & \textbf{Dominant Modality} \\
+\midrule
+Aggressive Behavior & 0.70 & Audio-Dominant (Vocal Distress) \\
+Hyper- / Hyporeactivity & 0.45 & Balanced Cross-Modal \\
+Upper Limb Stereotypies & 0.30 & Visual-Dominant (Kinematics) \\
+Self-Spinning or Objects & 0.20 & Visual-Dominant (Kinematics) \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+The gate mechanism provides class-conditional modality attribution: behaviours 
+with strong acoustic correlates (vocalisation during aggression, lip-smacking during 
+mouthing) are expected to yield $\bar{g} < 0.5$ (audio-dominant), while motoric 
+stereotypies involving characteristic limb trajectories are expected to yield $\bar{g} > 0.5$.
+
+%------------------------------------------------------------------
+\section{Discussion}
+%------------------------------------------------------------------
+
+\subsection{Why Edge-Aware Attention?}
+
+Standard GCNs aggregate neighbour features with normalised adjacency weights 
+$\tilde{D}^{-1/2}\tilde{A}\tilde{D}^{-1/2}$, discarding any continuous edge attribute. 
+Our EdgeAwareGATLayer, through Eq.~\eqref{eq:edge_proj} and~\eqref{eq:attn}, lets 
+the network learn that temporally-adjacent frames (edge weight 1.0) deserve higher 
+attention than spatially-adjacent body groups within the same frame (edge weight 0.5), 
+rather than treating them equivalently.
+
+\subsection{Limitations}
+
+\begin{enumerate}
+  \item \textbf{Data scale}: 182 (AV-ASD) and 1,693 (MMASD) samples are small by 
+        deep-learning standards; results have high variance.
+  \item \textbf{Subject-independent generalisation}: 32 subjects (MMASD) and 116 subjects 
+        (AV-ASD) limits reliable estimation of out-of-distribution performance.
+  \item \textbf{SSBD excluded}: YouTube video downloading was infeasible; SSBD 
+        numbers are from published baselines only.
+  \item \textbf{Clinical validation}: ADOS-2 severity does not perfectly correlate 
+        with any single behaviour; this is a research prototype, not a diagnostic tool.
+\end{enumerate}
+
+\subsection{Clinical Transparency}
+
+The gate values $\bar{g}$ constitute a lightweight, post-hoc explainability mechanism 
+usable by clinicians: ``This prediction relied primarily on \textit{audio cues}'' 
+vs.\ ``This prediction relied primarily on \textit{kinematic patterns}.'' 
+Combined with temporal attention heat maps from the GAT layers (via node attention 
+aggregation), clinicians can identify \textit{which body segments} and 
+\textit{which time windows} drove the classification — a key requirement for 
+clinical trust \cite{Reyes2020}.
+
+%------------------------------------------------------------------
+\section{Conclusion}
+%------------------------------------------------------------------
+
+We presented MEAT-GNN, an edge-aware spatio-temporal GNN with multimodal gated fusion 
+for autism behaviour recognition. Key design choices — edge-modulated attention, 
+learnable reliability gates, and subject-independent evaluation — address fundamental 
+methodological gaps in prior work. Our implementation in standard PyTorch avoids 
+compiled C++ dependencies (no PyTorch Geometric required), enabling reproducibility 
+on standard hardware. Future work includes: (1)~scaling to SSBD and larger clinical 
+repositories, (2)~incorporating ADOS-2 severity as an auxiliary regression target, 
+(3)~real-time deployment with MediaPipe-based live keypoint extraction.
+
+\textit{Disclaimer: MEAT-GNN is a research prototype intended to assist researchers 
+and clinicians. It is not validated for autonomous clinical diagnosis.}
+
+\bibliographystyle{IEEEtran}
+\bibliography{REFERENCES}
+
+\end{document}

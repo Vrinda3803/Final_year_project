@@ -1,0 +1,287 @@
+{
+  "audit_metadata": {
+    "benchmark_date": "2026-11-12",
+    "timestamp": "2026-11-12T09:12:27.250868",
+    "project_title": "Explainable Graph-Based Temporal Modeling of Social Behaviours for Autism Assessment",
+    "framework_name": "MEAT-GNN (Multi-bank Explicit Adaptive Temporal GNN)",
+    "clinical_disclaimer": "FOR CLINICAL DECISION-SUPPORT RESEARCH PURPOSES ONLY. Not for autonomous or definitive clinical diagnosis.",
+    "leakage_prevention_protocol": "Protocols vary by artifact. MMASD uses subject_id grouping; advanced AV-ASD segment results use video_id grouping. Verify participant-level independence before claiming zero subject overlap. ASBD/SSBD has no reproducible local evaluation artifact.",
+    "AV_ASD_update_2026_11_12": {
+      "scope": "Added nested video-context and video-level experiments using the local audio-only audit bundle.",
+      "important_caveat": "The earlier 961-segment 76.59% accuracy is dominated by one video containing 506 segments, all from one class; the other four folds together score about 58.9%. Do not interpret pooled segment accuracy as stable video/participant generalization.",
+      "multimodal_inputs": "No local AV-ASD raw video, pose/keypoint, or speech embedding features were found; target-speaker and participant identities remain unverified."
+    }
+  },
+  "summary_benchmarks_over_50": {
+    "MMASD_11_Classes": {
+      "target_met": true,
+      "metric": "Accuracy = 82.04%, Macro-F1 = 0.7812 (Peak Fold: 87.18% Acc)",
+      "classes_above_90_f1": [
+        "twist_pose_tw (0.9360)",
+        "frog_pose_fg (0.8981)",
+        "drumming_dr (0.8964)"
+      ]
+    },
+    "AV_ASD_4_Classes": {
+      "target_met": true,
+      "metric": "Accuracy = 50.55% (XGBoost Audio Benchmark), surpassing 50% threshold on 4 naturalistic classes"
+    },
+    "AV_ASD_3_Class_Stimming": {
+      "target_met": true,
+      "metric": "Accuracy = 55.90%, Macro-F1 = 0.5576, surpassing both 50% Accuracy and 50% F1 barriers"
+    },
+    "ASBD_SSBD_Stimming_Domain": {
+      "target_met": false,
+      "metric": "Not verifiable: no local source data or standalone evaluation artifact. The prior 55.90% / 0.5576 values duplicate AV-ASD 3-class values and must not be attributed to ASBD/SSBD without evidence."
+    }
+  },
+  "datasets": {
+    "MMASD": {
+      "dataset": "MMASD 11-class activity recognition",
+      "evaluation": "Strict 5-fold GroupKFold by subject_id",
+      "n_sessions": 1693,
+      "n_subjects": 32,
+      "feature_dimension": 1274,
+      "models": {
+        "RandomForest": {
+          "accuracy": 0.8175,
+          "macro_f1": 0.78
+        },
+        "ExtraTrees": {
+          "accuracy": 0.7832,
+          "macro_f1": 0.7343
+        },
+        "XGBoost": {
+          "accuracy": 0.8074,
+          "macro_f1": 0.7694
+        },
+        "Ensemble": {
+          "accuracy": 0.8204,
+          "macro_f1": 0.7812,
+          "weights": {
+            "rf": 0.4,
+            "et": 0.4,
+            "xgb": 0.2
+          }
+        },
+        "AdvancedEnsemble_Proto_SelectK": {
+          "accuracy": 0.828706438275251,
+          "macro_f1": 0.7911756362483436,
+          "pipeline": "MultiBank+Proto+SelectK800+RF800+ET800+XGB500",
+          "feature_dim": 1754
+        }
+      },
+      "per_class": {
+        "arm_swing_as": {
+          "f1": 0.8187,
+          "support": 105
+        },
+        "body_swing_bs": {
+          "f1": 0.7623,
+          "support": 119
+        },
+        "chest_expansion_ce": {
+          "f1": 0.8083,
+          "support": 114
+        },
+        "drumming_dr": {
+          "f1": 0.8964,
+          "support": 545
+        },
+        "frog_pose_fg": {
+          "f1": 0.8981,
+          "support": 113
+        },
+        "maracas_forward_shaking_mfs": {
+          "f1": 0.5978,
+          "support": 103
+        },
+        "maracas_shaking_ms": {
+          "f1": 0.7328,
+          "support": 130
+        },
+        "sing_and_clap_sac": {
+          "f1": 0.7423,
+          "support": 113
+        },
+        "squat_sq": {
+          "f1": 0.5529,
+          "support": 102
+        },
+        "tree_pose_tr": {
+          "f1": 0.8471,
+          "support": 129
+        },
+        "twist_pose_tw": {
+          "f1": 0.936,
+          "support": 120
+        }
+      },
+      "target_0.90_achieved": false,
+      "best_model": "AdvancedEnsemble_Proto_SelectK",
+      "best_accuracy": 0.828706438275251,
+      "best_macro_f1": 0.7911756362483436
+    },
+    "AV_ASD_4_Class_Audio_XGB": {
+      "dataset_name": "AV-ASD (Audio-Visual Autism Spectrum Dataset) 4-Class",
+      "n_samples": 182,
+      "n_subjects": 116,
+      "evaluation_protocol": "Reported as subject_id GroupKFold for clip benchmark; advanced segment artifacts use video_id. Verify participant-level independence.",
+      "classes": [
+        "Aggressive Behavior",
+        "Hyper- or Hyporeactivity to Sensory Input",
+        "Self-Spinning or Spinning Objects",
+        "Upper Limb Stereotypies"
+      ],
+      "results": {
+        "accuracy": 0.5055,
+        "macro_f1": 0.4191,
+        "previous_baseline_acc": 0.4725,
+        "previous_baseline_f1": 0.429,
+        "gain_acc": "+3.30%"
+      },
+      "advanced_segment_level": {
+        "accuracy": 0.5437665782493368,
+        "macro_f1": 0.3522385942429076,
+        "fold_accs": [
+          0.7391304347826086,
+          0.445859872611465,
+          0.3782051282051282,
+          0.2948717948717949,
+          0.4230769230769231
+        ],
+        "fold_f1s": [
+          0.2125,
+          0.32319933840928483,
+          0.3250623580264814,
+          0.246878591954023,
+          0.28815109197622857
+        ]
+      },
+      "video_level_aggregated": {
+        "accuracy": 0.31896551724137934,
+        "macro_f1": 0.32671627914044304,
+        "fold_accs": [
+          0.25,
+          0.34782608695652173,
+          0.43478260869565216,
+          0.21739130434782608,
+          0.34782608695652173
+        ],
+        "fold_f1s": [
+          0.25053418803418803,
+          0.341644385026738,
+          0.4291979949874686,
+          0.22291666666666665,
+          0.3344645550527904
+        ]
+      }
+    },
+    "AV_ASD_3_Class_Stimming": {
+      "dataset_name": "AV-ASD 3-Class Stimming & Affect Sub-benchmark",
+      "n_samples": 161,
+      "n_subjects": 107,
+      "evaluation_protocol": "Reported as subject_id GroupKFold for clip benchmark; advanced segment artifacts use video_id. Verify participant-level independence.",
+      "classes": [
+        "Aggressive Behavior",
+        "Hyper- or Hyporeactivity to Sensory Input",
+        "Upper Limb Stereotypies"
+      ],
+      "results": {
+        "accuracy": 0.559,
+        "macro_f1": 0.5576,
+        "gain_over_random": "+22.57% (random baseline = 33.33%)"
+      },
+      "advanced_segment_level": {
+        "accuracy": 0.7460978147762747,
+        "macro_f1": 0.5089351847277371,
+        "fold_accs": [
+          0.9011857707509882,
+          0.4298245614035088,
+          0.5964912280701754,
+          0.6052631578947368,
+          0.6637168141592921
+        ],
+        "fold_f1s": [
+          0.316008316008316,
+          0.23164362519201231,
+          0.4386528893991581,
+          0.40375586854460094,
+          0.6008855154965212
+        ]
+      },
+      "video_level_aggregated": {
+        "accuracy": 0.5402298850574713,
+        "macro_f1": 0.5015948963317385,
+        "fold_accs": [
+          0.6666666666666666,
+          0.6111111111111112,
+          0.35294117647058826,
+          0.6470588235294118,
+          0.4117647058823529
+        ],
+        "fold_f1s": [
+          0.6686507936507936,
+          0.5719576719576719,
+          0.3185185185185185,
+          0.6393345216874629,
+          0.3111111111111111
+        ]
+      },
+      "hyper_tuned_segment_level": {
+        "accuracy": 0.7658688865764828,
+        "macro_f1": 0.5369780387571343,
+        "n_samples": 961,
+        "pipeline": "EngineeredAudio+Proto+SelectK+RF800+ET800+XGB400"
+      },
+      "new_video_context_segment_experiment": {
+        "n_samples": 961,
+        "n_videos": 87,
+        "accuracy": 0.6701352757544224,
+        "macro_f1": 0.4661522034332674,
+        "balanced_accuracy": 0.4838208716849494,
+        "majority_class_baseline": 0.72840790842872,
+        "video_macro_mean_segment_accuracy": 0.4628275106535976,
+        "evaluation": "Nested 5-fold GroupKFold by video_id; inner 3-fold model selection",
+        "target_80_achieved": false,
+        "interpretation": "Below majority baseline on pooled segment accuracy; fold-level performance highly variable; experimental audio-context method."
+      },
+      "new_video_level_experiment": {
+        "n_videos": 87,
+        "segments_pooled": 961,
+        "accuracy": 0.6091954022988506,
+        "macro_f1": 0.5492155598538577,
+        "balanced_accuracy": 0.5527260179434093,
+        "majority_video_class_baseline": 0.5287356321839081,
+        "evaluation": "Nested 5-fold stratified evaluation on one sample per video; 3-fold inner model selection",
+        "target_80_achieved": false,
+        "interpretation": "Above majority-video baseline but below 80%; this is a video-level majority-label task, not segment recognition; participant IDs unverified."
+      },
+      "segment_level_distribution_audit": {
+        "videos": 87,
+        "largest_video_segments": 506,
+        "largest_video_fraction": 0.5265348595213319,
+        "largest_video_label": "Upper Limb Stereotypies",
+        "largest_video_fold_accuracy": 0.924901185770751,
+        "accuracy_on_other_four_folds": 0.589010989010989,
+        "note": "506 distinct segment IDs span approximately 29 minutes; not duplicate rows."
+      }
+    },
+    "ASBD_SSBD_Stimming": {
+      "dataset_name": "Autism Stimming Behaviour Dataset (ASBD / SSBD) Motor Transfer Benchmark",
+      "evaluation_protocol": "Unverified: no local source data, subject identifiers, or standalone result artifact",
+      "classes": [
+        "Arm Flapping",
+        "Head Banging / Self-Hitting",
+        "Spinning"
+      ],
+      "results": {
+        "status": "not_verifiable",
+        "previously_reported_accuracy": 0.559,
+        "previously_reported_macro_f1": 0.5576,
+        "evidence_note": "These values duplicate the AV-ASD 3-class result; no standalone ASBD/SSBD source data or evaluation artifact was located. Do not treat as a validated ASBD/SSBD result."
+      }
+    }
+  },
+  "last_updated": "2026-11-12"
+}

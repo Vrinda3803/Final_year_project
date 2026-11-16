@@ -1,0 +1,87 @@
+{
+  "study": "MMASD local 2D OpenPose temporal-summary MLP reference",
+  "status": "completed adapted local-release experiment; not a matched published reproduction",
+  "data": {
+    "n_clips": 1374,
+    "n_subjects": 32,
+    "n_classes": 10,
+    "feature_dimension": 2000,
+    "note": "Same cached 1,374-clip local archive and filename-derived subject folds as the graph experiment; counts differ from the cited 1,202-clip setup."
+  },
+  "protocol": {
+    "outer": "5-fold subject-grouped CV",
+    "validation": "subject groups held out from outer training set",
+    "seed": 42,
+    "feature": "global joint-coordinate/motion moments, 10th/90th quantiles, and mean/std in eight ordered temporal bins"
+  },
+  "model": {
+    "architecture": "512-256-10 MLP",
+    "optimizer": "AdamW",
+    "learning_rate": 0.0008,
+    "weight_decay": 0.0001,
+    "class_weighted_loss": true,
+    "early_stopping": "validation macro-F1, patience 12"
+  },
+  "summary": {
+    "accuracy": {
+      "mean": 0.7016943452206361,
+      "sd": 0.107704229147445
+    },
+    "macro_f1": {
+      "mean": 0.6338083599102715,
+      "sd": 0.1902665213032388
+    }
+  },
+  "fold_results": [
+    {
+      "fold": 1,
+      "train_clips": 803,
+      "validation_clips": 295,
+      "test_clips": 276,
+      "test_subjects": 6,
+      "best_epoch": 35,
+      "accuracy": 0.5942028985507246,
+      "macro_f1": 0.3407216731693036
+    },
+    {
+      "fold": 2,
+      "train_clips": 817,
+      "validation_clips": 281,
+      "test_clips": 276,
+      "test_subjects": 6,
+      "best_epoch": 4,
+      "accuracy": 0.5905797101449275,
+      "macro_f1": 0.5435922690306841
+    },
+    {
+      "fold": 3,
+      "train_clips": 832,
+      "validation_clips": 265,
+      "test_clips": 277,
+      "test_subjects": 7,
+      "best_epoch": 21,
+      "accuracy": 0.779783393501805,
+      "macro_f1": 0.7820410211276724
+    },
+    {
+      "fold": 4,
+      "train_clips": 993,
+      "validation_clips": 106,
+      "test_clips": 275,
+      "test_subjects": 7,
+      "best_epoch": 4,
+      "accuracy": 0.8290909090909091,
+      "macro_f1": 0.7754758221825374
+    },
+    {
+      "fold": 5,
+      "train_clips": 812,
+      "validation_clips": 292,
+      "test_clips": 270,
+      "test_subjects": 6,
+      "best_epoch": 8,
+      "accuracy": 0.7148148148148148,
+      "macro_f1": 0.7272110140411601
+    }
+  ]
+}

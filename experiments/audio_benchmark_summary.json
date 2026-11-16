@@ -1,0 +1,13 @@
+{
+  "dataset": "AV-ASD",
+  "n_samples": 182,
+  "n_subjects": 116,
+  "classes": [
+    "Aggressive Behavior",
+    "Hyper- or Hyporeactivity to Sensory Input",
+    "Self-Spinning or Spinning Objects",
+    "Upper Limb Stereotypies"
+  ],
+  "audio_rf_acc": 0.4341,
+  "audio_rf_macro_f1": 0.3733
+}

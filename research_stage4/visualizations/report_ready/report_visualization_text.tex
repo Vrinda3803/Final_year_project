@@ -1,0 +1,13 @@
+% Suggested text to accompany the report figures.
+
+% Add after the model-configuration comparison table and ablation figure.
+Figure~\ref{fig:ablation-comparison} summarizes the results for the distinct model configurations. Configuration A7, which uses dynamic bilateral connections with joint-reliability information as an input, achieved the highest mean accuracy (65.92\%), pooled macro-F1 (0.6402), and lowest mean expected calibration error (0.0733) among the configurations shown. The full RCDB-STGT model (A2) did not achieve the highest score on these measures. The results therefore support A7 as the strongest tested configuration under this evaluation, but do not show that every component of the full model improves performance.
+
+% Add after the class-wise results table and confusion-matrix figure.
+The confusion matrices in Figure~\ref{fig:confusion-matrices} show the proportions of predictions for each actual class. Values along the diagonal represent correctly classified examples, while values outside the diagonal show which classes were confused. The matrices provide a visual summary of error patterns for the fixed-connection reference (A0), full RCDB-STGT model (A2), and A7. Class labels are shown using the codes stored in the processed dataset.
+
+% Add after the synthetic-corruption table and figure.
+Figure~\ref{fig:synthetic-corruption} compares the models after specified artificial corruptions were applied to held-out skeleton inputs. A7 scored higher than A0 in each listed condition. At 40\% random joint dropout, however, A2 had a slightly higher mean fold macro-F1 than A7 (0.4293 versus 0.4135). Performance declined as corruption increased, and these tests should be interpreted as controlled synthetic stress tests rather than evidence of robustness to naturally occurring pose errors.
+
+% Optional short paragraph for an interpretability subsection or appendix.
+Figure~\ref{fig:bilateral-traces} illustrates how the selected bilateral connection strengths and joint-reliability values changed during two held-out recordings. The figure is intended to show the model's internal behavior for these examples; it does not establish that the highlighted connections explain the activity in a causal, clinical, or generally valid way.

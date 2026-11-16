@@ -1,0 +1,45 @@
+<svg width="600" height="350" xmlns="http://www.w3.org/2000/svg">
+  <rect width="100%" height="100%" fill="#ffffff" />
+  <text x="300" y="30" font-family="Arial, sans-serif" font-size="16" font-weight="bold" text-anchor="middle" fill="#333333">
+    Predictive Calibration: Uncalibrated vs Calibrated ECE
+  </text>
+  
+  <!-- Subtitle -->
+  <text x="300" y="55" font-family="Arial, sans-serif" font-size="12" text-anchor="middle" fill="#666666">
+    Temperature scaling fitted strictly on held-out validation subjects
+  </text>
+  
+  <!-- Bars -->
+  <!-- Bar 1: Uncalibrated -->
+  <rect x="140" y="100" width="100" height="111.68" fill="#e74c3c" rx="4" />
+  <text x="190" y="90" font-family="Arial, sans-serif" font-size="14" font-weight="bold" text-anchor="middle" fill="#e74c3c">
+    ECE: 0.1396
+  </text>
+  <text x="190" y="226.68" font-family="Arial, sans-serif" font-size="13" font-weight="bold" text-anchor="middle" fill="#333333">
+    Uncalibrated
+  </text>
+  <text x="190" y="246.68" font-family="Arial, sans-serif" font-size="11" text-anchor="middle" fill="#777777">
+    (Overconfident)
+  </text>
+
+  <!-- Bar 2: Calibrated -->
+  <rect x="360" y="163.28" width="100" height="48.4" fill="#27ae60" rx="4" />
+  <text x="410" y="153.28" font-family="Arial, sans-serif" font-size="14" font-weight="bold" text-anchor="middle" fill="#27ae60">
+    ECE: 0.0605
+  </text>
+  <text x="410" y="226.68" font-family="Arial, sans-serif" font-size="13" font-weight="bold" text-anchor="middle" fill="#333333">
+    Calibrated (RA-STGT)
+  </text>
+  <text x="410" y="246.68" font-family="Arial, sans-serif" font-size="11" text-anchor="middle" fill="#777777">
+    (Error reduced by 56.7%)
+  </text>
+  
+  <!-- Clinical Takeaway note -->
+  <rect x="50" y="270" width="500" height="50" fill="#f8f9fa" stroke="#e2e8f0" rx="6" />
+  <text x="300" y="292" font-family="Arial, sans-serif" font-size="11" text-anchor="middle" fill="#2d3748">
+    Clinical Benefit: Calibrated probabilities reflect true accuracy, enabling dependable
+  </text>
+  <text x="300" y="308" font-family="Arial, sans-serif" font-size="11" text-anchor="middle" fill="#2d3748">
+    abstention when observations are degraded by occlusions or severe tracking jitter.
+  </text>
+</svg>

@@ -1,0 +1,233 @@
+{
+  "study": "AV-ASD audio-only, clip-level multi-label grouped benchmark",
+  "status": "completed local modality ablation; not a reproduction of multimodal AV-ASD systems",
+  "research_base": {
+    "dataset_task_paper": "Hear Me, See Me, Understand Me: Audio-Visual Autism Behavior Recognition (IEEE TMM 2025)",
+    "recent_context": "Multimodal behavioral analysis for autism spectrum disorder assessment (Pattern Recognition 2026)",
+    "adaptation_note": "The local bundle provides only 32-D acoustic features. It lacks aligned visual/pose features, raw video, and verified target-speaker identity; this experiment preserves the published multi-label task but evaluates audio only."
+  },
+  "data": {
+    "annotated_clips_with_audio_features": 227,
+    "unique_source_video_groups": 138,
+    "feature_dimension_per_segment": 32,
+    "pooled_clip_feature_dimension": 259,
+    "label_counts": {
+      "Absence or Avoidance of Eye Contact": 48,
+      "Aggressive Behavior": 52,
+      "Hyper- or Hyporeactivity to Sensory Input": 58,
+      "Non-Responsiveness to Verbal Interaction": 28,
+      "Non-Typical Language": 31,
+      "Object Lining-Up": 11,
+      "Self-Hitting or Self-Injurious Behavior": 26,
+      "Self-Spinning or Spinning Objects": 35,
+      "Upper Limb Stereotypies": 74,
+      "Background": 7
+    },
+    "label_cardinality_mean_9_behaviors": 1.5991189427312775,
+    "participant_identity": "unverified; grouping is by source_video_id, not confirmed participant",
+    "speaker_identity": "unverified; diarization was disabled and target_participant_verified is false"
+  },
+  "method": {
+    "clip_features": "mean, standard deviation, minimum, maximum and four ordered temporal-bin means over aligned VAD segment descriptors, plus segment count and duration statistics",
+    "classifier": "one binary logistic regression per label; class-balanced loss",
+    "nested_selection": "C and per-label decision thresholds selected using grouped validation videos inside each outer-training fold",
+    "outer_evaluation": "five-fold GroupKFold by source_video_id; all clips from one source video stay in one fold",
+    "thresholds": [
+      0.1,
+      0.15,
+      0.2,
+      0.25,
+      0.3,
+      0.35,
+      0.4,
+      0.45,
+      0.5,
+      0.6
+    ],
+    "C_values": [
+      0.03,
+      0.1,
+      0.3,
+      1.0,
+      3.0,
+      10.0
+    ],
+    "seed": 42
+  },
+  "metrics": {
+    "pooled_oof": {
+      "threshold_tuned": {
+        "behavior_macro_f1": 0.2688412418941396,
+        "all10_macro_f1": 0.24995711770472565,
+        "behavior_micro_f1": 0.2822349570200573,
+        "behavior_macro_average_precision": 0.2202139828867597,
+        "exact_match_10": 0.004405286343612335,
+        "per_label": {
+          "Absence or Avoidance of Eye Contact": {
+            "precision": 0.19491525423728814,
+            "recall": 0.4791666666666667,
+            "f1": 0.27710843373493976,
+            "f1_at_0_5": 0.23943661971830985,
+            "support": 48,
+            "threshold_mean_across_outer_folds": 0.4200440528634362
+          },
+          "Aggressive Behavior": {
+            "precision": 0.40594059405940597,
+            "recall": 0.7884615384615384,
+            "f1": 0.5359477124183006,
+            "f1_at_0_5": 0.5625,
+            "support": 52,
+            "threshold_mean_across_outer_folds": 0.5400881057268723
+          },
+          "Hyper- or Hyporeactivity to Sensory Input": {
+            "precision": 0.2571428571428571,
+            "recall": 0.6206896551724138,
+            "f1": 0.36363636363636365,
+            "f1_at_0_5": 0.39490445859872614,
+            "support": 58,
+            "threshold_mean_across_outer_folds": 0.3799559471365639
+          },
+          "Non-Responsiveness to Verbal Interaction": {
+            "precision": 0.1388888888888889,
+            "recall": 0.5357142857142857,
+            "f1": 0.22058823529411764,
+            "f1_at_0_5": 0.24561403508771928,
+            "support": 28,
+            "threshold_mean_across_outer_folds": 0.40969162995594716
+          },
+          "Non-Typical Language": {
+            "precision": 0.12857142857142856,
+            "recall": 0.5806451612903226,
+            "f1": 0.21052631578947367,
+            "f1_at_0_5": 0.18947368421052632,
+            "support": 31,
+            "threshold_mean_across_outer_folds": 0.28986784140969163
+          },
+          "Object Lining-Up": {
+            "precision": 0.008547008547008548,
+            "recall": 0.09090909090909091,
+            "f1": 0.015625,
+            "f1_at_0_5": 0.029850746268656716,
+            "support": 11,
+            "threshold_mean_across_outer_folds": 0.34955947136563875
+          },
+          "Self-Hitting or Self-Injurious Behavior": {
+            "precision": 0.12,
+            "recall": 0.34615384615384615,
+            "f1": 0.1782178217821782,
+            "f1_at_0_5": 0.19148936170212766,
+            "support": 26,
+            "threshold_mean_across_outer_folds": 0.48105726872246685
+          },
+          "Self-Spinning or Spinning Objects": {
+            "precision": 0.15702479338842976,
+            "recall": 0.5428571428571428,
+            "f1": 0.24358974358974358,
+            "f1_at_0_5": 0.2689075630252101,
+            "support": 35,
+            "threshold_mean_across_outer_folds": 0.40814977973568284
+          },
+          "Upper Limb Stereotypies": {
+            "precision": 0.30973451327433627,
+            "recall": 0.47297297297297297,
+            "f1": 0.37433155080213903,
+            "f1_at_0_5": 0.40789473684210525,
+            "support": 74,
+            "threshold_mean_across_outer_folds": 0.41982378854625557
+          },
+          "Background": {
+            "precision": 0.046511627906976744,
+            "recall": 0.2857142857142857,
+            "f1": 0.08,
+            "f1_at_0_5": 0.08,
+            "support": 7,
+            "threshold_mean_across_outer_folds": 0.5
+          }
+        }
+      },
+      "fixed_0_5": {
+        "behavior_macro_f1": 0.2811190228281535,
+        "all10_macro_f1": 0.26100712054533814,
+        "behavior_micro_f1": 0.3145454545454546
+      }
+    },
+    "fold_results": [
+      {
+        "fold": 1,
+        "train_clips": 181,
+        "test_clips": 46,
+        "train_source_video_groups": 111,
+        "test_source_video_groups": 27,
+        "selected_C": 0.03,
+        "inner_validation_behavior_macro_f1": 0.38544855095127845,
+        "behavior_macro_f1_tuned": 0.2528429817538312,
+        "behavior_macro_f1_fixed_0_5": 0.29514860685459593,
+        "behavior_micro_f1_tuned": 0.24773413897280966,
+        "all10_macro_f1_tuned": 0.2386697946895592
+      },
+      {
+        "fold": 2,
+        "train_clips": 181,
+        "test_clips": 46,
+        "train_source_video_groups": 111,
+        "test_source_video_groups": 27,
+        "selected_C": 0.03,
+        "inner_validation_behavior_macro_f1": 0.3663710907704043,
+        "behavior_macro_f1_tuned": 0.2990285496813445,
+        "behavior_macro_f1_fixed_0_5": 0.26213942767090337,
+        "behavior_micro_f1_tuned": 0.3197278911564626,
+        "all10_macro_f1_tuned": 0.26912569471321
+      },
+      {
+        "fold": 3,
+        "train_clips": 182,
+        "test_clips": 45,
+        "train_source_video_groups": 110,
+        "test_source_video_groups": 28,
+        "selected_C": 0.3,
+        "inner_validation_behavior_macro_f1": 0.3605453900591815,
+        "behavior_macro_f1_tuned": 0.20620210083231827,
+        "behavior_macro_f1_fixed_0_5": 0.17076783082077648,
+        "behavior_micro_f1_tuned": 0.24390243902439024,
+        "all10_macro_f1_tuned": 0.18558189074908643
+      },
+      {
+        "fold": 4,
+        "train_clips": 182,
+        "test_clips": 45,
+        "train_source_video_groups": 110,
+        "test_source_video_groups": 28,
+        "selected_C": 0.03,
+        "inner_validation_behavior_macro_f1": 0.3510601681420527,
+        "behavior_macro_f1_tuned": 0.2447062529089829,
+        "behavior_macro_f1_fixed_0_5": 0.3137964385276213,
+        "behavior_micro_f1_tuned": 0.2766798418972332,
+        "all10_macro_f1_tuned": 0.22023562761808463
+      },
+      {
+        "fold": 5,
+        "train_clips": 182,
+        "test_clips": 45,
+        "train_source_video_groups": 110,
+        "test_source_video_groups": 28,
+        "selected_C": 0.03,
+        "inner_validation_behavior_macro_f1": 0.3443087043410758,
+        "behavior_macro_f1_tuned": 0.2691488487870753,
+        "behavior_macro_f1_fixed_0_5": 0.30654605450304373,
+        "behavior_micro_f1_tuned": 0.31309904153354634,
+        "all10_macro_f1_tuned": 0.25890063057503443
+      }
+    ]
+  },
+  "limitations": [
+    "This is audio-only and cannot support a multimodal performance claim.",
+    "Only 227 of 928 annotated clips had usable aligned audio features in the local bundle.",
+    "Source-video grouping is not verified participant-independent evaluation.",
+    "The available 32-D features are MFCC/spectral summaries rather than pretrained speech representations.",
+    "The target participant in the audio is not verified; audio may include caregiver or ambient sound."
+  ],
+  "files": {
+    "fold_csv": "results\\avasd_multilabel_audio_grouped_folds_2026_11_12.csv",
+    "oof_csv": "results\\avasd_multilabel_audio_grouped_oof_2026_11_12.csv"
+  }
+}

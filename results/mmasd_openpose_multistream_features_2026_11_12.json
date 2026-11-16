@@ -1,0 +1,79 @@
+{
+  "study": "MMASD joint/bone/motion multiscale temporal descriptor experiment",
+  "status": "completed adapted local-release experiment",
+  "data": {
+    "clips": 1374,
+    "subjects": 32,
+    "classes": 10,
+    "feature_dimension": 5488,
+    "note": "Local archive differs in count and class distribution from published 1,202-clip ten-class setup."
+  },
+  "protocol": {
+    "outer": "same five filename-subject grouped folds",
+    "validation": "18% subject-grouped within outer training set",
+    "seed": 42
+  },
+  "features": "Global moments and 10th/90th percentiles plus 4-bin and 8-bin means/stds for joint position/motion and directed bone/bone-motion streams.",
+  "model": "Class-weighted 512-256 MLP; AdamW; validation macro-F1 early stopping; one seed.",
+  "reference": {
+    "single_joint_stream_accuracy": 0.7016943452206361,
+    "single_joint_stream_macro_f1": 0.6338083599102715
+  },
+  "summary": {
+    "accuracy": {
+      "mean": 0.7074494952137395,
+      "sd": 0.11185334197622838
+    },
+    "macro_f1": {
+      "mean": 0.626495126793173,
+      "sd": 0.2082392886889398
+    }
+  },
+  "fold_results": [
+    {
+      "fold": 1,
+      "train_clips": 803,
+      "validation_clips": 295,
+      "test_clips": 276,
+      "best_epoch": 16,
+      "accuracy": 0.5652173913043478,
+      "macro_f1": 0.2969964138505721
+    },
+    {
+      "fold": 2,
+      "train_clips": 817,
+      "validation_clips": 281,
+      "test_clips": 276,
+      "best_epoch": 13,
+      "accuracy": 0.6268115942028986,
+      "macro_f1": 0.5595044839163315
+    },
+    {
+      "fold": 3,
+      "train_clips": 832,
+      "validation_clips": 265,
+      "test_clips": 277,
+      "best_epoch": 7,
+      "accuracy": 0.8194945848375451,
+      "macro_f1": 0.8261752435871952
+    },
+    {
+      "fold": 4,
+      "train_clips": 993,
+      "validation_clips": 106,
+      "test_clips": 275,
+      "best_epoch": 20,
+      "accuracy": 0.8109090909090909,
+      "macro_f1": 0.7489639315721928
+    },
+    {
+      "fold": 5,
+      "train_clips": 812,
+      "validation_clips": 292,
+      "test_clips": 270,
+      "best_epoch": 5,
+      "accuracy": 0.7148148148148148,
+      "macro_f1": 0.7008355610395735
+    }
+  ]
+}
