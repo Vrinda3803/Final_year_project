@@ -1,6 +1,7 @@
 # Local datasets and derived participant-level data
 data/raw/
 data/processed/
+/dashboard/
 
 # Local Python environment/dependency cache
 .codex-deps/
