@@ -1,0 +1,101 @@
+bib_key,primary_topic,title
+paper01,Social interaction and communication,Development and Validation of a Joint Attention-Based Deep Learning System for Detection and Symptom Severity Assessment of Autism Spectrum Disorder
+paper02,Social interaction and communication,On Scalable and Interpretable Autism Detection from Social Interaction Behavior
+paper03,"Pose, skeleton, and movement",Using 2D Video-Based Pose Estimation for Automated Prediction of Autism Spectrum Disorders in Young Children
+paper04,Eye-tracking and gaze analysis,Stratification of Children with Autism Spectrum Disorder Through Fusion of Temporal Information in Eye-Gaze Scan-Paths
+paper05,"Pose, skeleton, and movement",Applying Machine Learning to Kinematic and Eye Movement Features of a Movement Imitation Task to Predict Autism Diagnosis
+paper06,Multimodal behavioral analysis,A Multimodal Discrimination Method for the Response to Name Behavior of Autistic Children Based on Human Pose Tracking and Head Pose Estimation
+paper07,Facial expression and emotion,Discriminative Few Shot Learning of Facial Dynamics in Interview Videos for Autism Trait Classification
+paper08,Eye-tracking and gaze analysis,Classification of Children With Autism and Typical Development Using Eye-Tracking Data From Face-to-Face Conversations: Machine Learning Model Development and Performance Evaluation
+paper09,"Pose, skeleton, and movement",IMITASD: Imitation Assessment Model for Children with Autism Based on Human Pose Estimation
+paper10,Facial expression and emotion,Video-Based Continuous Affect Recognition of Children with Autism Spectrum Disorder Using Deep Learning
+paper11,Multimodal behavioral analysis,"Computer Vision-Based Assessment of Autistic Children: Analyzing Interactions, Emotions, Human Pose, and Life Skills"
+paper12,Facial expression and emotion,Hugging Rain Man: A Novel Facial Action Units Dataset for Analyzing Atypical Facial Expressions in Children With Autism Spectrum Disorder
+paper13,"Pose, skeleton, and movement",Skeleton-Based Activity Recognition for Children with Autism Using Graph Convolutional Networks
+paper14,Social interaction and communication,Computational Interpersonal Communication Model for Screening Autistic Toddlers: A Case Study of Response-to-Name
+paper15,Multimodal behavioral analysis,Automated Screening of Autism via a Pretrained Vision-Language Model in Naturalistic Caregiver-Child Interactions
+paper16,Eye-tracking and gaze analysis,Using Visual Attention Estimation on Videos for Automated Prediction of Autism Spectrum Disorder and Symptom Severity in Preschool Children
+paper17,Social interaction and communication,Large-Scale Validation of a Scalable and Portable Behavioral Digital Screening Tool for Autism at Home
+paper18,"Pose, skeleton, and movement",Autism Spectrum Disorder Detection Using Skeleton-Based Body Movement Analysis via Dual-Stream Deep Learning
+paper19,Eye-tracking and gaze analysis,A Novel Multi-Modal Model to Assist the Diagnosis of Autism Spectrum Disorder Using Eye-Tracking Data
+paper20,Eye-tracking and gaze analysis,Fusion-Based Deep Learning Model for Autism Detection from Eye-Tracking Data
+paper21,Eye-tracking and gaze analysis,Improving Autism Diagnosis Across Ages Using Eye-Tracking and Temporal Transformer Models
+paper22,Eye-tracking and gaze analysis,A Convolutional Deep Neural Network Approach to Predict Autism Spectrum Disorder Based on Eye-Tracking Scan Paths
+paper23,Eye-tracking and gaze analysis,ASDNet: A Robust Involution-Based Architecture for Diagnosis of Autism Spectrum Disorder Utilising Eye-Tracking Technology
+paper24,Eye-tracking and gaze analysis,Autism Screening Based on Deep Learning Analysis of Eye Movement Trajectories
+paper25,Eye-tracking and gaze analysis,ASD-MobileNet-V2-xDNN: An Explainable Deep Learning Architecture for Autism Spectrum Disorder Detection via Eye-Tracking Scanpath Images
+paper26,Multimodal behavioral analysis,Improving Autism Detection with Multimodal Behavioral Analysis
+paper27,Multimodal behavioral analysis,"Multimodal Analysis of Response-to-Name in Naturalistic Play: Bridging Speech, Gaze, and Head Pose Data"
+paper28,Multimodal behavioral analysis,Explainable and Secure Framework for Autism Prediction Using Multimodal Eye Tracking and Kinematic Data
+paper29,Social interaction and communication,Creating a Diagnostic Assessment Model for Autism Spectrum Disorder by Differentiating Lexicogrammatical Choices Through Machine Learning
+paper30,Eye-tracking and gaze analysis,Effectiveness of Histogram Equalization and Ensemble Deep Learning Techniques for Detecting Autism Using Eye-Tracking
+paper31,Eye-tracking and gaze analysis,Detection of Autism Spectrum Disorder in Eye Tracking using Hybrid Machine Learning and Deep Learning Technique
+paper32,Eye-tracking and gaze analysis,Gaze Pattern Analysis for Early Autism Spectrum Disorder Screening using Real-Time Computer Vision
+paper33,Facial expression and emotion,Explainable AI for Autism Spectrum Disorder Detection in Children Using Facial Images: A Multi-Scale Feature Extraction and Transfer Learning Approach
+paper34,Eye-tracking and gaze analysis,Enhanced Multilevel Autism Classification for Children Using Eye-Tracking and Hybrid CNN-RNN Deep Learning Models
+paper35,Multimodal behavioral analysis,Multi-Modal Video Analysis System for Early Autism Detection Using Computer Vision
+paper36,Other screening approaches,Graph Convolution Model for Diagnosing Autism Spectrum Disorder Using Diverse Genetic Data
+paper37,Eye-tracking and gaze analysis,Autism Detection Using Eye Tracking
+paper38,Other screening approaches,AIoT-Based Early Autism Screening Using Agentic AI and Workflow Automation
+paper39,Other screening approaches,Cross-Population Autism Spectrum Disorder Classification with Explainable Ensemble Learning
+paper40,Eye-tracking and gaze analysis,Detection of Brain Disorders Using Ocular Responses
+paper41,Other screening approaches,Exploring the Potential of Parent Report for Autism/Developmental Screening at the 18-Month Visit
+paper42,Eye-tracking and gaze analysis,Gaze Patterns in Children With Autism Spectrum Disorder to Emotional Faces: Scanpath and Similarity
+paper43,Eye-tracking and gaze analysis,Using Explainable Machine Learning and Eye-Tracking for Diagnosing Autism Spectrum and Developmental Language Disorders in Social Attention Tasks
+paper44,Social interaction and communication,Machine Learning Classification of Autism Spectrum Disorder Based on Reciprocity in Naturalistic Social Interactions
+paper45,Eye-tracking and gaze analysis,Enhancing Ensemble Classifiers Utilizing Gaze Tracking Data for Autism Spectrum Disorder Diagnosis
+paper46,Eye-tracking and gaze analysis,Toward Gaze Target Detection of Young Autistic Children
+paper47,Eye-tracking and gaze analysis,Early identification of autism spectrum disorder based on machine learning with eye-tracking data
+paper48,Eye-tracking and gaze analysis,Enhancing Autism Detection Through Gaze Analysis Using Eye Tracking Sensors and Data Attribution with Distillation in Deep Neural Networks
+paper49,Eye-tracking and gaze analysis,Involution fused convolution for classifying eye-tracking patterns of children with Autism Spectrum Disorder
+paper50,Facial expression and emotion,Deep Learning Based Approach to Enhanced Recognition of Emotions and Behavioral Patterns of Autistic Children
+paper51,Multimodal behavioral analysis,EEG Decoding Performance and Emotional States in Speech and Language Games for ASD: A Pilot Study
+paper52,Eye-tracking and gaze analysis,A Wearable Eye-Tracking Approach for Early Autism Detection with Machine Learning: Unravelling Challenges and Opportunities
+paper53,Social interaction and communication,Context-based Dataset for Analysis of Videos of Autistic Children
+paper54,Multimodal behavioral analysis,Autism Spectrum Disorder Detection Using Eye-Tracking Scanpaths and EEG Data
+paper55,Multimodal behavioral analysis,Applying a Convolutional Vision Transformer for Emotion Recognition in Children with Autism: Fusion of Facial Expressions and Speech Features
+paper56,"Pose, skeleton, and movement",Quantifying Repetitive Hand Flapping Kinematics in Autistic and Non-Autistic Toddlers Using Video-Based Pose Estimation
+paper57,Multimodal behavioral analysis,A Novel Thermal Imaging-Based Framework for Continuous ASD Classification and Behavior Analysis Using Facial Mood and Skin Temperature Features
+paper58,Multimodal behavioral analysis,Autism Rehabilitation with Meltdown Prediction Using Facial Expression and Hand Gesture Detection
+paper59,Other screening approaches,Predictive Framework for Autism Spectrum Disorder Based on Age and Behavioral Data using Tuned XGBoost
+paper60,Social interaction and communication,Reliably Quantifying the Severity of Social Symptoms in Children with Autism Using ASDSpeech
+paper61,Multimodal behavioral analysis,AV-FOS: Transformer-Based Audio-Visual Multimodal Interaction Style Recognition for Children With Autism Using the Revised Family Observation Schedule 3rd Edition (FOS-R-III)
+paper62,"Pose, skeleton, and movement",Dyadic Imitation Modeling With Lag-Aware Dual-Stream Framework for Autism Classification
+paper63,Multimodal behavioral analysis,Modelling learning dynamics in autism therapy through explainable multimodal representation learning
+paper64,Multimodal behavioral analysis,Multimodal Framework for Automatic Behavior Analysis of Children with Autism During ADOS-2
+paper65,Multimodal behavioral analysis,"Objective Measurement of Social Gaze and Smile Behaviors in Children with Suspected Autism Spectrum Disorder During Administration of the Autism Diagnostic Observation Schedule, 2nd Edition"
+paper66,Eye-tracking and gaze analysis,An Analytics-Driven Model for Identifying Autism Spectrum Disorder Using Eye Tracking
+paper67,"Pose, skeleton, and movement",Stereotypic Repetitive Behavior Monitoring Using Human Body Communication
+paper68,"Pose, skeleton, and movement",Efficient Analysis on Behavior Video: A Fine-Grained Self-Stimulatory Dataset and a Balanced Patch-Partition Embedding Framework
+paper69,Facial expression and emotion,Robust Autism Spectrum Disorder Screening Based on Facial Images (For Disability Diagnosis): A Domain-Adaptive Deep Ensemble Approach
+paper70,Facial expression and emotion,Autism Classification and Monitoring from Predicted Categorical and Dimensional Emotions of Video Features
+paper71,Multimodal behavioral analysis,Multimodal large language models for ADOS-M1 behavioral assessment
+paper72,Multimodal behavioral analysis,Zero-Shot Autism Behaviour Recognition Leveraging Multimodal Representations and Cross-Dataset Evaluation
+paper73,"Pose, skeleton, and movement",Autism Action Dataset (AAD): A Comprehensive Video Benchmark for ASD Behavior Recognition Using Deep Learning
+paper74,"Pose, skeleton, and movement",Neural Network-Based Method for Early Diagnosis of Autism Spectral Disorder Head-Banging Behavior from Recorded Videos
+paper75,"Pose, skeleton, and movement",Machine Learning Approach for Identification of Autism Spectrum Disorder from Video Using OpenPose
+paper76,Eye-tracking and gaze analysis,Identification of Social Engagement Indicators Associated With Autism Spectrum Disorder Using a Game-Based Mobile App: Comparative Study of Gaze Fixation and Visual Scanning Methods
+paper77,Eye-tracking and gaze analysis,Identifying Autistic Children Using Deep Learning Based on the Temporal and Spatial Information of Eye-Tracking
+paper78,Eye-tracking and gaze analysis,A spatiotemporal hybrid neural network for robust autism spectrum disorder detection via eye tracking feature fusion
+paper79,Eye-tracking and gaze analysis,Diagnosing autism spectrum disorder based on eye tracking technology using deep learning models
+paper80,Eye-tracking and gaze analysis,Computer-Aided Screening of Autism Spectrum Disorder: Eye-Tracking Study Using Data Visualization and Deep Learning
+paper81,Eye-tracking and gaze analysis,Machine learning for distinguishing saudi children with and without autism via eye-tracking data
+paper82,Facial expression and emotion,Emotion Recognition in Autistic Children Through Facial Expressions Using Advanced Deep Learning Architectures
+paper83,Multimodal behavioral analysis,Children ASD Evaluation Through Joint Analysis of EEG and Eye-Tracking Recordings With Graph Convolution Network
+paper84,Multimodal behavioral analysis,"Early multimodal behavioral cues in autism: a micro-analytical exploration of actions, gestures and speech during naturalistic parent-child interactions"
+paper85,Multimodal behavioral analysis,Attention Level Evaluation in Children With Autism: Leveraging Head Pose and Gaze Parameters From Videos for Educational Intervention
+paper86,Eye-tracking and gaze analysis,Hybrid deep learning approach for autism spectrum disorder diagnosis using eye-tracking images
+paper87,Eye-tracking and gaze analysis,Gaze4ASD: A Novel Dataset and Visual Saliency Map-Based Method for Autism Screening
+paper88,Eye-tracking and gaze analysis,Explainable Eye Tracking Analysis Using a Deep Learning Approach for Autism Detection
+paper89,Eye-tracking and gaze analysis,Machine learning algorithms for identifying autism spectrum disorder through eye-tracking in different intention videos
+paper90,"Pose, skeleton, and movement",DSVTN-ASD: Detection of Stereotypical Behaviors in Individuals with Autism Spectrum Disorder using a Dual Self-Supervised Video Transformer Network
+paper91,"Pose, skeleton, and movement",Applying Computer Vision to Analyze Self-Injurious Behaviors in Children with Autism Spectrum Disorder
+paper92,Multimodal behavioral analysis,Detecting children with autism spectrum disorder based on script-centric behavior understanding with emotional enhancement
+paper93,Social interaction and communication,Autism Digital Phenotyping in Preschool- and School-Age Children
+paper94,"Pose, skeleton, and movement",Movement-Related Differences Between Infants with High and Low Likelihood of Autism: A Longitudinal Study Using Markerless Motion Tracking
+paper95,Social interaction and communication,A new approach in autism diagnosis: Evaluating natural interaction using point of view (POV) glasses
+paper96,Facial expression and emotion,Using AI facial expression analysis software to assess negative affect in autistic children
+paper97,Facial expression and emotion,Comparing three algorithms of automated facial expression analysis in autistic children: different sensitivities but consistent proportions
+paper98,Eye-tracking and gaze analysis,A systematic evaluation of autism spectrum disorder identification with Scanpath Trend Analysis (STA)
+paper99,Eye-tracking and gaze analysis,From clinical and typical separation to autism spectrum disorder and global developmental delay differentiation: Interpretable eye-tracking-based machine learning
+paper100,Eye-tracking and gaze analysis,Towards an Automatic Early Screening System for Autism Spectrum Disorder in Toddlers Based on Eye-Tracking

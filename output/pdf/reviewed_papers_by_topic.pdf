@@ -1,0 +1,83 @@
+%PDF-1.4
+%‚„œ”
+1 0 obj
+<< /Type /Catalog /Pages 2 0 R >>
+endobj
+2 0 obj
+<< /Type /Pages /Kids [3 0 R] /Count 1 >>
+endobj
+3 0 obj
+<< /Type /Page /Parent 2 0 R /MediaBox [0 0 960.0 540.0] /Resources << /Font << /F1 4 0 R >> >> /Contents 5 0 R >>
+endobj
+4 0 obj
+<< /Type /Font /Subtype /Type1 /BaseFont /Helvetica >>
+endobj
+5 0 obj
+<< /Length 1693 >>
+stream
+1 J 1 j
+2.5 w
+0.2667 0.4667 0.6667 rg 1 1 1 RG
+230.000 270.000 m 230.000 65.000 l
+314.088 65.000 389.649 116.351 420.604 194.534 c
+451.559 272.718 431.630 361.876 370.332 419.439 c
+h B
+0.9333 0.4000 0.4667 rg 1 1 1 RG
+230.000 270.000 m 370.332 419.439 l
+298.597 486.802 189.116 493.690 109.504 435.848 c
+h B
+0.1333 0.5333 0.2000 rg 1 1 1 RG
+230.000 270.000 m 109.504 435.848 l
+56.415 397.277 25.000 335.622 25.000 270.000 c
+h B
+0.8000 0.7333 0.2667 rg 1 1 1 RG
+230.000 270.000 m 25.000 270.000 l
+25.000 226.708 38.705 184.528 64.152 149.504 c
+h B
+0.4000 0.8000 0.9333 rg 1 1 1 RG
+230.000 270.000 m 64.152 149.504 l
+89.598 114.480 125.479 88.411 166.652 75.033 c
+h B
+0.6667 0.2000 0.4667 rg 1 1 1 RG
+230.000 270.000 m 166.652 75.033 l
+187.110 68.386 208.488 65.000 230.000 65.000 c
+h B
+0.2667 0.4667 0.6667 rg
+470 394.00 17 17 re f
+0.12 0.16 0.20 rg
+BT /F1 14 Tf 499 398.00 Td (Eye-tracking and gaze analysis - 38 papers \(38.0%\)) Tj ET
+0.9333 0.4000 0.4667 rg
+470 344.00 17 17 re f
+0.12 0.16 0.20 rg
+BT /F1 14 Tf 499 348.00 Td (Multimodal behavioral analysis - 22 papers \(22.0%\)) Tj ET
+0.1333 0.5333 0.2000 rg
+470 294.00 17 17 re f
+0.12 0.16 0.20 rg
+BT /F1 14 Tf 499 298.00 Td (Pose, skeleton, and movement - 15 papers \(15.0%\)) Tj ET
+0.8000 0.7333 0.2667 rg
+470 244.00 17 17 re f
+0.12 0.16 0.20 rg
+BT /F1 14 Tf 499 248.00 Td (Facial expression and emotion - 10 papers \(10.0%\)) Tj ET
+0.4000 0.8000 0.9333 rg
+470 194.00 17 17 re f
+0.12 0.16 0.20 rg
+BT /F1 14 Tf 499 198.00 Td (Social interaction and communication - 10 papers \(10.0%\)) Tj ET
+0.6667 0.2000 0.4667 rg
+470 144.00 17 17 re f
+0.12 0.16 0.20 rg
+BT /F1 14 Tf 499 148.00 Td (Other screening approaches - 5 papers \(5.0%\)) Tj ET
+endstream
+endobj
+xref
+0 6
+0000000000 65535 f 
+0000000015 00000 n 
+0000000064 00000 n 
+0000000121 00000 n 
+0000000251 00000 n 
+0000000321 00000 n 
+trailer
+<< /Size 6 /Root 1 0 R >>
+startxref
+2066
+%%EOF
