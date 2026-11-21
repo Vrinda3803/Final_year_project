@@ -1,0 +1,3 @@
+config,augmentation,pooled_acc,macro_f1,std_fold_acc
+RC-BiGCN v1 (no augmentation),none,0.7533,0.7361,0.0638
+RC-BiGCN v2 (scale jitter + coord noise),scale_jitter_5pct+coord_noise_sigma0.005,0.7635,0.7601,0.0844

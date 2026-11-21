@@ -1,0 +1,23 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1280" height="610" viewBox="0 0 1280 610">
+<rect width="100%" height="100%" fill="#ffffff"/>
+<g stroke="#ffffff" stroke-width="4">
+<path d="M 300.00 305.00 L 300.00 60.00 A 245.00 245.00 0 0 1 467.71 483.60 Z" fill="#4477AA"/>
+<path d="M 300.00 305.00 L 467.71 483.60 A 245.00 245.00 0 0 1 155.99 503.21 Z" fill="#EE6677"/>
+<path d="M 300.00 305.00 L 155.99 503.21 A 245.00 245.00 0 0 1 55.00 305.00 Z" fill="#228833"/>
+<path d="M 300.00 305.00 L 55.00 305.00 A 245.00 245.00 0 0 1 101.79 160.99 Z" fill="#CCBB44"/>
+<path d="M 300.00 305.00 L 101.79 160.99 A 245.00 245.00 0 0 1 224.29 71.99 Z" fill="#66CCEE"/>
+<path d="M 300.00 305.00 L 224.29 71.99 A 245.00 245.00 0 0 1 300.00 60.00 Z" fill="#AA3377"/>
+</g>
+<rect x="650" y="139.0" width="24" height="24" rx="4" fill="#4477AA"/>
+<text x="692" y="158.0" font-family="Arial, Helvetica, sans-serif" font-size="23" fill="#202833">Eye-tracking and gaze analysis - 38 papers (38.0%)</text>
+<rect x="650" y="196.0" width="24" height="24" rx="4" fill="#EE6677"/>
+<text x="692" y="215.0" font-family="Arial, Helvetica, sans-serif" font-size="23" fill="#202833">Multimodal behavioral analysis - 22 papers (22.0%)</text>
+<rect x="650" y="253.0" width="24" height="24" rx="4" fill="#228833"/>
+<text x="692" y="272.0" font-family="Arial, Helvetica, sans-serif" font-size="23" fill="#202833">Pose, skeleton, and movement - 15 papers (15.0%)</text>
+<rect x="650" y="310.0" width="24" height="24" rx="4" fill="#CCBB44"/>
+<text x="692" y="329.0" font-family="Arial, Helvetica, sans-serif" font-size="23" fill="#202833">Facial expression and emotion - 10 papers (10.0%)</text>
+<rect x="650" y="367.0" width="24" height="24" rx="4" fill="#66CCEE"/>
+<text x="692" y="386.0" font-family="Arial, Helvetica, sans-serif" font-size="23" fill="#202833">Social interaction and communication - 10 papers (10.0%)</text>
+<rect x="650" y="424.0" width="24" height="24" rx="4" fill="#AA3377"/>
+<text x="692" y="443.0" font-family="Arial, Helvetica, sans-serif" font-size="23" fill="#202833">Other screening approaches - 5 papers (5.0%)</text>
+</svg>

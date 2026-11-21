@@ -1,0 +1,6 @@
+perturbation,suppression_level,pooled_acc,macro_f1,ece
+uniform_mix_0.0,0.0,0.7635,0.7601,0.098
+uniform_mix_0.1,0.1,0.7635,0.7601,0.0207
+uniform_mix_0.2,0.2,0.7635,0.7601,0.0599
+uniform_mix_0.3,0.3,0.7635,0.7601,0.1318
+uniform_mix_0.5,0.5,0.7635,0.7601,0.2837

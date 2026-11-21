@@ -1,0 +1,154 @@
+% Research-paper sections drafted from S7_Report_Template (11).pdf.
+% Citation keys in this file are defined in the bibliography entries
+% shown in the accompanying reference file and in the user's existing .bib.
+
+\section{Related Work}\label{sec:related_work}
+
+Skeleton-based activity recognition represents a person using body-joint coordinates tracked over time. This representation focuses analysis on movement and body structure, while reducing dependence on clothing, background, and other image appearance. Its quality still depends on pose estimation: occluded or incorrectly located joints can introduce errors into the sequence.
+
+Graph-based methods provide a natural way to represent a skeleton because joints can be treated as nodes and anatomical connections as edges. Spatial-temporal graph convolutional networks (ST-GCN) established a framework for learning both body structure and changes in pose over time \cite{yan2018stgcn}. Later methods expanded how relationships between joints are learned. CTR-GCN refines graph topology across feature channels, while InfoGCN learns context-dependent relationships and a compact representation \cite{Chen2021CTR,Chi2022InfoGCN}. PoseConv3D offers a different approach by representing pose sequences as volumes and processing them with 3D convolutions; its study also examines robustness to pose noise \cite{Duan2022PoseConv3D}. These methods show that skeleton action recognition can be approached with different spatial and temporal representations. Results from general action-recognition benchmarks, however, do not by themselves establish performance on therapy recordings.
+
+Research on autism-related movement and intervention data has considered automated analysis of observable behaviour and activity. The MMASD dataset was introduced to support research on intervention sessions using multiple data modalities \cite{li2023mmasd}. More directly, recent work has studied graph-based recognition of ten activities from 2D MMASD skeletons and has investigated a loss designed to separate commonly confused classes \cite{Ay2026RCProtoGCN}. This makes clear that graph-based activity recognition on MMASD is not an unexplored problem. It also means reported scores should be compared only when the processed data, class definition, and evaluation split are sufficiently aligned. The local dataset configuration in this project contains 1,374 recordings, whereas the cited study reports a 1,202-clip configuration; their results are therefore not treated as a direct benchmark comparison.
+
+The present study focuses on a narrower experimental question: how selected bilateral connections between left- and right-side joints, joint-reliability information, temporal smoothing, and other model choices affect recognition under one consistent cohort-grouped evaluation protocol. The contribution is the implementation and comparison of these configurations on the project's local ten-class data, together with an analysis of per-class results and synthetic pose corruption. The study does not claim that graph-based MMASD activity recognition is new, or that its activity labels measure autism diagnosis or social behaviour.
+
+\section{Methodology}\label{sec:methodology}
+
+\subsection{Dataset and Input Representation}
+
+Experiments used the local, processed MMASD OpenPose dataset. It contains 1,374 recordings in ten physical-therapy activity classes. Each recording is represented by 64 time steps and 25 BODY\_25 landmarks. For each landmark, the model receives its two-dimensional position and motion features (the $x$ and $y$ coordinates and their corresponding velocity features). Joint-confidence values are supplied separately. The processed data also contains 32 recording-cohort identifiers.
+
+The cohort identifiers were used to keep all recordings from a stored cohort together when forming the five evaluation folds. The available metadata does not verify that every cohort corresponds to one unique participant. Accordingly, this paper calls the protocol five-fold cohort-grouped evaluation and does not describe it as participant-independent evaluation.
+
+\subsection{Model and Configurations}
+
+The studied architecture is the Reliability-Conditioned Dynamic Bilateral Spatio-Temporal Graph Transformer (RCDB-STGT). It represents body landmarks as graph nodes and anatomical links as edges. A graph-learning component processes the relationships between body parts, and temporal processing models how the resulting features change across the 64-step sequence. Selected configurations add edges between corresponding left- and right-side joints. The strength of a dynamic bilateral connection can vary over time.
+
+Joint reliability is estimated from OpenPose confidence and motion plausibility. In reliability-weighted configurations, this estimate affects the strength of bilateral information passed between paired joints. The report-facing A7 configuration uses reliability values as inputs to the dynamic bilateral-edge learner; it is distinct from configurations that explicitly weight the resulting edge messages by reliability. A temporal convolution with a five-frame kernel smooths learned edge scores in configurations that include temporal smoothing.
+
+The experiments compare nine distinct report-facing configurations, labelled A0--A8. A0 uses fixed bilateral connections. A1 adds joint-reliability information to the fixed-connection configuration. A2 is the full RCDB-STGT configuration. A3 removes temporal smoothing from the full model; A4 adds a phase-based input; A5 uses wrist connections only; A6 uses five bilateral joint pairs; A7 learns dynamic bilateral connections using joint reliability as an input; and A8 adds a confusable-class margin loss. These labels are used consistently in the results. A separately saved run with the same implementation and results as A7 is treated as a duplicate, not as an additional configuration.
+
+\subsection{Training and Evaluation Protocol}
+
+For each fold, test cohorts were held out before fitting. The remaining cohorts were divided into fitting and validation data. Data-dependent normalization values and reliability estimates were calculated from fitting data only. Validation macro-F1 guided early stopping and checkpoint selection, and validation predictions were used to calibrate probabilities. The held-out test data was not used for preprocessing, model selection, or calibration.
+
+Models were trained in PyTorch with AdamW, a batch size of 32, a maximum of 35 epochs, learning rate $0.001$, weight decay $0.0001$, gradient clipping at a norm of 1.0, cosine learning-rate scheduling, and dropout of 0.25. A class-balanced loss was used. Early stopping used validation macro-F1 with a patience of ten epochs. The confusable-class configuration included its additional margin-based loss.
+
+Accuracy is reported as the mean and standard deviation across the five held-out folds. Macro-F1 is calculated from the combined out-of-fold predictions, giving equal weight to the ten classes. Expected calibration error (ECE) is reported as the mean across folds; lower ECE indicates better agreement between confidence and accuracy. Class-wise F1-scores and confusion matrices are used to examine errors that overall metrics can hide.
+
+\subsection{Synthetic Pose-Corruption Evaluation}
+
+To examine sensitivity to selected input perturbations, A0 and A7 were also evaluated on altered versions of the held-out skeleton sequences. The test inputs were subjected to random joint dropout, occlusion of both wrists or both ankles, or a 15-frame blackout. The models were not retrained on these altered inputs. These tests represent controlled synthetic corruption and are not a substitute for testing naturally occurring pose-estimation failures.
+
+\section{Results}\label{sec:results}
+
+\subsection{Comparison of Model Configurations}
+
+Table~\ref{tab:rcdb_main_results} summarizes the ten-class results. The highest mean accuracy and pooled macro-F1 among the distinct tested configurations were obtained by A7, which also had the lowest mean ECE. Its mean accuracy was $65.92\%$ (standard deviation $6.61$ percentage points), pooled macro-F1 was $0.6402$, and mean ECE was $0.0733$. The full RCDB-STGT configuration, A2, achieved $60.40\%$ mean accuracy, $0.5947$ pooled macro-F1, and $0.1109$ mean ECE. Thus, the full configuration did not outperform every tested variant; the results instead identify A7 as the strongest configuration in this comparison.
+
+\begin{table}[htbp]
+\centering
+\caption{Ten-class MMASD results across the five cohort-grouped folds. Accuracy is mean $\pm$ standard deviation across folds; macro-F1 is pooled from out-of-fold predictions; ECE is averaged across folds.}
+\label{tab:rcdb_main_results}
+\small
+\begin{tabular}{|c|p{6.0cm}|c|c|c|}
+\hline
+\textbf{ID} & \textbf{Configuration} & \textbf{Accuracy (\%)} & \textbf{Pooled macro-F1} & \textbf{Mean ECE} \\
+\hline
+A0 & Fixed bilateral connections & $57.12 \pm 5.88$ & 0.5428 & 0.1370 \\
+\hline
+A1 & Fixed connections using joint-reliability information & $57.12 \pm 5.88$ & 0.5428 & 0.1370 \\
+\hline
+A2 & Full RCDB-STGT model & $60.40 \pm 11.65$ & 0.5947 & 0.1109 \\
+\hline
+A3 & Full model without temporal smoothing & $59.53 \pm 4.50$ & 0.5736 & 0.1074 \\
+\hline
+A4 & Full model with phase-based input & $60.55 \pm 6.40$ & 0.5942 & 0.0817 \\
+\hline
+A5 & Full model with wrist connections only & $61.28 \pm 4.26$ & 0.5872 & 0.0825 \\
+\hline
+A6 & Full model with five bilateral joint pairs & $58.95 \pm 11.32$ & 0.5728 & 0.0919 \\
+\hline
+A7 & Dynamic bilateral connections with joint reliability as an input & $\mathbf{65.92 \pm 6.61}$ & \textbf{0.6402} & \textbf{0.0733} \\
+\hline
+A8 & Full model with a confusable-class margin loss & $61.22 \pm 2.25$ & 0.5878 & 0.0838 \\
+\hline
+\end{tabular}
+\end{table}
+
+The equal results for A0 and A1 show that adding joint-reliability information to that fixed-connection configuration did not change the reported metrics. Removing smoothing (A3), changing the bilateral-pair set (A5 and A6), adding phase-based input (A4), or using the confusable-class loss (A8) produced different outcomes, but none exceeded A7 on all three reported summary measures. These comparisons describe the tested configurations; they do not establish that any single component will have the same effect under another dataset or split.
+
+\subsection{Class-Wise Performance}
+
+Table~\ref{tab:rcdb_class_f1} gives pooled out-of-fold F1-scores for A7. The codes are the labels stored in the processed dataset. Scores ranged from 0.453 for \texttt{mfs} to 0.825 for \texttt{tw}. The spread indicates that A7 did not perform equally across all activities, so its overall accuracy should be read alongside macro-F1 and the class-wise results.
+
+\begin{table}[htbp]
+\centering
+\caption{Pooled out-of-fold class-wise F1-scores for A7.}
+\label{tab:rcdb_class_f1}
+\begin{tabular}{|c|c||c|c|}
+\hline
+\textbf{Class code} & \textbf{F1-score} & \textbf{Class code} & \textbf{F1-score} \\
+\hline
+\texttt{as} & 0.582 & \texttt{ms} & 0.484 \\
+\hline
+\texttt{bs} & 0.763 & \texttt{sac} & 0.515 \\
+\hline
+\texttt{ce} & 0.663 & \texttt{sq} & 0.557 \\
+\hline
+\texttt{dr} & 0.779 & \texttt{tr} & 0.780 \\
+\hline
+\texttt{mfs} & 0.453 & \texttt{tw} & 0.825 \\
+\hline
+\end{tabular}
+\end{table}
+
+\subsection{Results Under Synthetic Pose Corruption}
+
+Table~\ref{tab:rcdb_corruption} compares A0 and A7 on unaltered held-out inputs and on synthetic perturbations. A7 had higher accuracy and mean fold macro-F1 than A0 in each listed condition. Both configurations lost performance as more joints were removed, and occluding both wrists reduced performance substantially. Because the perturbations were artificial and the models were not retrained on them, these results indicate response to the specified tests only; they do not establish robustness to all real-world pose errors.
+
+\begin{table}[htbp]
+\centering
+\caption{Performance on held-out sequences with synthetic pose corruption. Accuracy and macro-F1 are means across folds for this analysis.}
+\label{tab:rcdb_corruption}
+\small
+\begin{tabular}{|l|cc|cc|}
+\hline
+\textbf{Test condition} & \multicolumn{2}{c|}{\textbf{A0: Fixed connections}} & \multicolumn{2}{c|}{\textbf{A7: Dynamic connections with reliability input}} \\
+\cline{2-5}
+ & \textbf{Accuracy (\%)} & \textbf{Macro-F1} & \textbf{Accuracy (\%)} & \textbf{Macro-F1} \\
+\hline
+Unaltered test data & 57.12 & 0.4905 & 65.92 & 0.5876 \\
+\hline
+20\% random joint dropout & 55.38 & 0.4621 & 60.49 & 0.5329 \\
+\hline
+40\% random joint dropout & 49.63 & 0.3946 & 51.11 & 0.4135 \\
+\hline
+Both wrists occluded & 38.91 & 0.2732 & 44.79 & 0.3936 \\
+\hline
+Both ankles occluded & 48.19 & 0.3798 & 59.09 & 0.4884 \\
+\hline
+15-frame blackout & 52.35 & 0.4303 & 59.26 & 0.5082 \\
+\hline
+\end{tabular}
+\end{table}
+
+\section{Discussion}\label{sec:discussion}
+
+The results show that the tested design choices were associated with different outcomes under the project's cohort-grouped evaluation. A7 produced the strongest overall summary among the distinct configurations: it had the highest mean fold accuracy and pooled macro-F1, together with the lowest mean ECE. This supports further investigation of dynamic bilateral connections that use joint reliability as an input to the edge learner. It does not show that every reliability-aware or dynamic design is beneficial: A1 matched the fixed-connection baseline, and the full A2 configuration did not reach A7's scores.
+
+The comparison also cautions against attributing A7's result to one component in isolation. A7 differs from the full RCDB-STGT configuration in how reliability enters the dynamic connection learner, and configuration-level comparisons do not establish a causal explanation for the score difference. The ablations provide evidence about these implementations on this dataset and protocol; further controlled experiments would be needed to determine why one configuration performed better and whether the difference persists elsewhere.
+
+Class-wise results reveal uneven recognition. The weaker F1-scores for \texttt{mfs}, \texttt{ms}, and \texttt{sac}, compared with the stronger values for \texttt{tw}, \texttt{tr}, and \texttt{dr}, indicate that aggregate performance does not describe every activity equally well. Confusion matrices can help locate specific class pairs that are difficult to distinguish, but class-code scores alone do not explain the movement cause of those errors.
+
+Under the synthetic corruption tests, A7 remained above A0 for every condition listed, although performance declined for both. This is encouraging within the defined perturbations, particularly for wrist occlusion, but should be interpreted narrowly: synthetic dropout and blackout patterns do not reproduce the full range of natural pose-estimation errors, camera changes, or occlusion patterns. The tests also used already-trained models and therefore do not measure adaptation after corrupted training data.
+
+The evaluation has important limits. The 32 stored identifiers represent recording cohorts; their mapping to unique participants has not been verified. Cohort-held-out folds reduce overlap between stored groups but cannot be described as a confirmed test on unseen participants. In addition, the experiment used one processed local dataset configuration. Its 1,374 recordings differ from the 1,202-clip ten-class configuration reported in a recent related study, and no direct numerical comparison is made. Finally, the labels describe physical therapy activities. The results are not evidence of autism diagnosis, social-communication assessment, therapy progress, or clinical effectiveness.
+
+\section{Conclusion}\label{sec:conclusion}
+
+This study evaluated graph-based temporal models for classifying ten physical therapy activities from two-dimensional OpenPose skeleton sequences in the local MMASD dataset. It compared fixed and dynamic bilateral connections, different uses of joint reliability, temporal smoothing, joint-pair choices, phase-based input, and a confusable-class margin loss using five-fold cohort-grouped evaluation.
+
+Among the distinct configurations, A7—dynamic bilateral connections with joint reliability supplied as an input to the edge learner—achieved the highest mean accuracy ($65.92\% \pm 6.61$), the highest pooled macro-F1 (0.6402), and the lowest mean ECE (0.0733). The full RCDB-STGT configuration did not achieve the highest result. Performance also varied by class, and the synthetic corruption analysis showed declines under the tested input perturbations. These findings describe the available data and evaluation procedure, and should not be generalized beyond them.
+
+Future work should repeat the evaluation with verified participant identifiers, test the approach on additional compatible datasets and recording conditions, and use matched protocols when comparing with other methods. Further controlled ablations could clarify the contribution of each model component. Natural pose-estimation failures should be evaluated alongside synthetic perturbations. Any future use in therapy research would also require expert review and separate validation. The present work is an activity-recognition study; it does not provide an autism assessment or establish clinical benefit.

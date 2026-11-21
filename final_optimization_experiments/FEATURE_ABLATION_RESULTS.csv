@@ -1,0 +1,6 @@
+experiment,description,pooled_acc,macro_f1,ece,params
+C0,Fixed Graph + MS-TCN (No Bilateral Edges),0.6870451237263464,0.6710875311071882,0.15473297309927544,63661
+C1,Dynamic Bilateral Graph + MS-TCN (No Reliability Anywhere),0.7205240174672489,0.692306009114769,0.13810561519262568,72016
+C2,Dynamic Bilateral Graph + Reliability Input (q in input only),0.7372634643377002,0.7174176020055553,0.11355172752726718,72048
+C3,Reliability-Conditioned Dynamic Bilateral Graph + MS-TCN (Full Model),0.7387190684133915,0.7177608286830817,0.12135537992485053,72240
+RC-BiGCN v2,9-ch multi-stream + enhanced bilateral,0.7634643377001455,0.7600686042802729,0.09804284581277395,100840

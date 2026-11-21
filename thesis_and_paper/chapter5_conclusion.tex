@@ -1,0 +1,83 @@
+\chapter{Conclusion and Scope for Further Research}
+\label{chap.5}
+
+\section{Conclusion}
+
+This project investigated graph-based deep learning architectures for recognizing ten physical therapy activities from two-dimensional (2D) monocular skeleton sequences in the local MMASD OpenPose dataset. Physical therapy exercises for children with Autism Spectrum Disorder (ASD)—such as arm swings, balancing, squats, and marching—involve subtle differences in limb coordination and bilateral symmetry. However, automated motion tracking from monocular video is prone to severe keypoint noise, perspective foreshortening, and frequent joint occlusions.
+
+To address these challenges, we developed and validated the \textbf{Reliability-Conditioned Bilateral Graph Convolutional Network (RC-BiGCN)}. The model integrates three core mechanisms:
+\begin{enumerate}
+    \item \textbf{Kinematic Root-Centric Normalization:} Transforming joint coordinates relative to the mid-hip center, which decouples limb movement from global drift across the therapy room.
+    \item \textbf{Dynamic Bilateral Graph Learning:} Connecting homologous left and right joints (wrists, elbows, knees, ankles) via learned edge weights that dynamically adjust based on instantaneous motion.
+    \item \textbf{Active Reliability Conditioning:} Using OpenPose detection confidence scores as multiplicative gates that selectively attenuate message passing across noisy or occluded joints.
+\end{enumerate}
+
+The system was evaluated under a strict 5-fold cohort-grouped cross-validation protocol across 1,374 video recordings. The primary conclusions from this investigation are summarized below:
+
+\begin{itemize}
+    \item \textbf{Overall Recognition Performance:} The optimized proposed model (\textbf{RC-BiGCN v2}) achieved a five-fold mean accuracy of $76.32\% \pm 8.44\%$, an overall pooled out-of-fold accuracy of $76.35\%$ ($95\%$ Bootstrap CI: $[74.23\%, 78.53\%]$), and a pooled Macro-F1 score of $0.7601$ ($95\%$ Bootstrap CI: $[0.7384, 0.7800]$). On balanced test folds, the model reached peak accuracies of $87.73\%$ (Fold 3) and $83.64\%$ (Fold 4).
+    \item \textbf{Effectiveness of Bilateral Modeling:} Controlled ablation experiments confirmed that introducing dynamic bilateral edges improved accuracy by $+3.35$ percentage points over standard fixed anatomical skeleton graphs ($68.70\% \rightarrow 72.05\%$). This verified that direct left-right message passing provides crucial geometric cues for alternating and symmetric exercises.
+    \item \textbf{Value of Active Reliability Gating:} Active confidence-based edge gating provided an additional $+1.82$ percentage point gain over unconditioned models. Under synthetic joint dropout ($30\%$) and coordinate jitter ($\sigma = 0.05$), the reliability-conditioned network retained an accuracy above $67.9\%$, whereas unconditioned baseline models experienced severe performance degradation.
+    \item \textbf{Improved Prediction Calibration:} The model achieved an Expected Calibration Error (ECE) of $0.0980$, representing a $36.7\%$ reduction compared to the fixed-graph baseline ($0.1547$). This demonstrates that the predicted class probabilities closely match actual empirical accuracy, providing reliable confidence estimates.
+    \item \textbf{Understanding Evaluation Variance:} Analysis of fold-by-fold results revealed that the lower performance in Fold 1 ($64.86\%$ accuracy) was caused by a natural dataset anomaly: Fold 1’s test split contained only 6 of the 10 therapy classes (with Arm Swings, Butterfly Stroke, Squats, and Cat-and-Cow completely absent). False positives for absent classes reduced Fold 1's score. On all folds containing a balanced set of classes, accuracy remained consistently between $75.2\%$ and $87.7\%$.
+    \item \textbf{Computational Efficiency for Edge Deployment:} The final architecture contains only 95,426 trainable parameters ($0.38\text{ MB}$ uncompressed storage) and achieves an inference latency of $7.15\text{ ms}$ per 64-frame sequence on a standard multi-core Intel CPU. This sustained throughput of $139.8\text{ clips per second}$ demonstrates that the model is fully capable of running in real time on low-cost clinical workstations without requiring dedicated graphics processing units.
+\end{itemize}
+
+---
+
+\section{Scope for Further Research}
+
+While this study establishes an effective framework for skeleton-based activity recognition on the local MMASD dataset, several practical opportunities remain for future research.
+
+\subsection{Evaluation with Verified Participant Information}
+
+A primary methodological limitation of the current evaluation is that data splitting was performed across 32 stored cohort directory groups rather than verified individual participant identifiers. Although cohort grouping ensures that contiguous clips from the same recording session do not leak into the test fold, it does not guarantee complete participant independence if the same child participated in multiple recorded sessions across different cohorts.
+
+Future studies should collect and link explicit, anonymized participant identifiers. This will enable a verified leave-one-participant-out or participant-stratified cross-validation protocol, providing an exact measure of how effectively the bilateral graph representations generalize to completely unseen children.
+
+\subsection{Study of Three-Dimensional Skeleton Data}
+
+The present framework processes monocular 2D planar projections $(x, y)$, which inevitably suffer from perspective foreshortening and self-occlusion (for instance, when a child’s arm is obscured behind their torso during reaching exercises). 
+
+Future investigations should extend the graph architecture to three-dimensional (3D) coordinates:
+\begin{enumerate}
+    \item \textbf{Monocular 3D Lifting:} Employing modern 2D-to-3D deep lifting models (such as MotionBERT or MediaPipe 3D) to estimate depth ($z$) coordinates directly from single-view footage.
+    \item \textbf{Multi-View Synchronized Capture:} Utilizing a calibrated two-camera setup (e.g., frontal and lateral viewpoints) combined with multi-view cross-attention to reconstruct accurate 3D joint trajectories in Euclidean space.
+\end{enumerate}
+Incorporating depth information will resolve plane-of-motion ambiguities, allow true 3D joint-angle calculations (such as knee flexion during squats), and improve the modeling of rotational movements.
+
+\subsection{Further Development and Study of Models}
+
+Further architectural improvements can target remaining classification confusions and expand the system’s clinical capabilities:
+\begin{itemize}
+    \item \textbf{Fine-Grained Contrastive Loss for Confusable Gaits:} The confusion matrix revealed persistent mutual confusion between Marching in Place (`mfs', $0.5694$ F1) and Marching Steps (`ms', $0.5744$ F1). An auxiliary metric loss with an adaptive margin could explicitly penalize confusions between these two classes, forcing the temporal convolutional layers to emphasize the horizontal displacement of ankle keypoints that distinguishes forward travel from stationary stepping.
+    \item \textbf{Self-Supervised Pre-Training:} Due to the limited size of specialized pediatric datasets, pre-training the spatial-temporal graph encoder on large-scale public human motion repositories (such as NTU-RGB+D) using masked joint modeling could enhance feature representations prior to fine-tuning on therapy-specific activities.
+    \item \textbf{Continuous Action Segmentation and Repetition Counting:} In natural clinical sessions, exercises are performed continuously rather than in segmented clips. Developing temporal boundary detection modules would allow the network to segment continuous video feeds into discrete exercise bouts and automatically log completed repetitions and exercise durations.
+\end{itemize}
+
+\subsection{Evaluation of Different Recording Conditions}
+
+This study tested robustness against synthetic coordinate noise and simulated keypoint dropouts. While synthetic perturbations provide controlled insights, they do not fully capture the complexity of natural video acquisition errors.
+
+Future evaluations should record under diverse real-world clinical environments:
+\begin{itemize}
+    \item Varying camera heights, tilt angles, and focal distances.
+    \item Non-uniform room lighting, cast shadows, and cluttered background environments.
+    \item Dynamic interactions where a physical therapist or caregiver enters the frame to guide the child's posture.
+\end{itemize}
+Assessing model performance under these varied recording conditions will help identify boundary cases and guide the development of adaptive pose filtering strategies before clinical deployment.
+
+---
+
+\section{Final Remarks}
+
+This dissertation presented an empirical investigation into recognizing ten physical therapy exercises from 2D skeleton sequences using the \textbf{RC-BiGCN} architecture. By combining kinematic root-centric normalization, dynamic bilateral graph learning, and active joint reliability conditioning, the proposed model achieved an out-of-fold accuracy of $76.35\%$ and a Macro-F1 of $0.7601$ while running at over $139\text{ frames per second}$ on standard CPU hardware. 
+
+Importantly, clear ethical and operational boundaries must be emphasized:
+\begin{itemize}
+    \item The model is designed exclusively as an \textbf{activity recognition and exercise logging assistant} for physical therapists. \textbf{It does not diagnose Autism Spectrum Disorder, evaluate neurological traits, or assess cognitive development.}
+    \item The system is intended to support healthcare professionals by automating repetitive documentation, leaving clinical decisions, therapy planning, and qualitative assessments entirely in the hands of trained human therapists.
+    \item By operating strictly on anonymized skeleton joint coordinates and discarding raw video frames immediately after pose extraction, the framework inherently preserves the visual privacy of pediatric participants.
+\end{itemize}
+
+In conclusion, this research demonstrates that incorporating domain-specific kinematic priors and reliability weighting into graph neural networks yields a lightweight, accurate, and privacy-preserving tool for physical therapy monitoring. The findings and architectural designs established in this study provide a solid foundation for future extensions toward 3D multi-view tracking, continuous exercise segmentation, and interactive digital therapy assistance.

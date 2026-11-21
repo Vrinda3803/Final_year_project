@@ -1,0 +1,6 @@
+Model / configuration,Main distinction,Mean fold accuracy (%),Fold accuracy SD (%),Pooled OOF accuracy (%),Pooled OOF macro-F1,ECE
+A0 — fixed-topology reference,Fixed augmented relational topology; Stage 3 model,57.1173,5.8765,57.1325,0.5428,0.1370
+A3 — RCDB-STGT with reliability gate,Dynamic bilateral edges with additional multiplicative reliability gate,60.4015,11.6471,60.4803,0.5947,0.1109
+A8 — dynamic edges with reliability inputs,Dynamic bilateral-edge learner receives joint confidence; no additional multiplicative gate,65.9229,6.6055,65.9389,0.6402,0.0733
+RBF kernel-ridge baseline,Nested grouped evaluation on temporal movement descriptors,71.6851,9.0987,71.6885,0.6920,Not reported
+RC-BiGCN,Root-centred torso-scaled input; reliability-conditioned bilateral graph; multi-scale temporal convolutions,75.3239,6.3758,75.3275,0.7361,Not reported; saved run is uncalibrated

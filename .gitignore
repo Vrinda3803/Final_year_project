@@ -1,26 +1,55 @@
-# Local datasets and derived participant-level data
-data/raw/
-data/processed/
-/dashboard/
-
-# Local Python environment/dependency cache
-.codex-deps/
-.venv/
-venv/
+# Python bytecode and caches
 __pycache__/
 *.py[cod]
+*$py.class
+*.so
+.Python
+env/
+venv/
+.venv/
+.codex-deps/
 
-# Model checkpoints and local scratch files
-**/checkpoints/
-**/*_oof*.csv
-**/*_oof*.npz
-research_stage4/predictions/
-**/scratch/
-experiments/mmasd_oof_checkpoint.npz
+# Large Datasets & Raw Data (never committed)
+data/
+
+# Build & Temporary Files
 tmp/
-
-# Test/tool caches and logs
-.pytest_cache/
-.mypy_cache/
-.ruff_cache/
+.chart-data-*/
+.codex-ppt-build/
 *.log
+
+# Scratch and intermediate outputs
+research_stage2/experiments/checkpoints/
+research_stage3/experiments/checkpoints/
+research_stage3/scratch/
+research_stage4/checkpoints/
+research_stage4/scratch/
+research_stage4/predictions/
+outputs/
+output/presentation/
+output/presentations/
+experiments/mmasd_oof_checkpoint.npz
+novel_contribution/results/checkpoints/
+dashboard/
+
+# OOF CSV dumps (large; kept as npz)
+results/avasd_multilabel_audio_grouped_oof_2026_11_12.csv
+results/avasd_video_context_nested_oof_2026_11_12.csv
+results/avasd_video_level_nested_oof_2026_11_12.csv
+results/mmasd_openpose_nested_trees_oof_2026_11_12.csv
+results/mmasd_openpose_rbf_kernel_oof_2026_11_12.csv
+results/mmasd_openpose_rbf_prior_adjust_oof_2026_11_12.csv
+research_stage2/experiments/e2_topology_only_oof.csv
+research_stage2/experiments/e3_phase_only_oof.csv
+research_stage2/experiments/e4_margin_only_oof.csv
+research_stage2/experiments/e5_full_pr_stgt_oof.csv
+research_stage3/experiments/e6_topo_phase_oof.csv
+research_stage3/experiments/e7_topo_margin_oof.csv
+research_stage3/experiments/e8_phase_margin_oof.csv
+research_stage3/experiments/e9_full_reproduction_oof.csv
+novel_contribution/results/metrics/ra_stgt_baseline_stgt_oof.csv
+novel_contribution/results/metrics/ra_stgt_full_oof.csv
+
+# Archive zips
+*.zip
+*.tar.gz

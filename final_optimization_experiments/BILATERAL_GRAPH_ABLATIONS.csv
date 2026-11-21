@@ -1,0 +1,6 @@
+experiment,description,pooled_acc,macro_f1,delta_acc_vs_C0,params
+C0,Fixed anatomical graph + MS-TCN,0.687,0.6711,0.0,63661
+C1,Dynamic bilateral edges (no reliability),0.7205,0.6923,0.0335,72016
+C2,Dynamic bilateral + reliability as input feature,0.7373,0.7174,0.0503,72048
+C3,Full RC-BiGCN: reliability-conditioned bilateral edges,0.7387,0.7178,0.0517,72240
+RC-BiGCN v2,Enhanced bilateral: diff+prod interaction terms,0.7635,0.7601,0.0765,100840

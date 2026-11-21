@@ -1,0 +1,4 @@
+architecture,temporal_model,pooled_acc,macro_f1,params
+Temporal MLP Baseline (Stage4),MLP,0.7017,0.6338,unknown
+RC-BiGCN v1 (MS-TCN 2-layer),"MS-TCN(k=3,5,7)",0.7533,0.7361,72240
+RC-BiGCN v2 (MS-TCN 2-layer enhanced),"MS-TCN(k=3,5,7)+SiLU",0.7635,0.7601,100840

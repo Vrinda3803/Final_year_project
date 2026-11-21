@@ -1,0 +1,12 @@
+Model_Name,Description,Pooled_Accuracy_Pct,Macro_F1,ECE,Category,experiment_id,model_name,seed,fold1_acc,fold2_acc,fold3_acc,fold4_acc,fold5_acc,mean_fold_acc,std_fold_acc,pooled_oof_acc,pooled_oof_macro_f1,pooled_oof_weighted_f1,pooled_oof_ece,parameters,notes
+A0: Fixed Topo STGT,"Fixed anatomical graph, raw coordinates",57.13,0.5428,0.137,Baseline,,,,,,,,,,,,,,,,
+A3: RCDB-STGT (Main Full),Dynamic bilateral edges + multiplicative zero-gate,60.48,0.5947,0.1109,Previous Full Model,,,,,,,,,,,,,,,,
+A6: RCDB Wrist-Only,Bilateral wrist edges only,61.28,0.5872,0.0825,Ablation,,,,,,,,,,,,,,,,
+A8: RCDB Dynamic (Input Rel),Dynamic bilateral edges + soft reliability input,65.94,0.6402,0.0733,Previous Best Graph,,,,,,,,,,,,,,,,
+Random Forest,150 trees on multi-bin temporal moments,68.7,0.6241,N/A,Shallow Baseline,,,,,,,,,,,,,,,,
+Temporal MLP,Global and 8-segment temporal moments MLP,70.17,0.6338,N/A,Baseline Reference,,,,,,,,,,,,,,,,
+Nested Grouped RBF Kernel,RBF Ridge Regression on temporal descriptors,71.69,0.6394,N/A,Established Baseline Ceiling,,,,,,,,,,,,,,,,
+GBDT (HistGradientBoosting),Invariant coordinates + bilateral features,72.85,0.6598,N/A,Feature Enhanced Baseline,,,,,,,,,,,,,,,,
+RC-BiGCN (Ours Standalone),Invariant Norm + Bilateral Attention + MS-TCN,75.33,0.7361,0.0612,Proposed Standalone Architecture,,,,,,,,,,,,,,,,
+RC-BiGCN + Invariant RBF Hybrid,"Soft probability ensemble (w=0.4 RBF, 0.6 NN)",78.09,0.7648,0.054,Proposed Ensemble System,,,,,,,,,,,,,,,,
+,,,,,,RC-BiGCN-v2-seed42,RC-BiGCN v2,42,0.6486,0.7536,0.8773,0.8364,0.7,0.7632,0.0844,0.7635,0.7601,0.7667,0.098,100840,"9-ch multi-stream, enhanced bilateral MLP, LayerNorm+SiLU, label smoothing, eff-num weights, scale/noise aug"

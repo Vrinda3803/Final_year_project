@@ -1,0 +1,42 @@
+% Replacement text for the Related Work section.
+% Citation keys are defined in related_work_references.bib.
+\section{Related Work}\label{sec:related_work}
+% Optional local spacing adjustment for the large gap shown in the draft PDF.
+% Remove this line if the target template requires its default heading spacing.
+\vspace{-0.8\baselineskip}
+
+\subsection{Video Activity Recognition and Pose Sequences}
+
+Video-based activity recognition identifies an activity by examining how movement changes across a sequence of frames. In physical therapy, activities such as arm exercises, stepping, squats, and balance poses may share similar individual poses. Their movement order, speed, duration, and repetition can help distinguish them. For this reason, activity recognition generally needs information from a sequence rather than a single frame.
+
+Human-pose estimation represents a person using body landmarks, including the shoulders, elbows, wrists, hips, knees, and ankles. OpenPose estimates body keypoints in images and associates detected body parts with people in the frame \cite{Cao2021OpenPose}. Arranging these estimates across successive frames produces a pose sequence that describes body movement. Pose-based input can reduce reliance on clothing and background appearance, although it does not capture every visual cue in the original video.
+
+Pose estimates can be incomplete or inaccurate. A joint may be hidden, assigned a low confidence value, or placed incorrectly. Fast movement, overlapping body parts, camera viewpoint, and objects in the scene can affect detection. Since an activity model learns from the estimated landmarks, such errors may distort the movement patterns it receives. This motivates considering pose confidence and the temporal consistency of the estimates when designing a recognition model.
+
+Temporal models process observations in sequence and learn how they change over time. Recurrent networks such as LSTMs and GRUs, temporal convolutions, and attention-based models offer different ways to represent movement order and duration. These methods can learn temporal patterns, while graph-based models make relationships between body parts explicit. Combining spatial structure with temporal modelling is therefore a common direction in skeleton-based activity recognition.
+
+\subsection{Graph-Based Skeleton Recognition}
+
+A human skeleton can be represented as a graph in which body landmarks are nodes and connections between landmarks are edges. Anatomical edges connect nearby body parts, such as a shoulder and elbow or a knee and ankle. Graph models pass information between connected joints so that the representation can reflect coordinated movement.
+
+ST-GCN established a spatio-temporal graph approach that models anatomical structure and changes across frames \cite{yan2018stgcn}. Later work explored learned graph relationships. The two-stream adaptive graph convolutional network (2s-AGCN) learns graph connections from data and uses both joint and bone information \cite{Shi2019}. CTR-GCN refines graph topology across feature channels \cite{Chen2021}, while InfoGCN learns context-dependent joint relationships as part of its skeleton representation \cite{Chi2022InfoGCN}. Together, these methods illustrate the development from predefined anatomical connections toward more flexible graph representations.
+
+Graph models are not the only way to represent pose sequences. PoseConv3D converts pose sequences into three-dimensional heatmap volumes and processes them with 3D convolutions \cite{Duan2022PoseConv3D}. This provides a different representation of where joints occur across space and time. Its reported robustness to pose-estimation noise is relevant to skeleton analysis, but its benchmark findings do not establish performance on the therapy data used in this project.
+
+\subsection{Pose Reliability and Occlusion}
+
+Missing or inaccurate joints can affect the features passed through a skeleton graph. Shi et al. proposed an occlusion-aware multi-stream graph model that uses different streams to handle patterns in occluded skeleton data \cite{Shi2023Occlusion}. This work treats occlusion as a specific challenge for skeleton action recognition and motivates evaluating models when pose information is incomplete.
+
+The present project also uses joint-confidence values and examines reliability-aware model configurations. Its experiments ask whether reliability information, dynamic bilateral connections, and temporal smoothing affect activity recognition on the selected dataset. Synthetic corruption tests provide an additional, controlled check; they should not be interpreted as a complete evaluation of naturally occurring pose errors.
+
+\subsection{Pose Analysis in Autism and Therapy Research}
+
+Several studies have used pose or movement information in autism-related video tasks, although their objectives differ from physical therapy activity classification. Kojovic et al. studied 2D pose estimates from videos of young children in an automated ASD-prediction task \cite{Kojovic2021Pose}. IMITASD uses human-pose estimation to assess imitation tasks by comparing a child's movement with a reference lesson \cite{Said2024IMITASD}. These studies show how pose sequences can support different forms of behavioural or therapy-related analysis; neither task is the same as classifying the ten activity labels used here.
+
+Akinwumi et al. investigated temporal behavioural patterns in autism therapy using an explainable multimodal representation of pose, optical flow, and temporal information \cite{Akinwumi2026Dynamics}. Their work examines behavioural dynamics rather than the ten-class activity-recognition task in this project. It provides related context for studying movement over time, while the datasets, methods, and research objectives remain different.
+
+Li et al. introduced MMASD as a multimodal dataset for autism intervention analysis, including privacy-preserving representations such as 2D and 3D skeletons \cite{li2023mmasd}. This project uses a locally processed 2D OpenPose configuration with physical therapy activity labels. A recent study by Ay, Ozturk, and Aydin also applies graph-based learning to ten-class 2D skeleton activity recognition using MMASD and examines a loss for separating commonly confused classes \cite{Ay2026}. Thus, graph-based activity recognition on MMASD has already been studied and is not claimed as unexplored here. The published study reports 1,202 clips, whereas the local configuration used in this project contains 1,374 recordings. Because the processed datasets and evaluation protocols are not fully matched, their reported scores are not presented as a direct numerical comparison.
+
+\subsection{Research Focus of This Study}
+
+Prior work provides methods for estimating pose, modelling skeletal relationships, learning temporal patterns, and handling occlusion. Autism-related studies also show that pose sequences can be used for distinct tasks such as group prediction, imitation assessment, and the analysis of therapy dynamics. The present study focuses specifically on ten-class physical therapy activity recognition from the local 2D MMASD skeleton sequences. It compares fixed and dynamic bilateral connections, different uses of joint reliability, temporal smoothing, bilateral joint-pair choices, phase-based input, and a confusable-class margin loss under five-fold cohort-grouped evaluation. The stored cohort identifiers are not verified participant identities. Accordingly, the study evaluates activity recognition under this dataset and split protocol; it does not assess autism diagnosis, social communication, or clinical outcomes.

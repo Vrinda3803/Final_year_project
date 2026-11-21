@@ -1,0 +1,40 @@
+{
+  "model": "RC-BiGCN v2",
+  "seed": 43,
+  "parameters": 95426,
+  "mean_fold_acc": 0.7124199563785186,
+  "std_fold_acc": 0.06610829637260078,
+  "mean_fold_macro_f1": 0.6090949960506157,
+  "std_fold_macro_f1": 0.13966663512213262,
+  "pooled_oof_acc": 0.7125181950509462,
+  "pooled_oof_macro_f1": 0.6884276117340182,
+  "pooled_oof_weighted_f1": 0.7138298110634146,
+  "fold_results": [
+    {
+      "fold": 1,
+      "accuracy": 0.6557971014492754,
+      "macro_f1": 0.36325655386770866
+    },
+    {
+      "fold": 2,
+      "accuracy": 0.6340579710144928,
+      "macro_f1": 0.623245911238943
+    },
+    {
+      "fold": 3,
+      "accuracy": 0.7978339350180506,
+      "macro_f1": 0.7891529074281466
+    },
+    {
+      "fold": 4,
+      "accuracy": 0.7818181818181819,
+      "macro_f1": 0.5952651527565761
+    },
+    {
+      "fold": 5,
+      "accuracy": 0.6925925925925925,
+      "macro_f1": 0.6745544549617037
+    }
+  ],
+  "per_class_f1": {
+    

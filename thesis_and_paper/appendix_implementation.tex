@@ -1,0 +1,119 @@
+\appendix
+\chapter{Implementation and Reproducibility Details}
+\label{app:implementation}
+
+This appendix provides the core data structures, model configurations, training hyperparameters, and commands necessary to reproduce the results presented in this work.
+
+\section{Dataset and Feature Representation}
+
+Experiments were conducted on the local MMASD dataset comprising 1,374 recordings, 10 therapy classes, and 32 cohort groups. The input arrays are summarized in Table~\ref{tab:implementation-inputs}.
+
+\begin{table}[htbp]
+\centering
+\caption{Dataset arrays used in the evaluation pipeline}
+\label{tab:implementation-inputs}
+\small
+\begin{tabular}{|l|l|p{8.5cm}|}
+\hline
+\textbf{Array} & \textbf{Shape} & \textbf{Description} \\
+\hline
+\(X\) & \(1374 \times 64 \times 25 \times 4\) & OpenPose BODY\_25 sequences: \([x, y, v_x, v_y]\) across 64 frames. \\
+\hline
+\(Q\) & \(1374 \times 64 \times 25\) & Keypoint confidence scores \(q_{t,j} \in [0, 1]\). \\
+\hline
+\(y\) & \(1374\) & Activity class labels (\(0\) to \(9\)). \\
+\hline
+\(G\) & \(1374\) & Cohort group identifiers used for group-stratified splits. \\
+\hline
+\end{tabular}
+\end{table}
+
+\textbf{Feature Preprocessing:} Raw coordinates are normalized online relative to the mid-hip keypoint ($\mathbf{p}_8$) and scaled by torso length $\|\mathbf{p}_1 - \mathbf{p}_8\|_2$. The network processes an expanded 9-channel tensor comprising normalized coordinates, velocities, accelerations, parent-bone displacements, and joint confidence scores.
+
+\section{Bilateral Joint Configuration}
+
+Joint indices follow the OpenPose BODY\_25 standard. The full bilateral set uses five symmetric joint pairs:
+\begin{itemize}
+    \item \textbf{Upper Body:} Wrists \((4, 7)\) and Elbows \((3, 6)\).
+    \item \textbf{Lower Body:} Ankles \((11, 14)\), Knees \((10, 13)\), and Hips \((9, 12)\).
+\end{itemize}
+Dynamic edge weights between symmetric pairs are computed via a lightweight MLP conditioned on joint features and reliability scores:
+\begin{equation}
+    A_{t, u_L, u_R}^{\text{bil}} = \sigma\left(\mathbf{W}_2 \operatorname{ReLU}\left(\mathbf{W}_1 [\mathbf{h}_{t, u_L} \,\|\, \mathbf{h}_{t, u_R} \,\|\, q_{t, u_L} \cdot q_{t, u_R}] + \mathbf{b}_1\right) + b_2\right)
+\end{equation}
+
+\section{Model Configurations and Training Setup}
+
+Table~\ref{tab:reproduction-configurations} summarizes the key model configurations evaluated in this study.
+
+\begin{table}[htbp]
+\centering
+\caption{Key model configurations and evaluation identifiers}
+\label{tab:reproduction-configurations}
+\small
+\begin{tabular}{|c|l|p{7.5cm}|}
+\hline
+\textbf{ID} & \textbf{Model / Script} & \textbf{Key Characteristics} \\
+\hline
+C0 & \texttt{c0\_fixed} & Fixed anatomical skeleton + MS-TCN (63,661 params; baseline). \\
+C1 & \texttt{c1\_dynamic} & Fixed skeleton + dynamic bilateral edges (no reliability gating). \\
+C2 & \texttt{c2\_rel\_input} & Dynamic bilateral graph with passive confidence input concatenation. \\
+C3 & \texttt{c3\_rc\_bigcn} & Dynamic bilateral graph with active reliability edge-gating. \\
+\hline
+\textbf{v2} & \texttt{v2\_opt} & \textbf{Proposed RC-BiGCN v2:} Multi-stream decomposition with bilateral cross-terms (95,426 params; $76.35\%$ accuracy). \\
+\hline
+A7 & \texttt{a8} & Legacy exploration: dynamic bilateral graph on unnormalized poses ($65.92\%$). \\
+\hline
+\end{tabular}
+\end{table}
+
+\begin{table}[htbp]
+\centering
+\caption{Hyperparameter settings used for training}
+\label{tab:reproduction-training-settings}
+\small
+\begin{tabular}{|l|l||l|l|}
+\hline
+\textbf{Hyperparameter} & \textbf{Value} & \textbf{Hyperparameter} & \textbf{Value} \\
+\hline
+Batch size & 32 & Optimizer & AdamW \\
+Max epochs & 35 & Weight decay & $1.0 \times 10^{-4}$ \\
+Initial learning rate & $1.0 \times 10^{-3}$ & LR schedule & Cosine annealing ($\eta_{\min} = 10^{-5}$) \\
+Gradient clipping & $1.0$ (Max Norm) & Loss function & Class-weighted Focal Loss ($\gamma = 1.2$) \\
+Early stopping metric & Val Macro-F1 & Patience & 10 epochs \\
+Dropout & 0.30 & Label smoothing & 0.05 \\
+\hline
+\end{tabular}
+\end{table}
+
+\section{Software Environment and Reproduction Commands}
+
+Experiments were implemented in Python 3.12.3 with PyTorch 2.5.1 (CPU execution). Reproduction requires NumPy, SciPy, scikit-learn, and Matplotlib.
+
+\textbf{Execution Commands:}
+\begin{enumerate}
+    \item \textbf{Controlled Ablations (C0--C3):}
+    \begin{verbatim}
+    python research_improvements/run_controlled_ablations.py --seed 42
+    \end{verbatim}
+    \item \textbf{Proposed Model Evaluation (RC-BiGCN v2):}
+    \begin{verbatim}
+    python final_optimization_experiments/run_rc_bigcn_v2.py --seed 42
+    \end{verbatim}
+    \item \textbf{CPU Latency Benchmark:}
+    \begin{verbatim}
+    python final_optimization_experiments/benchmark_cpu_latency.py
+    \end{verbatim}
+    \item \textbf{Generate Publication Figures:}
+    \begin{verbatim}
+    python final_optimization_experiments/gen_research_figures.py
+    \end{verbatim}
+\end{enumerate}
+
+\section{Evaluation Scope and Limitations}
+
+\begin{itemize}
+    \item \textbf{Cohort Grouping:} Evaluation used 5-fold cross-validation grouped by the 32 stored cohort identifiers. While this prevents frame leakage from identical recording sessions, it does not represent verified participant-independent validation.
+    \item \textbf{Fold 1 Class Distribution:} Fold 1’s test split contains only 6 of the 10 classes (`as`, `bs`, `sq`, `ce` are absent), naturally resulting in a lower test accuracy ($64.86\%$). Balanced folds consistently achieved $75.2\%\text{--}87.7\%$.
+    \item \textbf{Determinism:} All reported results were verified with random seed 42. Minor variations ($\pm 0.1\%$) may arise from differing BLAS/LAPACK runtime backends.
+\end{itemize}
